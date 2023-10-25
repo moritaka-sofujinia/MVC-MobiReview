@@ -1,0 +1,205 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .small-image {
+            width: 100%; /* Giảm kích thước hình ảnh */
+            height: auto; /* Giữ tỷ lệ khung hình */
+        }
+
+        .medium-image {
+            width: 100%;
+            height: auto;
+        }
+
+        .caption {
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .paragraph {
+            text-indent: 40px; /* Thụt lề */
+            text-align: justify;
+            margin-top: 20px; /* Cách dòng */
+        }
+
+        .link {
+            font-size: 18px; /* Điều chỉnh kích thước chữ tùy ý */
+            font-weight: bold;
+        }
+
+        .next-page {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .previous-page {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .next-pre {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        .black-line {
+            border-top: 2px solid black; /* Đường gạch ngang màu đen */
+            margin-top: 10px; /* Khoảng cách từ đường gạch ngang đến nội dung trên */
+        }
+
+        .center-text {
+            text-align: center;
+        }
+
+
+
+        /*-------------------------------------------------------------*/
+        /*----------------------Khu vực thử nghiệm---------------------*/
+
+        .news-item {
+            align-items: center; /* Căn giữa theo chiều dọc */
+            margin-bottom: 40px; /* Khoảng cách giữa các tin tức */
+        }
+
+            /* Định dạng CSS cho hình ảnh */
+            .news-item img {
+                width: 300px; /* Độ rộng của hình ảnh */
+                height: 200px; /* Độ cao của hình ảnh */
+                object-fit: cover; /* Tự động thu phóng hình ảnh để khớp với tỷ lệ 300x200 */
+                margin-right: 15px; /* Khoảng cách giữa hình ảnh và tiêu đề/tóm tắt */
+            }
+
+        .test {
+            align-items: center; /* Căn giữa theo chiều dọc */
+            margin-bottom: 10px; /* Khoảng cách giữa các tin tức */
+        }
+
+            /* Định dạng CSS cho hình ảnh */
+            .test img {
+                width: auto; /* Độ rộng của hình ảnh */
+                height: auto; /* Độ cao của hình ảnh */
+                margin-right: 20px; /* Khoảng cách giữa hình ảnh và tiêu đề/tóm tắt */
+            }
+
+        .quang-cao {
+            list-style: none; /* Xóa dấu đầu dòng của danh sách */
+            padding: 0; /* Xóa khoảng cách ngoài danh sách */
+            text-align: center; /* Để căn giữa danh sách quảng cáo */
+        }
+
+            .quang-cao li {
+                margin-top: 10px; /* Điều chỉnh khoảng cách giữa các dòng quảng cáo */
+            }
+    </style>
+
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Site Metas -->
+    <title>Mobi-Review - Trang web đánh giá điện thoại bố đời nhất Việt Nam</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+    <!-- Design fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/css/bootstrap.css" rel="stylesheet">
+
+    <!-- FontAwesome Icons core CSS -->
+    <link href="~/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/style.css" rel="stylesheet">
+
+    <!-- Animate styles for this template -->
+    <link href="~/css/animate.css" rel="stylesheet">
+
+    <!-- Responsive styles for this template -->
+    <link href="~/css/responsive.css" rel="stylesheet">
+
+    <!-- Colors for this template -->
+    <link href="~/css/colors.css" rel="stylesheet">
+
+    <!-- Version Marketing CSS for this template -->
+    <link href="~/css/version/marketing.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <header class="market-header header">
+            <div class="container-fluid">
+                @Html.Partial("NavPartial");
+            </div><!-- end container-fluid -->
+        </header><!-- end market-header -->
+
+        <section class="section lb m3rem">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                        <div class="page-wrapper-home">
+                            @RenderBody
+                        </div><!-- end page-wrapper -->
+                    </div><!-- end col -->
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                        <div class="sidebar">
+
+                            <div id="" class="widget">
+                                <h2 class="widget-title">Quảng cáo</h2>
+                                <div class="banner-spot clearfix">
+                                    <div class="banner-img">
+                                        <img src="images/Ads/ads_3.png" alt="" class="img-fluid">
+                                        <ul class="quang-cao">
+                                            <li><a href="https://www.thegioididong.com"> - Điện thoại giảm sâu, lên đến 25% -</a></li>
+                                            <li><a href="https://www.thegioididong.com"> - Sim 4G esim giá rẻ, tốc độ cao -</a></li>
+                                            <li><a href="https://www.thegioididong.com"> - Mua trước trả sau cực dễ dàng -</a></li>
+                                            <li><a href="https://www.facebook.com/moritaka.sofujinia"> - Plushie furry dễ thương -</a></li>
+                                        </ul>
+                                    </div><!-- end banner-img -->
+                                </div><!-- end banner -->
+                            </div><!-- end widget -->
+
+                        </div><!-- end sidebar -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section>
+
+        @Html.Partial("FooterPartial")
+
+        <div class="dmtop">Scroll to Top</div>
+
+    </div><!-- end wrapper -->
+    <!-- Core JavaScript
+    ================================================== -->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/tether.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/animate.js"></script>
+    <script src="~/js/custom.js"></script>
+
+</body>
+</html>
