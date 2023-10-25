@@ -18,17 +18,17 @@ namespace ReMoBi_DCSN.Controllers
 
         private SQLiteHandler()
         {
-            string databasePath;
+            string databasePath = "~/data.db";
 
             // Check if ../../database.db exists, if not, check if database.db exists
             if (!System.IO.File.Exists("../../database.db") && !System.IO.File.Exists("database.db"))
             {
-                SQLiteConnection.CreateFile("database.db");
+                throw new Exception("Database file not found");
             }
 
             // Set the appropriate database path based on existence
             // (condition) ? (if true) : (if false)
-            databasePath = System.IO.File.Exists("../../database.db") ? "../../database.db" : "database.db";
+            //databasePath = System.IO.File.Exists("../../database.db") ? "../../database.db" : "database.db";
 
             string connectionString = $"Data Source={databasePath};Version=3;";
             connection = new SQLiteConnection(connectionString);
