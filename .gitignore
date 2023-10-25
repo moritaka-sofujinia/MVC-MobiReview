@@ -1,0 +1,12 @@
+
+*.vsidx
+
+bin/roslyn/
+
+bin/
+
+.vs/ReMoBi_DCSN/config/
+
+.vs/ReMoBi_DCSN/FileContentIndex/
+
+obj/Debug/

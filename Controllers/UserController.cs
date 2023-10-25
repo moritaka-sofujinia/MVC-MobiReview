@@ -88,7 +88,7 @@ namespace ReMoBi_DCSN.Controllers
         {
             return View();
         }
-        [HttpPost]
+        //[HttpPost]
         //public ActionResult Register(FormCollection f/*, KHACHHANG kh*/)
         //{
         //    // gán 
@@ -140,6 +140,5 @@ namespace ReMoBi_DCSN.Controllers
         //        return builder.ToString().Substring(0, 15); // Giới hạn độ dài mật khẩu
         //    }
         //}
-    }
     }
 }
