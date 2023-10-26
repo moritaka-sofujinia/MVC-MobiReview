@@ -360,6 +360,7 @@
     <Content Include="images\version\.DS_Store" />
     <Content Include="js\.DS_Store" />
     <Content Include="data.db" />
+    <Content Include="Content\data.db" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

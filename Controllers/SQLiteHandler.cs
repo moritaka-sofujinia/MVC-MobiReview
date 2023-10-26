@@ -18,12 +18,12 @@ namespace ReMoBi_DCSN.Controllers
 
         private SQLiteHandler()
         {
-            string databasePath = "~/data.db";
+            string databasePath = HttpContext.Current.Server.MapPath("~/Content/data.db");//"~/Content/data.db";
 
             // Check if ../../database.db exists, if not, check if database.db exists
-            if (!System.IO.File.Exists("../../database.db") && !System.IO.File.Exists("database.db"))
+            if (!System.IO.File.Exists(databasePath))
             {
-                throw new Exception("Database file not found");
+                throw new Exception("Database file not found.");
             }
 
             // Set the appropriate database path based on existence
