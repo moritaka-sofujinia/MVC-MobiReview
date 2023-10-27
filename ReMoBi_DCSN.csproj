@@ -566,6 +566,7 @@
     <Content Include="Views\Shared\Adds_Partial.cshtml" />
     <Content Include="Views\Shared\_LayoutPageLogin.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
