@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="news1" Class="dbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.ADMIN" Member="ADMINs">
+    <Type Name="ADMIN">
+      <Column Name="AdminID" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="vaitro" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="hovaten" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.baiviet" Member="baiviets">
+    <Type Name="baiviet">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="tenbaiviet" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="tentacgia" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ngaydang" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="luotthich" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="linkbaiviet" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="linkfolderhinhanh" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Association Name="NguoiDung_baiviet" Member="NguoiDung" ThisKey="tentacgia" OtherKey="hovaten" Type="NguoiDung" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NguoiDung" Member="NguoiDungs">
+    <Type Name="NguoiDung">
+      <Column Name="UserID" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="vaitro" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="hovaten" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="NguoiDung_baiviet" Member="baiviets" ThisKey="hovaten" OtherKey="tentacgia" Type="baiviet" />
+    </Type>
+  </Table>
+  <Table Name="dbo.KhachHang" Member="KhachHangs">
+    <Type Name="KhachHang">
+      <Column Name="username" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="hovaten" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CustomerID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

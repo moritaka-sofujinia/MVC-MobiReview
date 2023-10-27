@@ -1,4 +1,7 @@
-﻿
+﻿@using ReMoBi_DCSN.Models
+   @{
+       KhachHang kh = (KhachHang)Session["TaiKhoan"];
+}
 <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -18,26 +21,24 @@
             <li class="nav-item">
                 <a class="nav-link" href="VeChungToi">Về Chúng Tôi</a>
             </li>
-            @*@if (Session["NguoiDung"] != null)
-        {
-            <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Xin chào: @kh.HoTen<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="@Url.Action("ThongTinCN", "User", new {id = @kh.HoTen}))"><span class="glyphicon glyphicon-user"></span> Thông tin cá nhân</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="@Url.Action("Logout", "User")"><span class="glyphicon glyphicon-log-in"></span> Đăng xuất</a></li>
-                    </ul>
+            @if (Session["TaiKhoan"] != null)
+            {
+                <li class="nav-item dropdown">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" >@kh.hovaten<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("ThongTinCN", "User", new {id = @kh.hovaten}))"><span class="glyphicon glyphicon-user"></span> Thông tin cá nhân</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="@Url.Action("Logout", "User")"><span class="glyphicon glyphicon-log-in"></span> Đăng xuất</a></li>
+                        </ul>
+                    </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Login","User")">Đăng nhập</a>
                 </li>
-        }
-        else
-        {
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Login","User")">Đăng nhập</a>
-            </li>
-        }*@
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Login","User")">Đăng nhập</a>
-            </li>
+            }
+           
         </ul>
 
         <form class="form-inline">

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="db">
+  <DataContextMoniker Name="/dbDataContext" />
+  <nestedChildShapes>
+    <classShape Id="d133fe86-7f86-48b2-8382-5bd6dabfb82b" absoluteBounds="3, 1, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/dbDataContext/ADMIN" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f23c7f9c-aaca-4ab7-a7e6-b24e6c595974" absoluteBounds="3.015, 1.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1bde1532-97ec-4263-b073-57cc847fa01a" absoluteBounds="7.625, 1.625, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/dbDataContext/baiviet" />
+      <nestedChildShapes>
+        <elementListCompartment Id="06c0fbd6-16cf-45f2-8e45-fb3f25dc2861" absoluteBounds="7.64, 2.085, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="685c0919-f5b5-414c-9b2d-8e2589b4f623" absoluteBounds="2.125, 4, 2, 1.3862939453125">
+      <DataClassMoniker Name="/dbDataContext/NguoiDung" />
+      <nestedChildShapes>
+        <elementListCompartment Id="80cb73f9-ae4b-4d80-a595-28c3798882fa" absoluteBounds="2.14, 4.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.125 : 4.69314697265625); (8.625 : 4.69314697265625); (8.625 : 3.78049967447917)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbDataContext/NguoiDung/NguoiDung_baiviet" />
+      <nodes>
+        <classShapeMoniker Id="685c0919-f5b5-414c-9b2d-8e2589b4f623" />
+        <classShapeMoniker Id="1bde1532-97ec-4263-b073-57cc847fa01a" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="404b821e-d7fa-4af8-be80-3deeea0f4b92" absoluteBounds="0.75, 1.5, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/dbDataContext/KhachHang" />
+      <nestedChildShapes>
+        <elementListCompartment Id="aa8962ff-3a9c-490f-809b-cdf82231e8cb" absoluteBounds="0.765, 1.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

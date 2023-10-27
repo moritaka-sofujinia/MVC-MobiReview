@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReMoBi_DCSN.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,10 +11,16 @@ namespace ReMoBi_DCSN.Controllers
     {
         // GET: ReMoBi
         public static SQLiteHandler db = SQLiteHandler.Instance;
-        
+
+        private readonly dbDataContext dbdata;
+        public ReMoBiController()
+        {
+            var connectionString = "Data Source=Albert;Database=news1;Trusted_Connection=True";
+            dbdata = new dbDataContext(connectionString);
+        }
         public ActionResult Index()
         {
-            db.OpenConnection();
+            
             return View();
         }
     }

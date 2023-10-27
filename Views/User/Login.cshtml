@@ -31,30 +31,34 @@
                         @using (Html.BeginForm())
                         {
                             @Html.ValidationSummary(true)
-                            <form id="submitForm" data-parsley-validate="" data-parsley-errors-messages-disabled="true" novalidate="" _lpchecked="1">
-                                <input type="hidden" name="_csrf" value="7635eb83-1f95-4b32-8788-abec2724a9a4">
-                                <div class="form-group">
-                                    <label for="username">Username / Email</label>
-                                    <input type="text" class="form-control text-lowercase" id="username">
-                                </div>
-                                <div class="form-group required">
-                                    <label class="" for="password">
-                                        Password
-                                    </label>
-                                    <input type="password" class="form-control">
-                                </div>
-                                @*<a class="ml-auto border-link small-xl" href="/forget-password">Forget?</a>*@
-                                <div class="form-group mt-4 mb-4">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="remember-me" style="display: none;">
+                        <form id="submitForm" data-parsley-validate="" data-parsley-errors-messages-disabled="true" novalidate="" _lpchecked="1">
+                            <input type="hidden" name="_csrf" value="7635eb83-1f95-4b32-8788-abec2724a9a4">
+                            <div class="form-group">
+                                <label for="username">Username / Email</label>
+                                <input type="text" class="form-control text-lowercase" id="username" name="TaiKhoan">
+                                @ViewData["Err1"]
+                            </div>
+                            <div class="form-group required">
+                                <label class="" for="password">
+                                    Password
+                                </label>
+                                <input type="password" class="form-control" name="MatKhau">
+                                @ViewData["Err2"]
+                            </div>
+                            @*<a class="ml-auto border-link small-xl" href="/forget-password">Forget?</a>*@
+                            <div class="form-group mt-4 mb-4">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="remember-me" style="display: none;">
 
-                                        <label class="custom-control-label" for="remember-me">Remember me?</label>
-                                    </div>
+                                    <label class="custom-control-label" for="remember-me">Remember me?</label>
                                 </div>
-                                <div class="form-group pt-1">
-                                    <button class="btn btn-primary btn-block" type="submit">Log In</button>
-                                </div>
-                            </form>
+                            </div>
+                            <h4 style="color:red; text-align:center;">@ViewBag.ThongBao</h4>
+                            <div class="form-group pt-1">
+                                <input type="hidden" name="url" value="@ViewBag.url" />
+                                <button class="btn btn-primary btn-block" type="submit">Log In</button>
+                            </div>
+                        </form>
                         }
 
                         <p class="small-xl pt-3 text-center">
