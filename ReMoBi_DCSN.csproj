@@ -555,13 +555,17 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="upload\.DS_Store" />
     <Content Include="Views\Shared\_LayoutPageIndex.cshtml" />
     <Content Include="Views\Shared\NavPartial.cshtml" />
     <Content Include="Views\Shared\FooterPartial.cshtml" />
     <Content Include="Views\ReMoBi\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Shared\SignUp_Partial.cshtml" />
+    <Content Include="Views\Shared\Neartest_Post_Partial.cshtml" />
+    <Content Include="Views\Shared\Adds_Partial.cshtml" />
+    <Content Include="Views\Shared\_LayoutPageLogin.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

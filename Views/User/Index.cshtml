@@ -1,8 +1,70 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutPageIndex.cshtml";
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutPageLogin.cshtml";
 }
+<style>
+    /* Style the login button */
+    .btn-primary {
+        background-color: transparent;
+        color: #000; /* Black text color */
+        border: 2px solid #FFD700; /* Light yellow border */
+        border-radius: 25px; /* Rounded corners */
+        transition: background-color 0.3s, color 0.3s; /* Smooth transition effect */
+    }
 
-<h2>Index</h2>
+        /* Style the login button on hover */
+        .btn-primary:hover {
+            background-color: white; /* White background on hover */
+            color: #000; /* Black text color on hover */
+        }
+</style>
+
+<main>
+    <div class="container pt-5">
+        <h1 class="text-center">Login</h1>
+
+        <div class="container">
+            <div class="row">
+                <div class="mx-auto">
+                    <div class="card card-body" style="width: 578px ;border: none;">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.ValidationSummary(true)
+                            <form id="submitForm" data-parsley-validate="" data-parsley-errors-messages-disabled="true" novalidate="" _lpchecked="1">
+                                <input type="hidden" name="_csrf" value="7635eb83-1f95-4b32-8788-abec2724a9a4">
+                                <div class="form-group">
+                                    <label for="username">Username / Email</label>
+                                    <input type="text" class="form-control text-lowercase" id="username">
+                                </div>
+                                <div class="form-group required">
+                                    <label class="" for="password">
+                                        Password
+                                    </label>
+                                    <input type="password" class="form-control">
+                                </div>
+                                @*<a class="ml-auto border-link small-xl" href="/forget-password">Forget?</a>*@
+                                <div class="form-group mt-4 mb-4">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="remember-me" style="display: none;">
+
+                                        <label class="custom-control-label" for="remember-me">Remember me?</label>
+                                    </div>
+                                </div>
+                                <div class="form-group pt-1">
+                                    <button class="btn btn-primary btn-block" type="submit">Log In</button>
+                                </div>
+                            </form>
+                        }
+
+                        <p class="small-xl pt-3 text-center">
+                            <span class="text-muted">Not a member?</span>
+                            <a href="@Url.Action("Register","User")">Sign up</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 
