@@ -3,11 +3,11 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="Home1"><img src="images/version/market-logo1.gif" alt=""></a>
+    <a class="navbar-brand" href="Home1"><img src="~/images/version/market-logo1.gif" alt=""></a>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="Home1">Trang Chủ</a>
+                <a class="nav-link" href="@Url.Action("Index","ReMoBi")">Trang Chủ</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="PhoneNgon">Phone Ngon</a>
@@ -18,10 +18,25 @@
             <li class="nav-item">
                 <a class="nav-link" href="VeChungToi">Về Chúng Tôi</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="Login">Đăng nhập</a>
-            </li>-
+            @if (Session["NguoiDung"] != null)
+            {
+                @*<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">Xin chào: @kh.HoTen<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("ThongTinCN", "User", new {id = @kh.HoTen}))"><span class="glyphicon glyphicon-user"></span> Thông tin cá nhân</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="@Url.Action("Logout", "User")"><span class="glyphicon glyphicon-log-in"></span> Đăng xuất</a></li>
+                        </ul>
+                    </li>*@
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Login","User")">Đăng nhập</a>
+                </li>
+            }
         </ul>
+
         <form class="form-inline">
             <input class="form-control mr-sm-2" type="text" placeholder="Bạn tìm gì hôm nay?">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>

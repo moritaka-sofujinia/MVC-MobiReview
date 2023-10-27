@@ -22,7 +22,7 @@ namespace ReMoBi_DCSN.Controllers
             ViewBag.url = url;
             return View();
         }
-        [HttpPost]
+        //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public ActionResult Login(FormCollection f)
         //{
@@ -140,5 +140,6 @@ namespace ReMoBi_DCSN.Controllers
         //        return builder.ToString().Substring(0, 15); // Giới hạn độ dài mật khẩu
         //    }
         //}
+
     }
 }
