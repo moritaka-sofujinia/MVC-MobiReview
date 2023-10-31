@@ -337,6 +337,7 @@
     <Content Include="js\jquery.min.js" />
     <Content Include="js\masonry.js" />
     <Content Include="js\tether.min.js" />
+    <Content Include="Models\news.sql" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -581,6 +582,13 @@
     <Content Include="Views\Shared\_LayoutPageLogin.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\ReMoBi\New1.cshtml" />
+    <Content Include="Views\ReMoBi\New2.cshtml" />
+    <Content Include="Views\ReMoBi\New3.cshtml" />
+    <Content Include="Views\ReMoBi\New4.cshtml" />
+    <Content Include="Views\ReMoBi\New5.cshtml" />
+    <Content Include="Views\ReMoBi\New6.cshtml" />
+    <Content Include="Views\ReMoBi\New7.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
