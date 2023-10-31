@@ -13,13 +13,13 @@
                 <a class="nav-link" href="@Url.Action("Index","ReMoBi")">Trang Chủ</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="PhoneNgon">Phone Ngon</a>
+                <a class="nav-link" href="@Url.Action("Index","SlugPhone")">Phone Ngon</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="BaoDuong">Bảo Dưỡng</a>
+                <a class="nav-link" href="@Url.Action("Index","Maintenance")">Bảo Dưỡng</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="VeChungToi">Về Chúng Tôi</a>
+                <a class="nav-link" href="@Url.Action("Index","AboutUs")">Về Chúng Tôi</a>
             </li>
             @if (Session["TaiKhoan"] != null)
             {

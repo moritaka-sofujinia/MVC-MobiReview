@@ -140,7 +140,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AboutUsController.cs" />
+    <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\ReMoBiController.cs" />
+    <Compile Include="Controllers\SlugPhoneController.cs" />
     <Compile Include="Controllers\SQLiteHandler.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -589,6 +592,16 @@
     <Content Include="Views\ReMoBi\New5.cshtml" />
     <Content Include="Views\ReMoBi\New6.cshtml" />
     <Content Include="Views\ReMoBi\New7.cshtml" />
+    <Content Include="Views\ReMoBi\New8.cshtml" />
+    <Content Include="Views\ReMoBi\New9.cshtml" />
+    <Content Include="Views\ReMoBi\New10.cshtml" />
+    <Content Include="Views\ReMoBi\New11.cshtml" />
+    <Content Include="Views\AboutUs\Index.cshtml" />
+    <Content Include="Views\SlugPhone\Index.cshtml" />
+    <Content Include="Views\Maintenance\Index.cshtml" />
+    <Content Include="Views\SlugPhone\New13.cshtml" />
+    <Content Include="Views\SlugPhone\New11.cshtml" />
+    <Content Include="Views\SlugPhone\New14.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
