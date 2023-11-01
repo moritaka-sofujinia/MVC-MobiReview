@@ -602,6 +602,8 @@
     <Content Include="Views\SlugPhone\New13.cshtml" />
     <Content Include="Views\SlugPhone\New11.cshtml" />
     <Content Include="Views\SlugPhone\New14.cshtml" />
+    <Content Include="Views\Maintenance\New15.cshtml" />
+    <Content Include="Views\Maintenance\New16.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

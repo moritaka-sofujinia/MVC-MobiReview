@@ -13,5 +13,41 @@ namespace ReMoBi_DCSN.Controllers
         {
             return View();
         }
+        public ActionResult New15()
+        {
+            return View();
+        }
+        public ActionResult New16()
+        {
+            return View();
+        }
+        public ActionResult New17()
+        {
+            return View();
+        }
+        public ActionResult New18()
+        {
+            return View();
+        }
+        public ActionResult New19()
+        {
+            return View();
+        }
+        public ActionResult New20()
+        {
+            return View();
+        }
+        public ActionResult New21()
+        {
+            return View();
+        }
+        public ActionResult New22()
+        {
+            return View();
+        }
+        public ActionResult New23()
+        {
+            return View();
+        }
     }
 }
