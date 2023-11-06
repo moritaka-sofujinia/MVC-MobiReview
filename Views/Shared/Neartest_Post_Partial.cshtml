@@ -1,10 +1,21 @@
-﻿
+﻿@*@model  List<ReMoBi_DCSN.Models.Post>*@
 
 
 <div class="widget">
     <h2 class="widget-title">Bài viết gần đây</h2>
     <div class="blog-list-widget">
         <div class="list-group">
+
+            @*@foreach (var post in Model.Where(n => n.luotthich >= 200).Take(5))
+            {
+                <a href="@Url.Action("Details_Post","RemoBi", new {id = post.PostID})" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="w-100 justify-content-between">
+                        <img src="~/images/@post.image.Name_file_images" alt="" class="img-fluid float-left">
+                        <h5 class="mb-1">@post.Post_Title</h5>
+                        <small>@post.Post_Date</small>
+                    </div>
+                </a>
+            }*@
             <a href="@Url.Action("New2","RemoBi")" class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="w-100 justify-content-between">
                     <img src="~/images/News1/news1-small-90x90.png" alt="" class="img-fluid float-left">

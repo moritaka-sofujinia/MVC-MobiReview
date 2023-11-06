@@ -1,0 +1,74 @@
+﻿@model ReMoBi_DCSN.Models.Post
+
+@{
+    ViewBag.Title = "Details_Post";
+    Layout = "~/Views/Shared/_LayoutPageIndex.cshtml";
+}
+
+
+@{
+    var content = Model.Content_Post;
+    var paragraphCount = 8; // Số đoạn bạn muốn chia
+    var contentLength = content.Length;
+    var paragraphs = new List<string>();
+
+    for (int i = 0; i < paragraphCount; i++)
+    {
+        int startIndex = i * (contentLength / paragraphCount);
+        int endIndex = (i + 1) * (contentLength / paragraphCount);
+
+        if (i == paragraphCount - 1)
+        {
+            endIndex = contentLength; // Để đảm bảo không bị mất phần nào
+        }
+
+        string paragraph = content.Substring(startIndex, endIndex - startIndex);
+        paragraphs.Add(paragraph);
+    }
+}
+
+@Model.Content_Post
+<!-- Tiêu đề bài viết -->
+<h1>@Model.Post_Title</h1>
+<p><strong>Tác giả:</strong> @Model.UserName - <strong>Ngày:</strong> @Model.Post_Date</p>
+
+
+<h3 class="paragraph">@Model.Teaser_Post</h3>
+
+
+<!-- Nội dung bài viết -->
+<p class="paragraph">@paragraphs[1]</p>
+<p class="paragraph">@paragraphs[2]</p>
+
+
+<img src="./images/@Model.image.imagesID"
+     alt="Hình ảnh mô tả"
+     class="small-image" />
+<figcaption class="caption">@Model.image.Caption_images</figcaption>
+
+<!---------------------------------------------------------------->
+
+<p class="paragraph">@paragraphs[3]</p>
+<p class="paragraph">@paragraphs[4]</p>
+
+<img src="./images/@Model.image.imagesID"
+     alt="Hình ảnh mô tả"
+     class="small-image" />
+<figcaption class="caption">@Model.image.Caption_images</figcaption>
+
+<!---------------------------------------------------------------->
+
+<p class="paragraph">@paragraphs[5]</p>
+<p class="paragraph">@paragraphs[6]</p>
+
+<img src="./images/@Model.image.imagesID"
+     alt="Hình ảnh mô tả"
+     class="small-image" />
+<figcaption class="caption">@Model.image.Caption_images</figcaption>
+
+<!---------------------------------------------------------------->
+
+<p class="paragraph">@paragraphs[7]</p>
+<p class="paragraph">@paragraphs[8]</p>
+
+

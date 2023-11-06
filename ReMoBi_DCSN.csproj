@@ -589,6 +589,7 @@
     <Content Include="Views\Maintenance\Index.cshtml" />
     <Content Include="Views\ReMoBi\Index.cshtml" />
     <Content Include="Views\ReMoBi\Details_Post.cshtml" />
+    <Content Include="Views\SlugPhone\Details_Post.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
