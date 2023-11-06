@@ -33,15 +33,24 @@ namespace ReMoBi_DCSN.Models
     partial void InsertADMIN(ADMIN instance);
     partial void UpdateADMIN(ADMIN instance);
     partial void DeleteADMIN(ADMIN instance);
-    partial void Insertbaiviet(baiviet instance);
-    partial void Updatebaiviet(baiviet instance);
-    partial void Deletebaiviet(baiviet instance);
-    partial void InsertNguoiDung(NguoiDung instance);
-    partial void UpdateNguoiDung(NguoiDung instance);
-    partial void DeleteNguoiDung(NguoiDung instance);
+    partial void Insertimage(image instance);
+    partial void Updateimage(image instance);
+    partial void Deleteimage(image instance);
     partial void InsertKhachHang(KhachHang instance);
     partial void UpdateKhachHang(KhachHang instance);
     partial void DeleteKhachHang(KhachHang instance);
+    partial void InsertNguoiDung(NguoiDung instance);
+    partial void UpdateNguoiDung(NguoiDung instance);
+    partial void DeleteNguoiDung(NguoiDung instance);
+    partial void InsertPost(Post instance);
+    partial void UpdatePost(Post instance);
+    partial void DeletePost(Post instance);
+    partial void InsertPostImage(PostImage instance);
+    partial void UpdatePostImage(PostImage instance);
+    partial void DeletePostImage(PostImage instance);
+    partial void Inserttag(tag instance);
+    partial void Updatetag(tag instance);
+    partial void Deletetag(tag instance);
     #endregion
 		
 		public dbDataContext(string connection) : 
@@ -76,11 +85,19 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<baiviet> baiviets
+		public System.Data.Linq.Table<image> images
 		{
 			get
 			{
-				return this.GetTable<baiviet>();
+				return this.GetTable<image>();
+			}
+		}
+		
+		public System.Data.Linq.Table<KhachHang> KhachHangs
+		{
+			get
+			{
+				return this.GetTable<KhachHang>();
 			}
 		}
 		
@@ -92,11 +109,27 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<KhachHang> KhachHangs
+		public System.Data.Linq.Table<Post> Posts
 		{
 			get
 			{
-				return this.GetTable<KhachHang>();
+				return this.GetTable<Post>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PostImage> PostImages
+		{
+			get
+			{
+				return this.GetTable<PostImage>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tag> tags
+		{
+			get
+			{
+				return this.GetTable<tag>();
 			}
 		}
 	}
@@ -107,39 +140,41 @@ namespace ReMoBi_DCSN.Models
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private string _AdminID;
+		private int _AdminID;
 		
 		private string _username;
 		
 		private string _password;
 		
-		private string _vaitro;
-		
 		private string _hovaten;
+		
+		private EntityRef<NguoiDung> _NguoiDung;
+		
+		private EntityRef<NguoiDung> _NguoiDung1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnAdminIDChanging(string value);
+    partial void OnAdminIDChanging(int value);
     partial void OnAdminIDChanged();
     partial void OnusernameChanging(string value);
     partial void OnusernameChanged();
     partial void OnpasswordChanging(string value);
     partial void OnpasswordChanged();
-    partial void OnvaitroChanging(string value);
-    partial void OnvaitroChanged();
     partial void OnhovatenChanging(string value);
     partial void OnhovatenChanged();
     #endregion
 		
 		public ADMIN()
 		{
+			this._NguoiDung = default(EntityRef<NguoiDung>);
+			this._NguoiDung1 = default(EntityRef<NguoiDung>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdminID", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string AdminID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdminID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int AdminID
 		{
 			get
 			{
@@ -149,6 +184,10 @@ namespace ReMoBi_DCSN.Models
 			{
 				if ((this._AdminID != value))
 				{
+					if (this._NguoiDung.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnAdminIDChanging(value);
 					this.SendPropertyChanging();
 					this._AdminID = value;
@@ -198,22 +237,443 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_vaitro", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
-		public string vaitro
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hovaten", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string hovaten
 		{
 			get
 			{
-				return this._vaitro;
+				return this._hovaten;
 			}
 			set
 			{
-				if ((this._vaitro != value))
+				if ((this._hovaten != value))
 				{
-					this.OnvaitroChanging(value);
+					if (this._NguoiDung1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnhovatenChanging(value);
 					this.SendPropertyChanging();
-					this._vaitro = value;
-					this.SendPropertyChanged("vaitro");
-					this.OnvaitroChanged();
+					this._hovaten = value;
+					this.SendPropertyChanged("hovaten");
+					this.OnhovatenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NguoiDung_ADMIN", Storage="_NguoiDung", ThisKey="AdminID", OtherKey="UserID", IsForeignKey=true)]
+		public NguoiDung NguoiDung
+		{
+			get
+			{
+				return this._NguoiDung.Entity;
+			}
+			set
+			{
+				NguoiDung previousValue = this._NguoiDung.Entity;
+				if (((previousValue != value) 
+							|| (this._NguoiDung.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._NguoiDung.Entity = null;
+						previousValue.ADMIN = null;
+					}
+					this._NguoiDung.Entity = value;
+					if ((value != null))
+					{
+						value.ADMIN = this;
+						this._AdminID = value.UserID;
+					}
+					else
+					{
+						this._AdminID = default(int);
+					}
+					this.SendPropertyChanged("NguoiDung");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NguoiDung_ADMIN1", Storage="_NguoiDung1", ThisKey="hovaten", OtherKey="hovaten", IsForeignKey=true)]
+		public NguoiDung NguoiDung1
+		{
+			get
+			{
+				return this._NguoiDung1.Entity;
+			}
+			set
+			{
+				NguoiDung previousValue = this._NguoiDung1.Entity;
+				if (((previousValue != value) 
+							|| (this._NguoiDung1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._NguoiDung1.Entity = null;
+						previousValue.ADMINs.Remove(this);
+					}
+					this._NguoiDung1.Entity = value;
+					if ((value != null))
+					{
+						value.ADMINs.Add(this);
+						this._hovaten = value.hovaten;
+					}
+					else
+					{
+						this._hovaten = default(string);
+					}
+					this.SendPropertyChanged("NguoiDung1");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.images")]
+	public partial class image : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _imagesID;
+		
+		private string _Name_file_images;
+		
+		private string _Caption_images;
+		
+		private System.Nullable<int> _PostID;
+		
+		private EntitySet<Post> _Posts;
+		
+		private EntityRef<PostImage> _PostImage;
+		
+		private EntityRef<Post> _Post;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnimagesIDChanging(int value);
+    partial void OnimagesIDChanged();
+    partial void OnName_file_imagesChanging(string value);
+    partial void OnName_file_imagesChanged();
+    partial void OnCaption_imagesChanging(string value);
+    partial void OnCaption_imagesChanged();
+    partial void OnPostIDChanging(System.Nullable<int> value);
+    partial void OnPostIDChanged();
+    #endregion
+		
+		public image()
+		{
+			this._Posts = new EntitySet<Post>(new Action<Post>(this.attach_Posts), new Action<Post>(this.detach_Posts));
+			this._PostImage = default(EntityRef<PostImage>);
+			this._Post = default(EntityRef<Post>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imagesID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int imagesID
+		{
+			get
+			{
+				return this._imagesID;
+			}
+			set
+			{
+				if ((this._imagesID != value))
+				{
+					this.OnimagesIDChanging(value);
+					this.SendPropertyChanging();
+					this._imagesID = value;
+					this.SendPropertyChanged("imagesID");
+					this.OnimagesIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name_file_images", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Name_file_images
+		{
+			get
+			{
+				return this._Name_file_images;
+			}
+			set
+			{
+				if ((this._Name_file_images != value))
+				{
+					this.OnName_file_imagesChanging(value);
+					this.SendPropertyChanging();
+					this._Name_file_images = value;
+					this.SendPropertyChanged("Name_file_images");
+					this.OnName_file_imagesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Caption_images", DbType="NVarChar(MAX)")]
+		public string Caption_images
+		{
+			get
+			{
+				return this._Caption_images;
+			}
+			set
+			{
+				if ((this._Caption_images != value))
+				{
+					this.OnCaption_imagesChanging(value);
+					this.SendPropertyChanging();
+					this._Caption_images = value;
+					this.SendPropertyChanged("Caption_images");
+					this.OnCaption_imagesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostID", DbType="Int")]
+		public System.Nullable<int> PostID
+		{
+			get
+			{
+				return this._PostID;
+			}
+			set
+			{
+				if ((this._PostID != value))
+				{
+					if (this._Post.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPostIDChanging(value);
+					this.SendPropertyChanging();
+					this._PostID = value;
+					this.SendPropertyChanged("PostID");
+					this.OnPostIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="image_Post", Storage="_Posts", ThisKey="imagesID", OtherKey="ImagesID")]
+		public EntitySet<Post> Posts
+		{
+			get
+			{
+				return this._Posts;
+			}
+			set
+			{
+				this._Posts.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="image_PostImage", Storage="_PostImage", ThisKey="imagesID", OtherKey="ImageID", IsUnique=true, IsForeignKey=false)]
+		public PostImage PostImage
+		{
+			get
+			{
+				return this._PostImage.Entity;
+			}
+			set
+			{
+				PostImage previousValue = this._PostImage.Entity;
+				if (((previousValue != value) 
+							|| (this._PostImage.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._PostImage.Entity = null;
+						previousValue.image = null;
+					}
+					this._PostImage.Entity = value;
+					if ((value != null))
+					{
+						value.image = this;
+					}
+					this.SendPropertyChanged("PostImage");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Post_image", Storage="_Post", ThisKey="PostID", OtherKey="PostID", IsForeignKey=true)]
+		public Post Post
+		{
+			get
+			{
+				return this._Post.Entity;
+			}
+			set
+			{
+				Post previousValue = this._Post.Entity;
+				if (((previousValue != value) 
+							|| (this._Post.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Post.Entity = null;
+						previousValue.images.Remove(this);
+					}
+					this._Post.Entity = value;
+					if ((value != null))
+					{
+						value.images.Add(this);
+						this._PostID = value.PostID;
+					}
+					else
+					{
+						this._PostID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Post");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Posts(Post entity)
+		{
+			this.SendPropertyChanging();
+			entity.image = this;
+		}
+		
+		private void detach_Posts(Post entity)
+		{
+			this.SendPropertyChanging();
+			entity.image = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.KhachHang")]
+	public partial class KhachHang : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _KhID;
+		
+		private string _username;
+		
+		private string _password;
+		
+		private string _hovaten;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnKhIDChanging(int value);
+    partial void OnKhIDChanged();
+    partial void OnusernameChanging(string value);
+    partial void OnusernameChanged();
+    partial void OnpasswordChanging(string value);
+    partial void OnpasswordChanged();
+    partial void OnhovatenChanging(string value);
+    partial void OnhovatenChanged();
+    #endregion
+		
+		public KhachHang()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KhID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int KhID
+		{
+			get
+			{
+				return this._KhID;
+			}
+			set
+			{
+				if ((this._KhID != value))
+				{
+					this.OnKhIDChanging(value);
+					this.SendPropertyChanging();
+					this._KhID = value;
+					this.SendPropertyChanged("KhID");
+					this.OnKhIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_username", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string username
+		{
+			get
+			{
+				return this._username;
+			}
+			set
+			{
+				if ((this._username != value))
+				{
+					this.OnusernameChanging(value);
+					this.SendPropertyChanging();
+					this._username = value;
+					this.SendPropertyChanged("username");
+					this.OnusernameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string password
+		{
+			get
+			{
+				return this._password;
+			}
+			set
+			{
+				if ((this._password != value))
+				{
+					this.OnpasswordChanging(value);
+					this.SendPropertyChanging();
+					this._password = value;
+					this.SendPropertyChanged("password");
+					this.OnpasswordChanged();
 				}
 			}
 		}
@@ -259,272 +719,29 @@ namespace ReMoBi_DCSN.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.baiviet")]
-	public partial class baiviet : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _tenbaiviet;
-		
-		private string _tentacgia;
-		
-		private System.DateTime _ngaydang;
-		
-		private System.Nullable<int> _luotthich;
-		
-		private string _linkbaiviet;
-		
-		private string _linkfolderhinhanh;
-		
-		private EntityRef<NguoiDung> _NguoiDung;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OntenbaivietChanging(string value);
-    partial void OntenbaivietChanged();
-    partial void OntentacgiaChanging(string value);
-    partial void OntentacgiaChanged();
-    partial void OnngaydangChanging(System.DateTime value);
-    partial void OnngaydangChanged();
-    partial void OnluotthichChanging(System.Nullable<int> value);
-    partial void OnluotthichChanged();
-    partial void OnlinkbaivietChanging(string value);
-    partial void OnlinkbaivietChanged();
-    partial void OnlinkfolderhinhanhChanging(string value);
-    partial void OnlinkfolderhinhanhChanged();
-    #endregion
-		
-		public baiviet()
-		{
-			this._NguoiDung = default(EntityRef<NguoiDung>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tenbaiviet", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string tenbaiviet
-		{
-			get
-			{
-				return this._tenbaiviet;
-			}
-			set
-			{
-				if ((this._tenbaiviet != value))
-				{
-					this.OntenbaivietChanging(value);
-					this.SendPropertyChanging();
-					this._tenbaiviet = value;
-					this.SendPropertyChanged("tenbaiviet");
-					this.OntenbaivietChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tentacgia", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string tentacgia
-		{
-			get
-			{
-				return this._tentacgia;
-			}
-			set
-			{
-				if ((this._tentacgia != value))
-				{
-					if (this._NguoiDung.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OntentacgiaChanging(value);
-					this.SendPropertyChanging();
-					this._tentacgia = value;
-					this.SendPropertyChanged("tentacgia");
-					this.OntentacgiaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ngaydang", DbType="SmallDateTime NOT NULL")]
-		public System.DateTime ngaydang
-		{
-			get
-			{
-				return this._ngaydang;
-			}
-			set
-			{
-				if ((this._ngaydang != value))
-				{
-					this.OnngaydangChanging(value);
-					this.SendPropertyChanging();
-					this._ngaydang = value;
-					this.SendPropertyChanged("ngaydang");
-					this.OnngaydangChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_luotthich", DbType="Int")]
-		public System.Nullable<int> luotthich
-		{
-			get
-			{
-				return this._luotthich;
-			}
-			set
-			{
-				if ((this._luotthich != value))
-				{
-					this.OnluotthichChanging(value);
-					this.SendPropertyChanging();
-					this._luotthich = value;
-					this.SendPropertyChanged("luotthich");
-					this.OnluotthichChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_linkbaiviet", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
-		public string linkbaiviet
-		{
-			get
-			{
-				return this._linkbaiviet;
-			}
-			set
-			{
-				if ((this._linkbaiviet != value))
-				{
-					this.OnlinkbaivietChanging(value);
-					this.SendPropertyChanging();
-					this._linkbaiviet = value;
-					this.SendPropertyChanged("linkbaiviet");
-					this.OnlinkbaivietChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_linkfolderhinhanh", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
-		public string linkfolderhinhanh
-		{
-			get
-			{
-				return this._linkfolderhinhanh;
-			}
-			set
-			{
-				if ((this._linkfolderhinhanh != value))
-				{
-					this.OnlinkfolderhinhanhChanging(value);
-					this.SendPropertyChanging();
-					this._linkfolderhinhanh = value;
-					this.SendPropertyChanged("linkfolderhinhanh");
-					this.OnlinkfolderhinhanhChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NguoiDung_baiviet", Storage="_NguoiDung", ThisKey="tentacgia", OtherKey="hovaten", IsForeignKey=true)]
-		public NguoiDung NguoiDung
-		{
-			get
-			{
-				return this._NguoiDung.Entity;
-			}
-			set
-			{
-				NguoiDung previousValue = this._NguoiDung.Entity;
-				if (((previousValue != value) 
-							|| (this._NguoiDung.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._NguoiDung.Entity = null;
-						previousValue.baiviets.Remove(this);
-					}
-					this._NguoiDung.Entity = value;
-					if ((value != null))
-					{
-						value.baiviets.Add(this);
-						this._tentacgia = value.hovaten;
-					}
-					else
-					{
-						this._tentacgia = default(string);
-					}
-					this.SendPropertyChanged("NguoiDung");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.NguoiDung")]
 	public partial class NguoiDung : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private string _UserID;
+		private int _UserID;
 		
 		private string _vaitro;
 		
 		private string _hovaten;
 		
-		private EntitySet<baiviet> _baiviets;
+		private EntityRef<ADMIN> _ADMIN;
+		
+		private EntitySet<ADMIN> _ADMINs;
+		
+		private EntitySet<Post> _Posts;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnUserIDChanging(string value);
+    partial void OnUserIDChanging(int value);
     partial void OnUserIDChanged();
     partial void OnvaitroChanging(string value);
     partial void OnvaitroChanged();
@@ -534,12 +751,14 @@ namespace ReMoBi_DCSN.Models
 		
 		public NguoiDung()
 		{
-			this._baiviets = new EntitySet<baiviet>(new Action<baiviet>(this.attach_baiviets), new Action<baiviet>(this.detach_baiviets));
+			this._ADMIN = default(EntityRef<ADMIN>);
+			this._ADMINs = new EntitySet<ADMIN>(new Action<ADMIN>(this.attach_ADMINs), new Action<ADMIN>(this.detach_ADMINs));
+			this._Posts = new EntitySet<Post>(new Action<Post>(this.attach_Posts), new Action<Post>(this.detach_Posts));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string UserID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int UserID
 		{
 			get
 			{
@@ -598,16 +817,58 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NguoiDung_baiviet", Storage="_baiviets", ThisKey="hovaten", OtherKey="tentacgia")]
-		public EntitySet<baiviet> baiviets
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NguoiDung_ADMIN", Storage="_ADMIN", ThisKey="UserID", OtherKey="AdminID", IsUnique=true, IsForeignKey=false)]
+		public ADMIN ADMIN
 		{
 			get
 			{
-				return this._baiviets;
+				return this._ADMIN.Entity;
 			}
 			set
 			{
-				this._baiviets.Assign(value);
+				ADMIN previousValue = this._ADMIN.Entity;
+				if (((previousValue != value) 
+							|| (this._ADMIN.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ADMIN.Entity = null;
+						previousValue.NguoiDung = null;
+					}
+					this._ADMIN.Entity = value;
+					if ((value != null))
+					{
+						value.NguoiDung = this;
+					}
+					this.SendPropertyChanged("ADMIN");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NguoiDung_ADMIN1", Storage="_ADMINs", ThisKey="hovaten", OtherKey="hovaten")]
+		public EntitySet<ADMIN> ADMINs
+		{
+			get
+			{
+				return this._ADMINs;
+			}
+			set
+			{
+				this._ADMINs.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NguoiDung_Post", Storage="_Posts", ThisKey="hovaten", OtherKey="UserName")]
+		public EntitySet<Post> Posts
+		{
+			get
+			{
+				return this._Posts;
+			}
+			set
+			{
+				this._Posts.Assign(value);
 			}
 		}
 		
@@ -631,128 +892,439 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		private void attach_baiviets(baiviet entity)
+		private void attach_ADMINs(ADMIN entity)
+		{
+			this.SendPropertyChanging();
+			entity.NguoiDung1 = this;
+		}
+		
+		private void detach_ADMINs(ADMIN entity)
+		{
+			this.SendPropertyChanging();
+			entity.NguoiDung1 = null;
+		}
+		
+		private void attach_Posts(Post entity)
 		{
 			this.SendPropertyChanging();
 			entity.NguoiDung = this;
 		}
 		
-		private void detach_baiviets(baiviet entity)
+		private void detach_Posts(Post entity)
 		{
 			this.SendPropertyChanging();
 			entity.NguoiDung = null;
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.KhachHang")]
-	public partial class KhachHang : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Post")]
+	public partial class Post : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private string _username;
+		private int _PostID;
 		
-		private string _password;
+		private string _UserID;
 		
-		private string _hovaten;
+		private string _Post_Title;
 		
-		private int _CustomerID;
+		private string _UserName;
+		
+		private System.DateTime _Post_Date;
+		
+		private string _Teaser_Post;
+		
+		private string _Content_Post;
+		
+		private int _Post_Tags;
+		
+		private int _ImagesID;
+		
+		private int _luotthich;
+		
+		private EntitySet<image> _images;
+		
+		private EntitySet<PostImage> _PostImages;
+		
+		private EntityRef<image> _image;
+		
+		private EntityRef<NguoiDung> _NguoiDung;
+		
+		private EntityRef<tag> _tag;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnusernameChanging(string value);
-    partial void OnusernameChanged();
-    partial void OnpasswordChanging(string value);
-    partial void OnpasswordChanged();
-    partial void OnhovatenChanging(string value);
-    partial void OnhovatenChanged();
-    partial void OnCustomerIDChanging(int value);
-    partial void OnCustomerIDChanged();
+    partial void OnPostIDChanging(int value);
+    partial void OnPostIDChanged();
+    partial void OnUserIDChanging(string value);
+    partial void OnUserIDChanged();
+    partial void OnPost_TitleChanging(string value);
+    partial void OnPost_TitleChanged();
+    partial void OnUserNameChanging(string value);
+    partial void OnUserNameChanged();
+    partial void OnPost_DateChanging(System.DateTime value);
+    partial void OnPost_DateChanged();
+    partial void OnTeaser_PostChanging(string value);
+    partial void OnTeaser_PostChanged();
+    partial void OnContent_PostChanging(string value);
+    partial void OnContent_PostChanged();
+    partial void OnPost_TagsChanging(int value);
+    partial void OnPost_TagsChanged();
+    partial void OnImagesIDChanging(int value);
+    partial void OnImagesIDChanged();
+    partial void OnluotthichChanging(int value);
+    partial void OnluotthichChanged();
     #endregion
 		
-		public KhachHang()
+		public Post()
 		{
+			this._images = new EntitySet<image>(new Action<image>(this.attach_images), new Action<image>(this.detach_images));
+			this._PostImages = new EntitySet<PostImage>(new Action<PostImage>(this.attach_PostImages), new Action<PostImage>(this.detach_PostImages));
+			this._image = default(EntityRef<image>);
+			this._NguoiDung = default(EntityRef<NguoiDung>);
+			this._tag = default(EntityRef<tag>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_username", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string username
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int PostID
 		{
 			get
 			{
-				return this._username;
+				return this._PostID;
 			}
 			set
 			{
-				if ((this._username != value))
+				if ((this._PostID != value))
 				{
-					this.OnusernameChanging(value);
+					this.OnPostIDChanging(value);
 					this.SendPropertyChanging();
-					this._username = value;
-					this.SendPropertyChanged("username");
-					this.OnusernameChanged();
+					this._PostID = value;
+					this.SendPropertyChanged("PostID");
+					this.OnPostIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string password
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		public string UserID
 		{
 			get
 			{
-				return this._password;
+				return this._UserID;
 			}
 			set
 			{
-				if ((this._password != value))
+				if ((this._UserID != value))
 				{
-					this.OnpasswordChanging(value);
+					this.OnUserIDChanging(value);
 					this.SendPropertyChanging();
-					this._password = value;
-					this.SendPropertyChanged("password");
-					this.OnpasswordChanged();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hovaten", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string hovaten
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Post_Title", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Post_Title
 		{
 			get
 			{
-				return this._hovaten;
+				return this._Post_Title;
 			}
 			set
 			{
-				if ((this._hovaten != value))
+				if ((this._Post_Title != value))
 				{
-					this.OnhovatenChanging(value);
+					this.OnPost_TitleChanging(value);
 					this.SendPropertyChanging();
-					this._hovaten = value;
-					this.SendPropertyChanged("hovaten");
-					this.OnhovatenChanged();
+					this._Post_Title = value;
+					this.SendPropertyChanged("Post_Title");
+					this.OnPost_TitleChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int CustomerID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string UserName
 		{
 			get
 			{
-				return this._CustomerID;
+				return this._UserName;
 			}
 			set
 			{
-				if ((this._CustomerID != value))
+				if ((this._UserName != value))
 				{
-					this.OnCustomerIDChanging(value);
+					if (this._NguoiDung.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserNameChanging(value);
 					this.SendPropertyChanging();
-					this._CustomerID = value;
-					this.SendPropertyChanged("CustomerID");
-					this.OnCustomerIDChanged();
+					this._UserName = value;
+					this.SendPropertyChanged("UserName");
+					this.OnUserNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Post_Date", DbType="SmallDateTime NOT NULL")]
+		public System.DateTime Post_Date
+		{
+			get
+			{
+				return this._Post_Date;
+			}
+			set
+			{
+				if ((this._Post_Date != value))
+				{
+					this.OnPost_DateChanging(value);
+					this.SendPropertyChanging();
+					this._Post_Date = value;
+					this.SendPropertyChanged("Post_Date");
+					this.OnPost_DateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Teaser_Post", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Teaser_Post
+		{
+			get
+			{
+				return this._Teaser_Post;
+			}
+			set
+			{
+				if ((this._Teaser_Post != value))
+				{
+					this.OnTeaser_PostChanging(value);
+					this.SendPropertyChanging();
+					this._Teaser_Post = value;
+					this.SendPropertyChanged("Teaser_Post");
+					this.OnTeaser_PostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Content_Post", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Content_Post
+		{
+			get
+			{
+				return this._Content_Post;
+			}
+			set
+			{
+				if ((this._Content_Post != value))
+				{
+					this.OnContent_PostChanging(value);
+					this.SendPropertyChanging();
+					this._Content_Post = value;
+					this.SendPropertyChanged("Content_Post");
+					this.OnContent_PostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Post_Tags", DbType="Int NOT NULL")]
+		public int Post_Tags
+		{
+			get
+			{
+				return this._Post_Tags;
+			}
+			set
+			{
+				if ((this._Post_Tags != value))
+				{
+					if (this._tag.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPost_TagsChanging(value);
+					this.SendPropertyChanging();
+					this._Post_Tags = value;
+					this.SendPropertyChanged("Post_Tags");
+					this.OnPost_TagsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImagesID", DbType="Int NOT NULL")]
+		public int ImagesID
+		{
+			get
+			{
+				return this._ImagesID;
+			}
+			set
+			{
+				if ((this._ImagesID != value))
+				{
+					if (this._image.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnImagesIDChanging(value);
+					this.SendPropertyChanging();
+					this._ImagesID = value;
+					this.SendPropertyChanged("ImagesID");
+					this.OnImagesIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_luotthich", DbType="Int NOT NULL")]
+		public int luotthich
+		{
+			get
+			{
+				return this._luotthich;
+			}
+			set
+			{
+				if ((this._luotthich != value))
+				{
+					this.OnluotthichChanging(value);
+					this.SendPropertyChanging();
+					this._luotthich = value;
+					this.SendPropertyChanged("luotthich");
+					this.OnluotthichChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Post_image", Storage="_images", ThisKey="PostID", OtherKey="PostID")]
+		public EntitySet<image> images
+		{
+			get
+			{
+				return this._images;
+			}
+			set
+			{
+				this._images.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Post_PostImage", Storage="_PostImages", ThisKey="PostID", OtherKey="PostID")]
+		public EntitySet<PostImage> PostImages
+		{
+			get
+			{
+				return this._PostImages;
+			}
+			set
+			{
+				this._PostImages.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="image_Post", Storage="_image", ThisKey="ImagesID", OtherKey="imagesID", IsForeignKey=true)]
+		public image image
+		{
+			get
+			{
+				return this._image.Entity;
+			}
+			set
+			{
+				image previousValue = this._image.Entity;
+				if (((previousValue != value) 
+							|| (this._image.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._image.Entity = null;
+						previousValue.Posts.Remove(this);
+					}
+					this._image.Entity = value;
+					if ((value != null))
+					{
+						value.Posts.Add(this);
+						this._ImagesID = value.imagesID;
+					}
+					else
+					{
+						this._ImagesID = default(int);
+					}
+					this.SendPropertyChanged("image");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NguoiDung_Post", Storage="_NguoiDung", ThisKey="UserName", OtherKey="hovaten", IsForeignKey=true)]
+		public NguoiDung NguoiDung
+		{
+			get
+			{
+				return this._NguoiDung.Entity;
+			}
+			set
+			{
+				NguoiDung previousValue = this._NguoiDung.Entity;
+				if (((previousValue != value) 
+							|| (this._NguoiDung.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._NguoiDung.Entity = null;
+						previousValue.Posts.Remove(this);
+					}
+					this._NguoiDung.Entity = value;
+					if ((value != null))
+					{
+						value.Posts.Add(this);
+						this._UserName = value.hovaten;
+					}
+					else
+					{
+						this._UserName = default(string);
+					}
+					this.SendPropertyChanged("NguoiDung");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tag_Post", Storage="_tag", ThisKey="Post_Tags", OtherKey="TagID", IsForeignKey=true)]
+		public tag tag
+		{
+			get
+			{
+				return this._tag.Entity;
+			}
+			set
+			{
+				tag previousValue = this._tag.Entity;
+				if (((previousValue != value) 
+							|| (this._tag.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tag.Entity = null;
+						previousValue.Posts.Remove(this);
+					}
+					this._tag.Entity = value;
+					if ((value != null))
+					{
+						value.Posts.Add(this);
+						this._Post_Tags = value.TagID;
+					}
+					else
+					{
+						this._Post_Tags = default(int);
+					}
+					this.SendPropertyChanged("tag");
 				}
 			}
 		}
@@ -775,6 +1347,312 @@ namespace ReMoBi_DCSN.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_images(image entity)
+		{
+			this.SendPropertyChanging();
+			entity.Post = this;
+		}
+		
+		private void detach_images(image entity)
+		{
+			this.SendPropertyChanging();
+			entity.Post = null;
+		}
+		
+		private void attach_PostImages(PostImage entity)
+		{
+			this.SendPropertyChanging();
+			entity.Post = this;
+		}
+		
+		private void detach_PostImages(PostImage entity)
+		{
+			this.SendPropertyChanging();
+			entity.Post = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PostImages")]
+	public partial class PostImage : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _PostID;
+		
+		private int _ImageID;
+		
+		private EntityRef<image> _image;
+		
+		private EntityRef<Post> _Post;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPostIDChanging(int value);
+    partial void OnPostIDChanged();
+    partial void OnImageIDChanging(int value);
+    partial void OnImageIDChanged();
+    #endregion
+		
+		public PostImage()
+		{
+			this._image = default(EntityRef<image>);
+			this._Post = default(EntityRef<Post>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostID", DbType="Int NOT NULL")]
+		public int PostID
+		{
+			get
+			{
+				return this._PostID;
+			}
+			set
+			{
+				if ((this._PostID != value))
+				{
+					if (this._Post.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPostIDChanging(value);
+					this.SendPropertyChanging();
+					this._PostID = value;
+					this.SendPropertyChanged("PostID");
+					this.OnPostIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int ImageID
+		{
+			get
+			{
+				return this._ImageID;
+			}
+			set
+			{
+				if ((this._ImageID != value))
+				{
+					if (this._image.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnImageIDChanging(value);
+					this.SendPropertyChanging();
+					this._ImageID = value;
+					this.SendPropertyChanged("ImageID");
+					this.OnImageIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="image_PostImage", Storage="_image", ThisKey="ImageID", OtherKey="imagesID", IsForeignKey=true)]
+		public image image
+		{
+			get
+			{
+				return this._image.Entity;
+			}
+			set
+			{
+				image previousValue = this._image.Entity;
+				if (((previousValue != value) 
+							|| (this._image.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._image.Entity = null;
+						previousValue.PostImage = null;
+					}
+					this._image.Entity = value;
+					if ((value != null))
+					{
+						value.PostImage = this;
+						this._ImageID = value.imagesID;
+					}
+					else
+					{
+						this._ImageID = default(int);
+					}
+					this.SendPropertyChanged("image");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Post_PostImage", Storage="_Post", ThisKey="PostID", OtherKey="PostID", IsForeignKey=true)]
+		public Post Post
+		{
+			get
+			{
+				return this._Post.Entity;
+			}
+			set
+			{
+				Post previousValue = this._Post.Entity;
+				if (((previousValue != value) 
+							|| (this._Post.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Post.Entity = null;
+						previousValue.PostImages.Remove(this);
+					}
+					this._Post.Entity = value;
+					if ((value != null))
+					{
+						value.PostImages.Add(this);
+						this._PostID = value.PostID;
+					}
+					else
+					{
+						this._PostID = default(int);
+					}
+					this.SendPropertyChanged("Post");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tags")]
+	public partial class tag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _TagID;
+		
+		private string _Name_Tags;
+		
+		private EntitySet<Post> _Posts;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTagIDChanging(int value);
+    partial void OnTagIDChanged();
+    partial void OnName_TagsChanging(string value);
+    partial void OnName_TagsChanged();
+    #endregion
+		
+		public tag()
+		{
+			this._Posts = new EntitySet<Post>(new Action<Post>(this.attach_Posts), new Action<Post>(this.detach_Posts));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TagID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int TagID
+		{
+			get
+			{
+				return this._TagID;
+			}
+			set
+			{
+				if ((this._TagID != value))
+				{
+					this.OnTagIDChanging(value);
+					this.SendPropertyChanging();
+					this._TagID = value;
+					this.SendPropertyChanged("TagID");
+					this.OnTagIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name_Tags", DbType="NVarChar(50)")]
+		public string Name_Tags
+		{
+			get
+			{
+				return this._Name_Tags;
+			}
+			set
+			{
+				if ((this._Name_Tags != value))
+				{
+					this.OnName_TagsChanging(value);
+					this.SendPropertyChanging();
+					this._Name_Tags = value;
+					this.SendPropertyChanged("Name_Tags");
+					this.OnName_TagsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tag_Post", Storage="_Posts", ThisKey="TagID", OtherKey="Post_Tags")]
+		public EntitySet<Post> Posts
+		{
+			get
+			{
+				return this._Posts;
+			}
+			set
+			{
+				this._Posts.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Posts(Post entity)
+		{
+			this.SendPropertyChanging();
+			entity.tag = this;
+		}
+		
+		private void detach_Posts(Post entity)
+		{
+			this.SendPropertyChanging();
+			entity.tag = null;
 		}
 	}
 }

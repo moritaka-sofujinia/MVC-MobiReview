@@ -1,9 +1,13 @@
 ﻿using ReMoBi_DCSN.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList.Mvc;
+using System.Drawing.Printing;
+using System.Web.UI;
 
 namespace ReMoBi_DCSN.Controllers
 {
@@ -18,59 +22,28 @@ namespace ReMoBi_DCSN.Controllers
             var connectionString = "Data Source=Albert;Database=news1;Trusted_Connection=True";
             dbdata = new dbDataContext(connectionString);
         }
-        public ActionResult Index()
+        private List<Post> getNewPost(int count)
         {
-            
-            return View();
+            return dbdata.Posts.OrderByDescending(a => a.Post_Date).Take(count).ToList();
+        }
+        public ActionResult Index(int ?page, string tags)
+        {
+            int pageNum = (page ?? 1);
+            int pageSize = 10;
+
+            var query = dbdata.Posts.AsQueryable(); // Start with the complete list of books
+            var newP = getNewPost(24);
+            var newPost = query.OrderBy(n => n.Post_Date);
+            return View(newPost.ToPagedList(pageNum,pageSize));
         }
 
-        public ActionResult Details_Post()
+        public ActionResult Details_Post(int id)
         {
-            return View();
+            var post = from s in dbdata.Posts 
+                       where s.PostID == id 
+                       select s;
+            return View(post.Single());
         }
-        public ActionResult New1() 
-        {
-            return View();
-        }
-        public ActionResult New2()
-        {
-            return View();
-        }
-        public ActionResult New3()
-        {
-            return View();
-        }
-        public ActionResult New4()
-        {
-            return View();
-        }
-        public ActionResult New5()
-        {
-            return View();
-        }
-        public ActionResult New6()
-        {
-            return View();
-        }
-        public ActionResult New7()
-        {
-            return View();
-        }
-        public ActionResult New8()
-        {
-            return View();
-        }
-        public ActionResult New9()
-        {
-            return View();
-        }
-        public ActionResult New10()
-        {
-            return View();
-        }
-        public ActionResult New11()
-        {
-            return View();
-        }
+        
     }
 }

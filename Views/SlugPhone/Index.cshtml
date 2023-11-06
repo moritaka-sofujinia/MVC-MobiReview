@@ -1,4 +1,7 @@
-﻿
+﻿@using ReMoBi_DCSN.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<Post>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutPageIndex.cshtml";
@@ -8,7 +11,16 @@
     <div class="container pt-5">
         <div class="container">
             <div class="row">
-
+                @foreach (var item in Model)
+                {
+                    <a href="@Url.Action("Details_Post", "SlugPhone", new {id = item.PostID })">
+                        <img src="~/images/@item.image.Name_file_images"
+                             alt="Hình ảnh mô tả"
+                             class="small-image test" />
+                        <h3> @item.Post_Title</h3>
+                        <hr class="black-line">
+                    </a>
+                }
                 <a href="@Url.Action("New13","SlugPhone")">
                     <img src="~/images/News13/news13-pic1.png"
                          alt="Hình ảnh mô tả"
@@ -74,9 +86,10 @@
                     </div>
                 </a>
 
-                <div class="next-pre">
-                    <a href="PhoneNgon" class="previous-page"> Trang trước </a>
-                    <a href="PhoneNgon" class="next-page"> Trang tiếp theo </a>
+                <div class="MenuPage">
+                    @*@Html.PagedListPager(Model, Page => Page == Model.PageNumber ? Url.Action("Book", new { Page = Page }) : Url.Action("Book", new { Page }))*@
+                    @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page = Page }))
+                    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
                 </div>
 
             </div>
