@@ -1,0 +1,19 @@
+﻿@{ 
+    if (Session["Admin"] == null)
+    {
+        Response.Redirect("~/Admin/Login");
+    }
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
