@@ -161,6 +161,7 @@
                 <div class="row">
 
                     <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                        
                         <div class="page-wrapper-home">
                             @RenderBody()
                         </div><!-- end page-wrapper -->
@@ -171,7 +172,7 @@
 
                             @Html.Partial("SignUp_Partial")
 
-                            @Html.Partial("Neartest_Post_Partial")
+                            @RenderSection("Neartest_Post_Partial",required : false)
 
                             @Html.Partial("Adds_Partial")
 

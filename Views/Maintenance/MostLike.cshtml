@@ -1,0 +1,14 @@
+﻿@model IEnumerable<ReMoBi_DCSN.Models.Post>
+
+
+@foreach (var item in Model)
+{
+    <a href="@Url.Action("Details_Post","Maintenance", new { id = item.PostID })">
+        <img src="~/images/@item.AnhBia"
+             alt="Hình ảnh mô tả"
+             class="small-image test" />
+        <h3>@item.Post_Title</h3>
+        <hr class="black-line">
+    </a>
+}
+

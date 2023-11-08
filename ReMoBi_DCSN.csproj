@@ -592,11 +592,14 @@
     <Content Include="Views\SlugPhone\Index.cshtml" />
     <Content Include="Views\Maintenance\Index.cshtml" />
     <Content Include="Views\ReMoBi\Index.cshtml" />
-    <Content Include="Views\ReMoBi\Details_Post.cshtml" />
     <Content Include="Views\SlugPhone\Details_Post.cshtml" />
     <Content Include="Views\Shared\Admin_Layout.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\ReMoBi\MostLike.cshtml" />
+    <Content Include="Views\ReMoBi\Details_Post.cshtml" />
+    <Content Include="Views\SlugPhone\MostLike.cshtml" />
+    <Content Include="Views\Maintenance\MostLike.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

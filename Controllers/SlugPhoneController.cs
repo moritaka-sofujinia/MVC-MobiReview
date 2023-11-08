@@ -21,7 +21,7 @@ namespace ReMoBi_DCSN.Controllers
         }
         private List<Post> getNewPost(int count)
         {
-            return dbdata.Posts.OrderByDescending(a => a.Post_Tags <= 5).Take(count).ToList();
+            return dbdata.Posts.OrderByDescending(a => a.Post_Date).Where(n => n.Post_Tags>10).Take(count).ToList();
         }
         // GET: Slug_Phone_
         public ActionResult Index(int ?page, string tags)
@@ -42,6 +42,15 @@ namespace ReMoBi_DCSN.Controllers
                        where s.PostID == id
                        select s;
             return View(post.Single());
+        }
+        private List<Post> getMostPostLike(int count)
+        {
+            return dbdata.Posts.OrderByDescending(a => a.luotthich).Where(a => a.Post_Tags <= 10).Take(count).ToList();
+        }
+        public ActionResult MostLike()
+        {
+            var post = getMostPostLike(1);
+            return PartialView(post);
         }
     }
 }

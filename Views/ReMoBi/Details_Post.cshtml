@@ -1,15 +1,17 @@
-﻿@model ReMoBi_DCSN.Models.Post
+﻿@model ReMoBi_DCSN.Models.PostImage
 
 @{
     ViewBag.Title = "Details_Post";
     Layout = "~/Views/Shared/_LayoutPageIndex.cshtml";
 }
 
+
 @{
-    var content = Model.Content_Post;
+    var content = Model.;
     var paragraphCount = 8; // Số đoạn bạn muốn chia
     var contentLength = content.Length;
-    var paragraphs = new List<string>();
+    var paragraphs = new List<string>
+    ();
 
     for (int i = 0; i < paragraphCount; i++)
     {
@@ -26,13 +28,13 @@
     }
 }
 
-@Model.Content_Post
+
 <!-- Tiêu đề bài viết -->
-<h1>@Model.Post_Title</h1>
-<p><strong>Tác giả:</strong> @Model.UserName - <strong>Ngày:</strong> @Model.Post_Date</p>
+<h1>@Model.Post.Post_Title</h1>
+<p><strong>Tác giả:</strong> @Model.Post.Author - <strong>Ngày:</strong> @Model.Post.Post_Date</p>
 
 
-<h3 class="paragraph">@Model.Teaser_Post</h3>
+<h3 class="paragraph">@Model.Post.Teaser_Post</h3>
 
 
 <!-- Nội dung bài viết -->
@@ -40,7 +42,7 @@
 <p class="paragraph">@paragraphs[2]</p>
 
 
-<img src="./images/@Model.image.imagesID"
+<img src="./images/@Model.image.Name_file_images"
      alt="Hình ảnh mô tả"
      class="small-image" />
 <figcaption class="caption">@Model.image.Caption_images</figcaption>
@@ -50,7 +52,7 @@
 <p class="paragraph">@paragraphs[3]</p>
 <p class="paragraph">@paragraphs[4]</p>
 
-<img src="./images/@Model.image.imagesID"
+<img src="./images/@Model.image.Name_file_images"
      alt="Hình ảnh mô tả"
      class="small-image" />
 <figcaption class="caption">@Model.image.Caption_images</figcaption>
@@ -60,7 +62,7 @@
 <p class="paragraph">@paragraphs[5]</p>
 <p class="paragraph">@paragraphs[6]</p>
 
-<img src="./images/@Model.image.imagesID"
+<img src="./images/@Model.image.Name_file_images"
      alt="Hình ảnh mô tả"
      class="small-image" />
 <figcaption class="caption">@Model.image.Caption_images</figcaption>
@@ -69,6 +71,4 @@
 
 <p class="paragraph">@paragraphs[7]</p>
 <p class="paragraph">@paragraphs[8]</p>
-
-
 

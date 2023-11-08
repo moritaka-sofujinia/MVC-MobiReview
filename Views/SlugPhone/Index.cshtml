@@ -6,85 +6,30 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutPageIndex.cshtml";
 }
-
+@section Neartest_Post_Partial
+{
+    @Html.Partial("Neartest_Post_Partial", Model.ToList())
+}
 <main>
     <div class="container pt-5">
         <div class="container">
             <div class="row">
-                @foreach (var item in Model)
+                @Html.Action("MostLike", "SlugPhone")
+
+                @foreach (var post in Model)
+
                 {
-                    <a href="@Url.Action("Details_Post", "SlugPhone", new {id = item.PostID })">
-                        <img src="~/images/@item.image.Name_file_images"
-                             alt="Hình ảnh mô tả"
-                             class="small-image test" />
-                        <h3> @item.Post_Title</h3>
-                        <hr class="black-line">
+                    <a href="@Url.Action("Details_Post","SlugPhone", new {id = post.PostID})" class="news-item">
+                        <br>
+                        <div>
+                            <img src="images/@post.AnhBia" alt="" class="img-fluid float-left">
+                            <h4>@post.Post_Title</h4>
+                            <p>@post.Teaser_Post</p>
+                        </div>
                     </a>
                 }
-                <a href="@Url.Action("New13","SlugPhone")">
-                    <img src="~/images/News13/news13-pic1.png"
-                         alt="Hình ảnh mô tả"
-                         class="small-image test" />
-                    <h3> Huawei ra mắt Mate60 Pro: Màn hình 3 "nốt ruồi", hỗ trợ 5G, giá 23 triệu đồng</h3>
-                    <hr class="black-line">
-                </a>
 
-                <a href="@Url.Action("New4","ReMoBi")" class="news-item">
-                    <br>
-                    <div>
-                        <img src="~/images/News3/news3-pic2.png" alt="" class="img-fluid float-left">
-                        <h4> Xiaomi 13T series chính thức: Camera Leica, chống nước IP68, giá từ 12,99 triệu đồng</h4>
-                        <p> Xiaomi 13T series là dòng sản phẩm T-series đầu tiên của Xiaomi được trang bị camera Leica chất lượng cao.</p>
-                    </div>
-                </a>
 
-                <a href="@Url.Action("New8","ReMoBi")" class="news-item">
-                    <div>
-                        <img src="~/images/News7/news7-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> 'Mổ xẻ' mẫu G22 cực dị của Nokia: Giá chưa đến 4 triệu đồng nhưng có nên mua?</h4>
-                        <p>Nokia G22 trở thành cái tên thu hút nhiều sự chú ý bởi người dùng có thể tự sửa chữa điện thoại một cách dễ dàng.</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New9","ReMoBi")" class="news-item">
-                    <div>
-                        <img src="~/images/News8/news8-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Xiaomi ra mắt máy tính bảng giá rẻ: Màn hình 11 inch, pin 8000mAh, giá dưới 5 triệu đồng</h4>
-                        <p>Redmi Pad SE là mẫu máy tính bảng thuộc phân khúc giá rẻ tới từ Xiaomi</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New10","ReMoBi")" class="news-item">
-                    <div>
-                        <img src="~/images/News9/news9-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Trên tay smartphone Xiaomi có RAM 24GB, sạc 120W giá chưa tới 12 triệu đồng</h4>
-                        <p>Redmi K60 Ultra là mẫu smartphone rẻ nhất trên thị trường trang bị RAM lên tới 24GB</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New11","SlugPhone")" class="news-item">
-                    <div>
-                        <img src="~/images/News11/news11-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Realme ra mắt smartphone sạc 240W, chip Snapdragon 8 Gen 2, RAM 24GB, giá chưa tới 13 triệu đồng</h4>
-                        <p>CRealme GT5 240W là một trong những chiếc smartphone có hiệu năng mạnh mẽ nhất trong phân khúc giá dưới 13 triệu đồng.</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New13","SlugPhone")" class="news-item">
-                    <div>
-                        <img src="~/images/News13/news13-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Huawei ra mắt Mate60 Pro: Màn hình 3 "nốt ruồi", hỗ trợ 5G, giá 23 triệu đồng</h4>
-                        <p>Mate60 Pro đánh dấu sự trở lại của 5G trên các smartphone Huawei sau nhiều năm cấm vận.</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New14","SlugPhone")" class="news-item">
-                    <div>
-                        <img src="~/images/News14/news14-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Samsung ra mắt điện thoại pin 6000mAh, màn hình 120Hz, camera 50MP, giá 7,9 triệu đồng</h4>
-                        <p>Galaxy M34 5G có ưu điểm mạnh mẽ về thời lượng pin, màn hình đẹp kèm camera chụp ảnh đẹp.</p>
-                    </div>
-                </a>
 
                 <div class="MenuPage">
                     @*@Html.PagedListPager(Model, Page => Page == Model.PageNumber ? Url.Action("Book", new { Page = Page }) : Url.Action("Book", new { Page }))*@
@@ -97,3 +42,51 @@
     </div>
 </main>
 
+<script>
+    // JavaScript to handle click events on pagination buttons
+    document.addEventListener('DOMContentLoaded', function () {
+        var paginationItems = document.querySelectorAll('.MenuPage li');
+
+        paginationItems.forEach(function (item) {
+            item.addEventListener('click', function () {
+                var link = this.querySelector('a');
+                if (link) {
+                    window.location.href = link.getAttribute('href');
+                }
+            });
+        });
+    });
+</script>
+<style>
+    .MenuPage {
+        text-align: center;
+        align-content: center;
+        margin-top: 20px;
+    }
+
+        .MenuPage ul {
+            list-style-type: none;
+            padding: 0;
+            display: inline-flex;
+            justify-content: center;
+            text-decoration: none; /* Loại bỏ gạch chân (đối với ActionLink) */
+        }
+
+        .MenuPage li {
+            display: inline-block;
+            margin-right: 5px;
+            border-radius: 50%;
+            background-color: #ddd;
+            width: 50px; /* Kích thước lớn hơn khoảng 50px */
+            height: 50px; /* Kích thước lớn hơn khoảng 50px */
+            text-align: center;
+            line-height: 50px; /* Kích thước lớn hơn khoảng 50px */
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+            .MenuPage li:hover {
+                background-color: #8B4513; /* Màu nâu */
+                color: #F5F5DC; /* Màu beige */
+            }
+</style>

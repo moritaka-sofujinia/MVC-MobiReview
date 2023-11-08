@@ -7,110 +7,29 @@
     Layout = "~/Views/Shared/_LayoutPageIndex.cshtml";
 }
 
+@section Neartest_Post_Partial
+{
+    @Html.Partial("Neartest_Post_Partial", Model.ToList())
+}
 <main>
     <div class="container pt-5">
         <div class="container">
             <div class="row">
 
-                @foreach (var item in Model)
+                @Html.Action("MostLike", "ReMoBi")
+
+                @foreach (var post in Model)
                 {
-                    <a href="@Url.Action("Details_Post","ReMoBi", new {id = item.PostID})">
-                        <img src="~/images/@item.image.Name_file_images"
-                             alt="Hình ảnh mô tả"
-                             class="small-image test" />
-                        <h3>@item.Post_Title</h3>
-                        <hr class="black-line">
+                    <a href="@Url.Action("Details_Post","ReMoBi", new {id = post.PostID})" class="news-item">
+                        <br>
+                        <div>
+                            <img src="images/@post.AnhBia" alt="" class="img-fluid float-left">
+                            <h4>@post.Post_Title</h4>
+                            <p>@post.Teaser_Post</p>
+                        </div>
                     </a>
                 }
-                <a href="@Url.Action("New2","ReMoBi")">
-                    <img src="~/images/News22/news22-pic1.png"
-                         alt="Hình ảnh mô tả"
-                         class="small-image test" />
-                    <h3> Thảm cảnh của Apple: Nguy cơ mất khoản lệ phí hàng tỷ USD từ Google giữa lúc tình hình iPhone 15 đối mặt thách thức</h3>
-                    <hr class="black-line">
-                </a>
 
-
-                <a href="@Url.Action("New1","ReMoBi")" class="news-item">
-                    <br>
-                    <div>
-                        <img src="~/images/News1/news1-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Không có chuyện bộ khung iPhone 15 Pro "mạ titan"</h4>
-                        <p>Clip bóc tách iPhone 15 Pro của một YouTuber giúp người dùng thấy rõ độ dày của lớp Titan trong iPhone 15 Pro.</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New3","ReMoBi")" class="news-item">
-                    <div>
-                        <img src="~/images/News2/news2-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> iPhone 15 bị lỗi quá nhiệt trên diện rộng, chuyên gia nói ‘không thể khắc phục được’ trừ khi Apple chịu làm 1 điều</h4>
-                        <p>Apple chưa bao giờ hết rắc rối với những chiếc iPhone mới ra mắt.</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New4","ReMoBi")" class="news-item">
-                    <div>
-                        <img src="~/images/News3/news3-pic2.png" alt="" class="img-fluid float-left">
-                        <h4> Xiaomi 13T series chính thức: Camera Leica, chống nước IP68, giá từ 12,99 triệu đồng</h4>
-                        <p> Xiaomi 13T series là dòng sản phẩm T-series đầu tiên của Xiaomi được trang bị camera Leica chất lượng cao.</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New5","ReMoBi")" class="news-item">
-                    <div>
-                        <img src="~/images/News4/news4-pic2.png" alt="" class="img-fluid float-left">
-                        <h4> Điểm nhấn cốt lõi làm nên giá trị vượt bậc của Galaxy Z Series</h4>
-                        <p>Hoàn thiện mọi trải nghiệm, Galaxy Z Series ghi dấu trong lòng người yêu công nghệ.</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New6","ReMoBi")" class="news-item">
-                    <div>
-                        <img src="~/images/News5/news5-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Ai sắp mua iPhone 15 phải đọc ngay: Thử nghiệm mới vạch trần 2 lỗi bất thường trên phiên bản Pro và Pro Max</h4>
-                        <p>Các thử nghiệm mới nhất cho thấy iPhone 15 Pro và Pro Max ghi nhận nhiệt độ lên tới 47 độ C</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New7","ReMoBi")" class="news-item">
-                    <div>
-                        <img src="~/images/News6/news6-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Nokia tung mẫu điện thoại cực khủng, chấp cả vòi phun của lính cứu hỏa, đe dọa đánh bại Samsung</h4>
-                        <p>Nó bền tới mức có thể chịu được nước từ vòi phun với áp suất lên tới 100 bar và nhiệt độ nước lên tới 80 độ C</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New8","ReMoBi")" class="news-item">
-                    <div>
-                        <img src="~/images/News7/news7-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> 'Mổ xẻ' mẫu G22 cực dị của Nokia: Giá chưa đến 4 triệu đồng nhưng có nên mua?</h4>
-                        <p>Nokia G22 trở thành cái tên thu hút nhiều sự chú ý bởi người dùng có thể tự sửa chữa điện thoại một cách dễ dàng.</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New9","ReMoBi")" class="news-item">
-                    <div>
-                        <img src="~/images/News8/news8-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Xiaomi ra mắt máy tính bảng giá rẻ: Màn hình 11 inch, pin 8000mAh, giá dưới 5 triệu đồng</h4>
-                        <p>Redmi Pad SE là mẫu máy tính bảng thuộc phân khúc giá rẻ tới từ Xiaomi</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New10","ReMoBi")" class="news-item">
-                    <div>
-                        <img src="~/images/News9/news9-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Trên tay smartphone Xiaomi có RAM 24GB, sạc 120W giá chưa tới 12 triệu đồng</h4>
-                        <p>Redmi K60 Ultra là mẫu smartphone rẻ nhất trên thị trường trang bị RAM lên tới 24GB</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New11","ReMoBi")" class="news-item">
-                    <div>
-                        <img src="~/images/News10/news10-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Vivo ra mắt smartphone tầm trung thiết kế độc đáo, có màn hình cong, camera 50MP</h4>
-                        <p>vivo V29e là mẫu smartphone tầm trung với thiết kế mặt lưng khá đẹp mắt.</p>
-                    </div>
-                </a>
 
                 <div class="MenuPage">
                     @*@Html.PagedListPager(Model, Page => Page == Model.PageNumber ? Url.Action("Book", new { Page = Page }) : Url.Action("Book", new { Page }))*@
@@ -122,4 +41,50 @@
         </div>
     </div>
 </main>
+<script>
+    // JavaScript to handle click events on pagination buttons
+    document.addEventListener('DOMContentLoaded', function () {
+        var paginationItems = document.querySelectorAll('.MenuPage li');
 
+        paginationItems.forEach(function (item) {
+            item.addEventListener('click', function () {
+                var link = this.querySelector('a');
+                if (link) {
+                    window.location.href = link.getAttribute('href');
+                }
+            });
+        });
+    });
+</script>
+<style>
+    .MenuPage {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .MenuPage ul {
+            list-style-type: none;
+            padding: 0;
+            display: inline-flex;
+            justify-content: center;
+            text-decoration: none; /* Loại bỏ gạch chân (đối với ActionLink) */
+        }
+
+        .MenuPage li {
+            display: inline-block;
+            margin-right: 5px;
+            border-radius: 50%;
+            background-color: #ddd;
+            width: 50px; /* Kích thước lớn hơn khoảng 50px */
+            height: 50px; /* Kích thước lớn hơn khoảng 50px */
+            text-align: center;
+            line-height: 50px; /* Kích thước lớn hơn khoảng 50px */
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+            .MenuPage li:hover {
+                background-color: #8B4513; /* Màu nâu */
+                color: #F5F5DC; /* Màu beige */
+            }
+</style>

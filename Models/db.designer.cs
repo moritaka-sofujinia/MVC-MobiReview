@@ -362,13 +362,7 @@ namespace ReMoBi_DCSN.Models
 		
 		private string _Caption_images;
 		
-		private System.Nullable<int> _PostID;
-		
-		private EntitySet<Post> _Posts;
-		
 		private EntityRef<PostImage> _PostImage;
-		
-		private EntityRef<Post> _Post;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -380,15 +374,11 @@ namespace ReMoBi_DCSN.Models
     partial void OnName_file_imagesChanged();
     partial void OnCaption_imagesChanging(string value);
     partial void OnCaption_imagesChanged();
-    partial void OnPostIDChanging(System.Nullable<int> value);
-    partial void OnPostIDChanged();
     #endregion
 		
 		public image()
 		{
-			this._Posts = new EntitySet<Post>(new Action<Post>(this.attach_Posts), new Action<Post>(this.detach_Posts));
 			this._PostImage = default(EntityRef<PostImage>);
-			this._Post = default(EntityRef<Post>);
 			OnCreated();
 		}
 		
@@ -452,43 +442,6 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostID", DbType="Int")]
-		public System.Nullable<int> PostID
-		{
-			get
-			{
-				return this._PostID;
-			}
-			set
-			{
-				if ((this._PostID != value))
-				{
-					if (this._Post.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnPostIDChanging(value);
-					this.SendPropertyChanging();
-					this._PostID = value;
-					this.SendPropertyChanged("PostID");
-					this.OnPostIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="image_Post", Storage="_Posts", ThisKey="imagesID", OtherKey="ImagesID")]
-		public EntitySet<Post> Posts
-		{
-			get
-			{
-				return this._Posts;
-			}
-			set
-			{
-				this._Posts.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="image_PostImage", Storage="_PostImage", ThisKey="imagesID", OtherKey="ImageID", IsUnique=true, IsForeignKey=false)]
 		public PostImage PostImage
 		{
@@ -518,40 +471,6 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Post_image", Storage="_Post", ThisKey="PostID", OtherKey="PostID", IsForeignKey=true)]
-		public Post Post
-		{
-			get
-			{
-				return this._Post.Entity;
-			}
-			set
-			{
-				Post previousValue = this._Post.Entity;
-				if (((previousValue != value) 
-							|| (this._Post.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Post.Entity = null;
-						previousValue.images.Remove(this);
-					}
-					this._Post.Entity = value;
-					if ((value != null))
-					{
-						value.images.Add(this);
-						this._PostID = value.PostID;
-					}
-					else
-					{
-						this._PostID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Post");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -570,18 +489,6 @@ namespace ReMoBi_DCSN.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Posts(Post entity)
-		{
-			this.SendPropertyChanging();
-			entity.image = this;
-		}
-		
-		private void detach_Posts(Post entity)
-		{
-			this.SendPropertyChanging();
-			entity.image = null;
 		}
 	}
 	
@@ -735,8 +642,6 @@ namespace ReMoBi_DCSN.Models
 		
 		private EntitySet<ADMIN> _ADMINs;
 		
-		private EntitySet<Post> _Posts;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -753,7 +658,6 @@ namespace ReMoBi_DCSN.Models
 		{
 			this._ADMIN = default(EntityRef<ADMIN>);
 			this._ADMINs = new EntitySet<ADMIN>(new Action<ADMIN>(this.attach_ADMINs), new Action<ADMIN>(this.detach_ADMINs));
-			this._Posts = new EntitySet<Post>(new Action<Post>(this.attach_Posts), new Action<Post>(this.detach_Posts));
 			OnCreated();
 		}
 		
@@ -859,19 +763,6 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NguoiDung_Post", Storage="_Posts", ThisKey="hovaten", OtherKey="UserName")]
-		public EntitySet<Post> Posts
-		{
-			get
-			{
-				return this._Posts;
-			}
-			set
-			{
-				this._Posts.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -903,18 +794,6 @@ namespace ReMoBi_DCSN.Models
 			this.SendPropertyChanging();
 			entity.NguoiDung1 = null;
 		}
-		
-		private void attach_Posts(Post entity)
-		{
-			this.SendPropertyChanging();
-			entity.NguoiDung = this;
-		}
-		
-		private void detach_Posts(Post entity)
-		{
-			this.SendPropertyChanging();
-			entity.NguoiDung = null;
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Post")]
@@ -925,11 +804,9 @@ namespace ReMoBi_DCSN.Models
 		
 		private int _PostID;
 		
-		private string _UserID;
-		
 		private string _Post_Title;
 		
-		private string _UserName;
+		private string _Author;
 		
 		private System.DateTime _Post_Date;
 		
@@ -939,17 +816,11 @@ namespace ReMoBi_DCSN.Models
 		
 		private int _Post_Tags;
 		
-		private int _ImagesID;
+		private string _AnhBia;
 		
 		private int _luotthich;
 		
-		private EntitySet<image> _images;
-		
 		private EntitySet<PostImage> _PostImages;
-		
-		private EntityRef<image> _image;
-		
-		private EntityRef<NguoiDung> _NguoiDung;
 		
 		private EntityRef<tag> _tag;
 		
@@ -959,12 +830,10 @@ namespace ReMoBi_DCSN.Models
     partial void OnCreated();
     partial void OnPostIDChanging(int value);
     partial void OnPostIDChanged();
-    partial void OnUserIDChanging(string value);
-    partial void OnUserIDChanged();
     partial void OnPost_TitleChanging(string value);
     partial void OnPost_TitleChanged();
-    partial void OnUserNameChanging(string value);
-    partial void OnUserNameChanged();
+    partial void OnAuthorChanging(string value);
+    partial void OnAuthorChanged();
     partial void OnPost_DateChanging(System.DateTime value);
     partial void OnPost_DateChanged();
     partial void OnTeaser_PostChanging(string value);
@@ -973,18 +842,15 @@ namespace ReMoBi_DCSN.Models
     partial void OnContent_PostChanged();
     partial void OnPost_TagsChanging(int value);
     partial void OnPost_TagsChanged();
-    partial void OnImagesIDChanging(int value);
-    partial void OnImagesIDChanged();
+    partial void OnAnhBiaChanging(string value);
+    partial void OnAnhBiaChanged();
     partial void OnluotthichChanging(int value);
     partial void OnluotthichChanged();
     #endregion
 		
 		public Post()
 		{
-			this._images = new EntitySet<image>(new Action<image>(this.attach_images), new Action<image>(this.detach_images));
 			this._PostImages = new EntitySet<PostImage>(new Action<PostImage>(this.attach_PostImages), new Action<PostImage>(this.detach_PostImages));
-			this._image = default(EntityRef<image>);
-			this._NguoiDung = default(EntityRef<NguoiDung>);
 			this._tag = default(EntityRef<tag>);
 			OnCreated();
 		}
@@ -1009,26 +875,6 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
-		public string UserID
-		{
-			get
-			{
-				return this._UserID;
-			}
-			set
-			{
-				if ((this._UserID != value))
-				{
-					this.OnUserIDChanging(value);
-					this.SendPropertyChanging();
-					this._UserID = value;
-					this.SendPropertyChanged("UserID");
-					this.OnUserIDChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Post_Title", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
 		public string Post_Title
 		{
@@ -1049,26 +895,22 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string UserName
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Author", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Author
 		{
 			get
 			{
-				return this._UserName;
+				return this._Author;
 			}
 			set
 			{
-				if ((this._UserName != value))
+				if ((this._Author != value))
 				{
-					if (this._NguoiDung.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserNameChanging(value);
+					this.OnAuthorChanging(value);
 					this.SendPropertyChanging();
-					this._UserName = value;
-					this.SendPropertyChanged("UserName");
-					this.OnUserNameChanged();
+					this._Author = value;
+					this.SendPropertyChanged("Author");
+					this.OnAuthorChanged();
 				}
 			}
 		}
@@ -1157,26 +999,22 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImagesID", DbType="Int NOT NULL")]
-		public int ImagesID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnhBia", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string AnhBia
 		{
 			get
 			{
-				return this._ImagesID;
+				return this._AnhBia;
 			}
 			set
 			{
-				if ((this._ImagesID != value))
+				if ((this._AnhBia != value))
 				{
-					if (this._image.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnImagesIDChanging(value);
+					this.OnAnhBiaChanging(value);
 					this.SendPropertyChanging();
-					this._ImagesID = value;
-					this.SendPropertyChanged("ImagesID");
-					this.OnImagesIDChanged();
+					this._AnhBia = value;
+					this.SendPropertyChanged("AnhBia");
+					this.OnAnhBiaChanged();
 				}
 			}
 		}
@@ -1201,19 +1039,6 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Post_image", Storage="_images", ThisKey="PostID", OtherKey="PostID")]
-		public EntitySet<image> images
-		{
-			get
-			{
-				return this._images;
-			}
-			set
-			{
-				this._images.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Post_PostImage", Storage="_PostImages", ThisKey="PostID", OtherKey="PostID")]
 		public EntitySet<PostImage> PostImages
 		{
@@ -1224,74 +1049,6 @@ namespace ReMoBi_DCSN.Models
 			set
 			{
 				this._PostImages.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="image_Post", Storage="_image", ThisKey="ImagesID", OtherKey="imagesID", IsForeignKey=true)]
-		public image image
-		{
-			get
-			{
-				return this._image.Entity;
-			}
-			set
-			{
-				image previousValue = this._image.Entity;
-				if (((previousValue != value) 
-							|| (this._image.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._image.Entity = null;
-						previousValue.Posts.Remove(this);
-					}
-					this._image.Entity = value;
-					if ((value != null))
-					{
-						value.Posts.Add(this);
-						this._ImagesID = value.imagesID;
-					}
-					else
-					{
-						this._ImagesID = default(int);
-					}
-					this.SendPropertyChanged("image");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NguoiDung_Post", Storage="_NguoiDung", ThisKey="UserName", OtherKey="hovaten", IsForeignKey=true)]
-		public NguoiDung NguoiDung
-		{
-			get
-			{
-				return this._NguoiDung.Entity;
-			}
-			set
-			{
-				NguoiDung previousValue = this._NguoiDung.Entity;
-				if (((previousValue != value) 
-							|| (this._NguoiDung.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._NguoiDung.Entity = null;
-						previousValue.Posts.Remove(this);
-					}
-					this._NguoiDung.Entity = value;
-					if ((value != null))
-					{
-						value.Posts.Add(this);
-						this._UserName = value.hovaten;
-					}
-					else
-					{
-						this._UserName = default(string);
-					}
-					this.SendPropertyChanged("NguoiDung");
-				}
 			}
 		}
 		
@@ -1347,18 +1104,6 @@ namespace ReMoBi_DCSN.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_images(image entity)
-		{
-			this.SendPropertyChanging();
-			entity.Post = this;
-		}
-		
-		private void detach_images(image entity)
-		{
-			this.SendPropertyChanging();
-			entity.Post = null;
 		}
 		
 		private void attach_PostImages(PostImage entity)

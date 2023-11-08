@@ -30,7 +30,7 @@
 @Model.Content_Post
 <!-- Tiêu đề bài viết -->
 <h1>@Model.Post_Title</h1>
-<p><strong>Tác giả:</strong> @Model.UserName - <strong>Ngày:</strong> @Model.Post_Date</p>
+<p><strong>Tác giả:</strong> @Model.Author - <strong>Ngày:</strong> @Model.Post_Date</p>
 
 
 <h3 class="paragraph">@Model.Teaser_Post</h3>
@@ -41,7 +41,7 @@
 <p class="paragraph">@paragraphs[2]</p>
 
 
-<img src="./images/@Model.image.imagesID"
+<img src="./images/@Model.PostImages."
      alt="Hình ảnh mô tả"
      class="small-image" />
 <figcaption class="caption">@Model.image.Caption_images</figcaption>

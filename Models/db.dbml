@@ -14,10 +14,7 @@
       <Column Name="imagesID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Name_file_images" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="Caption_images" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="PostID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="image_Post" Member="Posts" ThisKey="imagesID" OtherKey="ImagesID" Type="Post" />
       <Association Name="image_PostImage" Member="PostImage" ThisKey="imagesID" OtherKey="ImageID" Type="PostImage" Cardinality="One" />
-      <Association Name="Post_image" Member="Post" ThisKey="PostID" OtherKey="PostID" Type="Post" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.KhachHang" Member="KhachHangs">
@@ -35,25 +32,20 @@
       <Column Name="hovaten" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="NguoiDung_ADMIN" Member="ADMIN" ThisKey="UserID" OtherKey="AdminID" Type="ADMIN" Cardinality="One" />
       <Association Name="NguoiDung_ADMIN1" Member="ADMINs" ThisKey="hovaten" OtherKey="hovaten" Type="ADMIN" />
-      <Association Name="NguoiDung_Post" Member="Posts" ThisKey="hovaten" OtherKey="UserName" Type="Post" />
     </Type>
   </Table>
   <Table Name="dbo.Post" Member="Posts">
     <Type Name="Post">
       <Column Name="PostID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="UserID" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
       <Column Name="Post_Title" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="UserName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Author" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Post_Date" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
       <Column Name="Teaser_Post" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="Content_Post" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="Post_Tags" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ImagesID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AnhBia" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="luotthich" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Post_image" Member="images" ThisKey="PostID" OtherKey="PostID" Type="image" />
       <Association Name="Post_PostImage" Member="PostImages" ThisKey="PostID" OtherKey="PostID" Type="PostImage" />
-      <Association Name="image_Post" Member="image" ThisKey="ImagesID" OtherKey="imagesID" Type="image" IsForeignKey="true" />
-      <Association Name="NguoiDung_Post" Member="NguoiDung" ThisKey="UserName" OtherKey="hovaten" Type="NguoiDung" IsForeignKey="true" />
       <Association Name="tag_Post" Member="tag" ThisKey="Post_Tags" OtherKey="TagID" Type="tag" IsForeignKey="true" />
     </Type>
   </Table>

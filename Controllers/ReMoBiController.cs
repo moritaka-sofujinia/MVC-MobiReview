@@ -30,20 +30,30 @@ namespace ReMoBi_DCSN.Controllers
         {
             int pageNum = (page ?? 1);
             int pageSize = 10;
-
+            
             var query = dbdata.Posts.AsQueryable(); // Start with the complete list of books
             var newP = getNewPost(24);
             var newPost = query.OrderBy(n => n.Post_Date);
+            ViewBag.MaxLike = dbdata.Posts.Max(n => n.luotthich);
             return View(newPost.ToPagedList(pageNum,pageSize));
         }
 
         public ActionResult Details_Post(int id)
         {
-            var post = from s in dbdata.Posts 
+            var post = from s in dbdata.PostImages
                        where s.PostID == id 
                        select s;
-            return View(post.Single());
+            return View(post);
         }
-        
+        private List<Post> getMostPostLike(int count)
+        {
+            return dbdata.Posts.OrderByDescending(a => a.luotthich).Take(count).ToList();
+        }
+        [ChildActionOnly]
+        public ActionResult MostLike()
+        {
+            var post = getMostPostLike(1);
+            return PartialView(post);
+        }
     }
 }

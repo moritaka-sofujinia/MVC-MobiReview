@@ -5,101 +5,26 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutPageIndex.cshtml";
 }
-
+@section Neartest_Post_Partial
+{
+    @Html.Partial("Neartest_Post_Partial", Model.ToList())
+}
 <main>
     <div class="container pt-5">
         <div class="container">
             <div class="row">
-                @foreach (var item in Model)
+                @Html.Action("MostLike", "Maintenance")
+                @foreach (var post in Model)
                 {
-                    <a href="@Url.Action("Details_Post", "SlugPhone", new {id = item.PostID })">
-                        <img src="~/images/@item.image.Name_file_images"
-                             alt="Hình ảnh mô tả"
-                             class="small-image test" />
-                        <h3> @item.Post_Title</h3>
-                        <hr class="black-line">
+                    <a href="@Url.Action("Details_Post","Maintenance", new {id = post.PostID})" class="news-item">
+                        <br>
+                        <div>
+                            <img src="~/images/@post.AnhBia" alt="" class="img-fluid float-left">
+                            <h4> @post.Post_Title</h4>
+                            <p>@post.Teaser_Post</p>
+                        </div>
                     </a>
                 }
-                <a href="@Url.Action("New15","Maintenance")">
-                    <img src="~/images/News15/news15-pic1.png"
-                         alt="Hình ảnh mô tả"
-                         class="small-image test" />
-                    <h3> iFixit dùng kính hiển vi để phân tích khả năng sửa chữa của iPhone 15, chấm 4 điểm</h3>
-                    <hr class="black-line">
-                </a>
-
-                <a href="@Url.Action("New16","Maintenance")" class="news-item">
-                    <br>
-                    <div>
-                        <img src="~/images/News16/news16-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Thả rơi và nhúng nước iPhone 15 Pro Max và một loạt smartphone đắt tiền nhất, người thử nghiệm nhận kết quả bất ngờ</h4>
-                        <p>Mới đây, Allstate Protection Plans drop test gây chú ý khi tiến hành thả rơi và ngâm nước một loạt smartphone đắt tiền nhất hiện tại.</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New17","Maintenance")" class="news-item">
-                    <div>
-                        <img src="~/images/News17/news17-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Những thứ không bao giờ nên lưu trữ trên điện thoại để tránh bị rò rỉ thông tin cá nhân</h4>
-                        <p>Hiện nay, nhiều người thường lưu trữ một số thông tin cá nhân trên điện thoại.</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New18","Maintenance")" class="news-item">
-                    <div>
-                        <img src="~/images/News18/news18-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> iPhone 15 vừa mua đã hỏng chỉ vì... xe BMW</h4>
-                        <p>Nếu bạn sở hữu iPhone 15 và xe BMW, đây là điều bạn nên tránh nếu không muốn làm ảnh hưởng tới chiếc iPhone.</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New19","Maintenance")" class="news-item">
-                    <div>
-                        <img src="~/images/News19/news19-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> iOS 17.0.3: iPhone hết nóng nhưng hiệu năng có bị giảm sút?</h4>
-                        <p>Apple chính thức tung bản cập nhật iOS 17.0.3 để xử lý tình trạng quá nhiệt trên dòng iPhone 15 Pro và 15 Pro Max</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New20","Maintenance")" class="news-item">
-                    <div>
-                        <img src="~/images/News20/news20-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Điện thoại sạc nhanh hơn khi ở chế độ tiết kiệm pin?</h4>
-                        <p>"Điện thoại có sạc nhanh hơn khi ở chế độ tiết kiệm pin không?" là câu hỏi hầu hết ai cũng thắc mắc.</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New21","Maintenance")" class="news-item">
-                    <div>
-                        <img src="~/images/News21/news21-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Bao lâu nên khởi động lại smartphone một lần?</h4>
-                        <p>Khởi động lại điện thoại giúp cải thiện hiệu suất, chạy mượt, tăng tuổi thọ máy, tuy nhiên nhiều người không biết bao lâu nên khởi động lại máy một lần.</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New2","ReMoBi")" class="news-item">
-                    <div>
-                        <img src="~/images/News22/news22-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Thảm cảnh của Apple: Nguy cơ mất khoản lệ phí hàng tỷ USD từ Google giữa lúc tình hình iPhone 15 đối mặt thách thức</h4>
-                        <p>Cổ phiếu của Apple đã giảm hơn 7% trong 3 tháng qua vì hàng loạt những thông tin tiêu cực.</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New22","Maintenance")" class="news-item">
-                    <div>
-                        <img src="~/images/News23/news23-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Tim Cook giải thích tại sao Apple luôn bán iPhone mới mỗi năm, dù đề cao bảo vệ môi trường</h4>
-                        <p>Đây là cách Apple ra iPhone mới hàng năm nhưng vẫn bảo vệ môi trường.</p>
-                    </div>
-                </a>
-
-                <a href="@Url.Action("New23","Maintenance")" class="news-item">
-                    <div>
-                        <img src="~/images/News24/news24-pic1.png" alt="" class="img-fluid float-left">
-                        <h4> Sạc điện thoại tối đa bao nhiêu lần trong ngày là tốt nhất, câu trả lời khiến bạn bất ngờ</h4>
-                        <p>Pin được xem "trái tim" của smartphone, đồng thời cũng là một trong các yếu tố quan trọng quyết định chất lượng trải nghiệm của người dùng thiết bị.</p>
-                    </div>
-                </a>
 
                 <div class="MenuPage">
                     @*@Html.PagedListPager(Model, Page => Page == Model.PageNumber ? Url.Action("Book", new { Page = Page }) : Url.Action("Book", new { Page }))*@
@@ -112,3 +37,52 @@
     </div>
 </main>
 
+
+<script>
+    // JavaScript to handle click events on pagination buttons
+    document.addEventListener('DOMContentLoaded', function () {
+        var paginationItems = document.querySelectorAll('.MenuPage li');
+
+        paginationItems.forEach(function (item) {
+            item.addEventListener('click', function () {
+                var link = this.querySelector('a');
+                if (link) {
+                    window.location.href = link.getAttribute('href');
+                }
+            });
+        });
+    });
+</script>
+<style>
+    .MenuPage {
+        text-align: center;
+        align-content: center;
+        margin-top: 20px;
+    }
+
+        .MenuPage ul {
+            list-style-type: none;
+            padding: 0;
+            display: inline-flex;
+            justify-content: center;
+            text-decoration: none; /* Loại bỏ gạch chân (đối với ActionLink) */
+        }
+
+        .MenuPage li {
+            display: inline-block;
+            margin-right: 5px;
+            border-radius: 50%;
+            background-color: #ddd;
+            width: 50px; /* Kích thước lớn hơn khoảng 50px */
+            height: 50px; /* Kích thước lớn hơn khoảng 50px */
+            text-align: center;
+            line-height: 50px; /* Kích thước lớn hơn khoảng 50px */
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+            .MenuPage li:hover {
+                background-color: #8B4513; /* Màu nâu */
+                color: #F5F5DC; /* Màu beige */
+            }
+</style>
