@@ -1,0 +1,236 @@
+﻿@using ReMoBi_DCSN.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<ReMoBi_DCSN.Models.Post>
+
+
+
+@{
+    ViewBag.Title = "Post";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+
+
+<style>
+    /* Style cho đường kẻ đổ bóng */
+    table {
+        width: 150%; /* Đặt chiều rộng của bảng */
+        margin: 0 auto; /* Canh giữa bảng */
+        border-collapse: collapse;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+    }
+
+    table, th, td {
+        border: 1px solid #ddd; /* Đường kẻ đen nhạt */
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+
+    /* Style cho nút chức năng */
+    .action-button {
+        padding: 5px 10px;
+        margin-right: 5px;
+        border: none;
+        border-radius: 5px; /* Bo góc tròn nhẹ */
+        display: inline-block; /* Display buttons in a line */
+        cursor: pointer;
+        width : 70px;
+        padding : 5px;
+    }
+
+    .edit-button {
+        background-color: #FAC60E; /* Màu vàng cho Edit */
+        color: white; /* Màu chữ trắng */
+    }
+
+    .details-button {
+        background-color: #4CAF50; /* Màu xanh lá cho Details */
+        color: white; /* Màu chữ trắng */
+    }
+
+    .delete-button {
+        background-color: #FF5733; /* Màu đỏ cho Delete */
+        color: white; /* Màu chữ trắng */
+    }
+
+    /* Style cho dấu "|" ngăn cách nút chức năng */
+    .separator {
+        color: #333; /* Màu đen nhạt */
+        font-weight: bold;
+        margin: 0 5px;
+    }
+</style>
+
+
+<h2>Danh sách các bài viết</h2>
+<br />
+<hr />
+
+
+
+
+
+
+<div class="search-form row">
+    <div class="col-md-6">
+        <p>
+            @Html.ActionLink("Tạo bài viết", "AddnewPost", null, new { @class = "btn btn-warning" })
+        </p>
+    </div>
+    <div class="col-md-6">
+        <form method="get" action="@Url.Action("Post")">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="tags" placeholder="Search by Tag" />
+                    <input type="text" class="form-control" name="title" placeholder="Search by Title" />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+<br />
+<table class="table">
+
+
+    <tr>
+        <th>
+            Tiêu đề bài viết
+        </th>
+        <th>
+            Tác giả
+        </th>
+        <th>
+            Ngày đăng
+        </th>
+        <th>
+            Teaser
+        </th>
+        <th>
+            Nội dung
+        </th>
+        <th>
+            Dán nhãn
+        </th>
+        <th>
+            Ảnh Bìa
+        </th>
+        <th>
+            Lượt thích
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teaser_Post)
+            </td>
+            <td>
+                @{
+                    int maxLength = 100; // Độ dài tối đa của mô tả
+                    string truncatedMoTa = item.Content_Post.Length <= maxLength
+                        ? item.Content_Post
+                        : item.Content_Post.Substring(0, maxLength) + "...";
+                }
+
+                <p>@truncatedMoTa</p>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tag.Name_Tags)
+            </td>
+            <td>
+                
+                <img src="@Url.Content("~/images/"+ item.AnhBia)" width="120" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.luotthich)
+            </td>
+            <td>
+                <button class="action-button edit-button" onclick="location.href='@Url.Action("EditBook", new { id = item.PostID })'">Edit</button>
+                <br />
+                <button class="action-button details-button" onclick="location.href='@Url.Action("DetailsBook", new { id = item.PostID })'">Details</button>
+                <br />
+                <button class="action-button delete-button" onclick="location.href='@Url.Action("DeleteBook", new { id = item.PostID })'">Delete</button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<div class="MenuPage">
+    @Html.PagedListPager(Model, Page => Page == Model.PageNumber ? Url.Action("Post", new { Page = Page }) : Url.Action("Post", new { Page }))
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+</div>
+
+
+
+
+<style>
+    .MenuPage {
+        text-align: center;
+        margin-top: 20px;
+        text-decoration: none; /* Loại bỏ gạch chân (đối với ActionLink) */
+    }
+
+        .MenuPage ul {
+            list-style-type: none;
+            padding: 0;
+            display: inline-flex;
+            justify-content: center;
+        }
+
+        .MenuPage li {
+            text-decoration: none; /* Loại bỏ gạch chân (đối với ActionLink) */
+            width: 30%;
+            display: inline-block;
+            margin-right: 5px;
+            border-radius: 50%;
+            background-color: #ddd;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+            .MenuPage li:hover {
+                background-color: #007BFF;
+                color: white;
+            }
+</style>
+
+<script>
+    // JavaScript to handle click events on pagination buttons
+    document.addEventListener('DOMContentLoaded', function () {
+        var paginationmodels = document.querySelectorAll('.MenuPage li');
+
+        paginationmodels.forEach(function (model) {
+            model.addEventListener('click', function () {
+                var link = this.querySelector('a');
+                if (link) {
+                    window.location.href = link.getAttribute('href');
+                }
+            });
+        });
+    });
+</script>

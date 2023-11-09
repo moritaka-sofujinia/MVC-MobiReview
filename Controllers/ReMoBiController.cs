@@ -55,5 +55,11 @@ namespace ReMoBi_DCSN.Controllers
             var post = getMostPostLike(1);
             return PartialView(post);
         }
+        [ChildActionOnly]
+        public ActionResult Tags_Partial()
+        {
+            var cd = from c in dbdata.tags select c;
+            return PartialView(cd);
+        }
     }
 }

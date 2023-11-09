@@ -159,26 +159,30 @@
         <section class="section lb m3rem">
             <div class="container">
                 <div class="row">
+                        @*<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                            <div class="sidebar">
+                                @Html.Action("Tags_Partial", "ReMoBi")
+                            </div>
+                        </div>*@
+                        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
 
-                    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-                        
-                        <div class="page-wrapper-home">
-                            @RenderBody()
-                        </div><!-- end page-wrapper -->
-                    </div><!-- end col -->
+                            <div class="page-wrapper-home">
+                                @RenderBody()
+                            </div><!-- end page-wrapper -->
+                        </div><!-- end col -->
 
-                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                        <div class="sidebar">
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                            <div class="sidebar">
 
-                            @Html.Partial("SignUp_Partial")
+                                @Html.Partial("SignUp_Partial")
 
-                            @RenderSection("Neartest_Post_Partial",required : false)
+                                @RenderSection("Neartest_Post_Partial", required: false)
 
-                            @Html.Partial("Adds_Partial")
+                                @Html.Partial("Adds_Partial")
 
-                        </div><!-- end sidebar -->
-                    </div><!-- end col -->
-                </div><!-- end row -->
+                            </div><!-- end sidebar -->
+                        </div><!-- end col -->
+                    </div><!-- end row -->
             </div><!-- end container -->
         </section>
 
