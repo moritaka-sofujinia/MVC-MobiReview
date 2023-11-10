@@ -45,9 +45,6 @@ namespace ReMoBi_DCSN.Models
     partial void InsertPost(Post instance);
     partial void UpdatePost(Post instance);
     partial void DeletePost(Post instance);
-    partial void InsertPostImage(PostImage instance);
-    partial void UpdatePostImage(PostImage instance);
-    partial void DeletePostImage(PostImage instance);
     partial void Inserttag(tag instance);
     partial void Updatetag(tag instance);
     partial void Deletetag(tag instance);
@@ -114,14 +111,6 @@ namespace ReMoBi_DCSN.Models
 			get
 			{
 				return this.GetTable<Post>();
-			}
-		}
-		
-		public System.Data.Linq.Table<PostImage> PostImages
-		{
-			get
-			{
-				return this.GetTable<PostImage>();
 			}
 		}
 		
@@ -362,7 +351,9 @@ namespace ReMoBi_DCSN.Models
 		
 		private string _Caption_images;
 		
-		private EntityRef<PostImage> _PostImage;
+		private System.Nullable<int> _PostID;
+		
+		private EntityRef<Post> _Post;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -374,11 +365,13 @@ namespace ReMoBi_DCSN.Models
     partial void OnName_file_imagesChanged();
     partial void OnCaption_imagesChanging(string value);
     partial void OnCaption_imagesChanged();
+    partial void OnPostIDChanging(System.Nullable<int> value);
+    partial void OnPostIDChanged();
     #endregion
 		
 		public image()
 		{
-			this._PostImage = default(EntityRef<PostImage>);
+			this._Post = default(EntityRef<Post>);
 			OnCreated();
 		}
 		
@@ -442,31 +435,60 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="image_PostImage", Storage="_PostImage", ThisKey="imagesID", OtherKey="ImageID", IsUnique=true, IsForeignKey=false)]
-		public PostImage PostImage
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostID", DbType="Int")]
+		public System.Nullable<int> PostID
 		{
 			get
 			{
-				return this._PostImage.Entity;
+				return this._PostID;
 			}
 			set
 			{
-				PostImage previousValue = this._PostImage.Entity;
+				if ((this._PostID != value))
+				{
+					if (this._Post.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPostIDChanging(value);
+					this.SendPropertyChanging();
+					this._PostID = value;
+					this.SendPropertyChanged("PostID");
+					this.OnPostIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Post_image", Storage="_Post", ThisKey="PostID", OtherKey="PostID", IsForeignKey=true)]
+		public Post Post
+		{
+			get
+			{
+				return this._Post.Entity;
+			}
+			set
+			{
+				Post previousValue = this._Post.Entity;
 				if (((previousValue != value) 
-							|| (this._PostImage.HasLoadedOrAssignedValue == false)))
+							|| (this._Post.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._PostImage.Entity = null;
-						previousValue.image = null;
+						this._Post.Entity = null;
+						previousValue.images.Remove(this);
 					}
-					this._PostImage.Entity = value;
+					this._Post.Entity = value;
 					if ((value != null))
 					{
-						value.image = this;
+						value.images.Add(this);
+						this._PostID = value.PostID;
 					}
-					this.SendPropertyChanged("PostImage");
+					else
+					{
+						this._PostID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Post");
 				}
 			}
 		}
@@ -808,19 +830,19 @@ namespace ReMoBi_DCSN.Models
 		
 		private string _Author;
 		
-		private System.DateTime _Post_Date;
+		private System.Nullable<System.DateTime> _Post_Date;
 		
 		private string _Teaser_Post;
 		
 		private string _Content_Post;
 		
-		private int _Post_Tags;
+		private System.Nullable<int> _TagID;
 		
 		private string _AnhBia;
 		
-		private int _luotthich;
+		private System.Nullable<int> _luotthich;
 		
-		private EntitySet<PostImage> _PostImages;
+		private EntitySet<image> _images;
 		
 		private EntityRef<tag> _tag;
 		
@@ -834,23 +856,23 @@ namespace ReMoBi_DCSN.Models
     partial void OnPost_TitleChanged();
     partial void OnAuthorChanging(string value);
     partial void OnAuthorChanged();
-    partial void OnPost_DateChanging(System.DateTime value);
+    partial void OnPost_DateChanging(System.Nullable<System.DateTime> value);
     partial void OnPost_DateChanged();
     partial void OnTeaser_PostChanging(string value);
     partial void OnTeaser_PostChanged();
     partial void OnContent_PostChanging(string value);
     partial void OnContent_PostChanged();
-    partial void OnPost_TagsChanging(int value);
-    partial void OnPost_TagsChanged();
+    partial void OnTagIDChanging(System.Nullable<int> value);
+    partial void OnTagIDChanged();
     partial void OnAnhBiaChanging(string value);
     partial void OnAnhBiaChanged();
-    partial void OnluotthichChanging(int value);
+    partial void OnluotthichChanging(System.Nullable<int> value);
     partial void OnluotthichChanged();
     #endregion
 		
 		public Post()
 		{
-			this._PostImages = new EntitySet<PostImage>(new Action<PostImage>(this.attach_PostImages), new Action<PostImage>(this.detach_PostImages));
+			this._images = new EntitySet<image>(new Action<image>(this.attach_images), new Action<image>(this.detach_images));
 			this._tag = default(EntityRef<tag>);
 			OnCreated();
 		}
@@ -875,7 +897,7 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Post_Title", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Post_Title", DbType="NVarChar(MAX)")]
 		public string Post_Title
 		{
 			get
@@ -895,7 +917,7 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Author", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Author", DbType="NVarChar(50)")]
 		public string Author
 		{
 			get
@@ -915,8 +937,8 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Post_Date", DbType="SmallDateTime NOT NULL")]
-		public System.DateTime Post_Date
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Post_Date", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> Post_Date
 		{
 			get
 			{
@@ -935,7 +957,7 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Teaser_Post", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Teaser_Post", DbType="NVarChar(MAX)")]
 		public string Teaser_Post
 		{
 			get
@@ -955,7 +977,7 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Content_Post", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Content_Post", DbType="NVarChar(MAX)")]
 		public string Content_Post
 		{
 			get
@@ -975,31 +997,31 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Post_Tags", DbType="Int NOT NULL")]
-		public int Post_Tags
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TagID", DbType="Int")]
+		public System.Nullable<int> TagID
 		{
 			get
 			{
-				return this._Post_Tags;
+				return this._TagID;
 			}
 			set
 			{
-				if ((this._Post_Tags != value))
+				if ((this._TagID != value))
 				{
 					if (this._tag.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnPost_TagsChanging(value);
+					this.OnTagIDChanging(value);
 					this.SendPropertyChanging();
-					this._Post_Tags = value;
-					this.SendPropertyChanged("Post_Tags");
-					this.OnPost_TagsChanged();
+					this._TagID = value;
+					this.SendPropertyChanged("TagID");
+					this.OnTagIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnhBia", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnhBia", DbType="NVarChar(MAX)")]
 		public string AnhBia
 		{
 			get
@@ -1019,8 +1041,8 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_luotthich", DbType="Int NOT NULL")]
-		public int luotthich
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_luotthich", DbType="Int")]
+		public System.Nullable<int> luotthich
 		{
 			get
 			{
@@ -1039,20 +1061,20 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Post_PostImage", Storage="_PostImages", ThisKey="PostID", OtherKey="PostID")]
-		public EntitySet<PostImage> PostImages
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Post_image", Storage="_images", ThisKey="PostID", OtherKey="PostID")]
+		public EntitySet<image> images
 		{
 			get
 			{
-				return this._PostImages;
+				return this._images;
 			}
 			set
 			{
-				this._PostImages.Assign(value);
+				this._images.Assign(value);
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tag_Post", Storage="_tag", ThisKey="Post_Tags", OtherKey="TagID", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tag_Post", Storage="_tag", ThisKey="TagID", OtherKey="TagID", IsForeignKey=true)]
 		public tag tag
 		{
 			get
@@ -1075,11 +1097,11 @@ namespace ReMoBi_DCSN.Models
 					if ((value != null))
 					{
 						value.Posts.Add(this);
-						this._Post_Tags = value.TagID;
+						this._TagID = value.TagID;
 					}
 					else
 					{
-						this._Post_Tags = default(int);
+						this._TagID = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("tag");
 				}
@@ -1106,184 +1128,16 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		private void attach_PostImages(PostImage entity)
+		private void attach_images(image entity)
 		{
 			this.SendPropertyChanging();
 			entity.Post = this;
 		}
 		
-		private void detach_PostImages(PostImage entity)
+		private void detach_images(image entity)
 		{
 			this.SendPropertyChanging();
 			entity.Post = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PostImages")]
-	public partial class PostImage : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _PostID;
-		
-		private int _ImageID;
-		
-		private EntityRef<image> _image;
-		
-		private EntityRef<Post> _Post;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnPostIDChanging(int value);
-    partial void OnPostIDChanged();
-    partial void OnImageIDChanging(int value);
-    partial void OnImageIDChanged();
-    #endregion
-		
-		public PostImage()
-		{
-			this._image = default(EntityRef<image>);
-			this._Post = default(EntityRef<Post>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostID", DbType="Int NOT NULL")]
-		public int PostID
-		{
-			get
-			{
-				return this._PostID;
-			}
-			set
-			{
-				if ((this._PostID != value))
-				{
-					if (this._Post.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnPostIDChanging(value);
-					this.SendPropertyChanging();
-					this._PostID = value;
-					this.SendPropertyChanged("PostID");
-					this.OnPostIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int ImageID
-		{
-			get
-			{
-				return this._ImageID;
-			}
-			set
-			{
-				if ((this._ImageID != value))
-				{
-					if (this._image.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnImageIDChanging(value);
-					this.SendPropertyChanging();
-					this._ImageID = value;
-					this.SendPropertyChanged("ImageID");
-					this.OnImageIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="image_PostImage", Storage="_image", ThisKey="ImageID", OtherKey="imagesID", IsForeignKey=true)]
-		public image image
-		{
-			get
-			{
-				return this._image.Entity;
-			}
-			set
-			{
-				image previousValue = this._image.Entity;
-				if (((previousValue != value) 
-							|| (this._image.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._image.Entity = null;
-						previousValue.PostImage = null;
-					}
-					this._image.Entity = value;
-					if ((value != null))
-					{
-						value.PostImage = this;
-						this._ImageID = value.imagesID;
-					}
-					else
-					{
-						this._ImageID = default(int);
-					}
-					this.SendPropertyChanged("image");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Post_PostImage", Storage="_Post", ThisKey="PostID", OtherKey="PostID", IsForeignKey=true)]
-		public Post Post
-		{
-			get
-			{
-				return this._Post.Entity;
-			}
-			set
-			{
-				Post previousValue = this._Post.Entity;
-				if (((previousValue != value) 
-							|| (this._Post.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Post.Entity = null;
-						previousValue.PostImages.Remove(this);
-					}
-					this._Post.Entity = value;
-					if ((value != null))
-					{
-						value.PostImages.Add(this);
-						this._PostID = value.PostID;
-					}
-					else
-					{
-						this._PostID = default(int);
-					}
-					this.SendPropertyChanged("Post");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -1355,7 +1209,7 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tag_Post", Storage="_Posts", ThisKey="TagID", OtherKey="Post_Tags")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tag_Post", Storage="_Posts", ThisKey="TagID", OtherKey="TagID")]
 		public EntitySet<Post> Posts
 		{
 			get

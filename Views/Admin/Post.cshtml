@@ -14,7 +14,7 @@
 <style>
     /* Style cho đường kẻ đổ bóng */
     table {
-        width: 150%; /* Đặt chiều rộng của bảng */
+        width: 1000px; /* Đặt chiều rộng của bảng */
         margin: 0 auto; /* Canh giữa bảng */
         border-collapse: collapse;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Đổ bóng */
@@ -42,17 +42,17 @@
     }
 
     .edit-button {
-        background-color: #FAC60E; /* Màu vàng cho Edit */
+        background-color: #00B8A9; /* Màu vàng cho Edit */
         color: white; /* Màu chữ trắng */
     }
 
     .details-button {
-        background-color: #4CAF50; /* Màu xanh lá cho Details */
+        background-color: #71C9CE; /* Màu xanh lá cho Details */
         color: white; /* Màu chữ trắng */
     }
 
     .delete-button {
-        background-color: #FF5733; /* Màu đỏ cho Delete */
+        background-color: #FF2E63; /* Màu đỏ cho Delete */
         color: white; /* Màu chữ trắng */
     }
 
@@ -73,34 +73,33 @@
 
 
 
-
-<div class="search-form row">
+<div class="search-form row" >
     <div class="col-md-6">
         <p>
-            @Html.ActionLink("Tạo bài viết", "AddnewPost", null, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Tạo bài viết", "AddnewPost", null, new { @class = "btn btn-outline-secondary m-1" })    
         </p>
     </div>
+    
     <div class="col-md-6">
         <form method="get" action="@Url.Action("Post")">
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="tags" placeholder="Search by Tag" />
-                    <input type="text" class="form-control" name="title" placeholder="Search by Title" />
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary">Search</button>
+                    <input type="text" class="form-control" name="tags" placeholder="Search by Tag" style="background-color: #EEEEEE"/>
+                    <input type="text" class="form-control" name="title" placeholder="Search by Title"  style="background-color: #EEEEEE"/>
+                    <div class="input-group-append" style="padding-left: 5px">
+                        <button type="submit" class="btn btn-primary" style="background-color: #00ADB5">Search</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
 </div>
-
 <hr />
 <br />
-<table class="table">
+<table class="table" style="background-color: #EEEEEE">
 
 
-    <tr>
+    <tr style="background-color: #27374D; color: #DDE6ED ">
         <th>
             Tiêu đề bài viết
         </th>
@@ -131,19 +130,19 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td style="color: #1E212D ">
                 @Html.DisplayFor(modelItem => item.Post_Title)
             </td>
-            <td>
+            <td style="color: #1E212D ">
                 @Html.DisplayFor(modelItem => item.Author)
             </td>
-            <td>
+            <td style="color: #1E212D ">
                 @Html.DisplayFor(modelItem => item.Post_Date)
             </td>
-            <td>
+            <td style="color: #1E212D ">
                 @Html.DisplayFor(modelItem => item.Teaser_Post)
             </td>
-            <td>
+            <td style="color: #1E212D ">
                 @{
                     int maxLength = 100; // Độ dài tối đa của mô tả
                     string truncatedMoTa = item.Content_Post.Length <= maxLength
@@ -153,29 +152,29 @@
 
                 <p>@truncatedMoTa</p>
             </td>
-            <td>
+            <td style="color: #1E212D ">
                 @Html.DisplayFor(modelItem => item.tag.Name_Tags)
             </td>
             <td>
                 
                 <img src="@Url.Content("~/images/"+ item.AnhBia)" width="120" />
             </td>
-            <td>
+            <td style="color: #1E212D ">
                 @Html.DisplayFor(modelItem => item.luotthich)
             </td>
             <td>
-                <button class="action-button edit-button" onclick="location.href='@Url.Action("EditBook", new { id = item.PostID })'">Edit</button>
+                <button class="action-button edit-button" onclick="location.href='@Url.Action("EditPost", new { id = item.PostID })'">Edit</button>
                 <br />
                 <button class="action-button details-button" onclick="location.href='@Url.Action("DetailsBook", new { id = item.PostID })'">Details</button>
                 <br />
-                <button class="action-button delete-button" onclick="location.href='@Url.Action("DeleteBook", new { id = item.PostID })'">Delete</button>
+                <button class="action-button delete-button" onclick="location.href='@Url.Action("DeletePost", new { id = item.PostID })'">Delete</button>
             </td>
         </tr>
     }
 
 </table>
 
-
+<br />
 <div class="MenuPage">
     @Html.PagedListPager(Model, Page => Page == Model.PageNumber ? Url.Action("Post", new { Page = Page }) : Url.Action("Post", new { Page }))
     Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount

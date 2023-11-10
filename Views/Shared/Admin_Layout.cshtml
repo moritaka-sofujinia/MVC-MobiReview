@@ -20,7 +20,7 @@
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
          data-sidebar-position="fixed" data-header-position="fixed">
         <!-- Sidebar Start -->
-        <aside class="left-sidebar">
+        <aside class="left-sidebar" style="background-color: #222831; color: white;">
             <!-- Sidebar scroll-->
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
@@ -36,27 +36,27 @@
                     <ul id="sidebarnav">
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">Home</span>
+                            <span class="hide-menu" style=" color: white;">Home</span>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="./index.html" aria-expanded="false">
+                            <a class="sidebar-link" href="@Url.Action("Index","Admin")" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-layout-dashboard"></i>
                                 </span>
-                                <span class="hide-menu"> SOME THING</span>
+                                <span class="hide-menu" style=" color: white;">Dashbroad</span>
                             </a>
 
                         </li>
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">POST</span>
+                            <span class="hide-menu" style=" color: white;">POST</span>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="@Url.Action("Post","Admin")" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-article"></i>
                                 </span>
-                                <span class="hide-menu">CREATE NEW</span>
+                                <span class="hide-menu" style=" color: white;">Show</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -64,7 +64,7 @@
                                 <span>
                                     <i class="ti ti-alert-circle"></i>
                                 </span>
-                                <span class="hide-menu">DELETE ALL</span>
+                                <span class="hide-menu" style=" color: white;">Create</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -72,19 +72,19 @@
                                 <span>
                                     <i class="ti ti-cards"></i>
                                 </span>
-                                <span class="hide-menu">MORE...</span>
+                                <span class="hide-menu" style=" color: white;">more...</span>
                             </a>
                         </li>
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">ADDS</span>
+                            <span class="hide-menu" style=" color: white;">ADDS</span>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-login"></i>
                                 </span>
-                                <span class="hide-menu">CREATE NEW</span>
+                                <span class="hide-menu" style=" color: white;">Show</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -92,7 +92,7 @@
                                 <span>
                                     <i class="ti ti-user-plus"></i>
                                 </span>
-                                <span class="hide-menu">DELETE ALL</span>
+                                <span class="hide-menu" style=" color: white;">Create</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -100,22 +100,37 @@
                                 <span>
                                     <i class="ti ti-user-plus"></i>
                                 </span>
-                                <span class="hide-menu">MORE...</span>
+                                <span class="hide-menu" style=" color: white;">more...</span>
                             </a>
                         </li>
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">USER</span>
+                            <span class="hide-menu" style=" color: white;">USER</span>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-mood-happy"></i>
                                 </span>
-                                <span class="hide-menu">CREATE NEW</span>
+                                <span class="hide-menu" style=" color: white;">Show</span>
                             </a>
                         </li>
-                        
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-mood-happy"></i>
+                                </span>
+                                <span class="hide-menu" style=" color: white;">Create</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-mood-happy"></i>
+                                </span>
+                                <span class="hide-menu" style=" color: white;">more..</span>
+                            </a>
+                        </li>
                     </ul>
 
                 </nav>
@@ -128,7 +143,7 @@
         <div class="body-wrapper">
             @Html.Partial("Admin_Partial")
 
-            <div class="container-fluid">
+            <div style="padding : 30px;">
                 @RenderBody()
             </div>
         </div>

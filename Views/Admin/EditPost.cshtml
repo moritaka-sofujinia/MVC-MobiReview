@@ -1,0 +1,192 @@
+﻿@model ReMoBi_DCSN.Models.Post
+
+@{
+    ViewBag.Title = "EditPost";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<style>
+    .width-text-box {
+        width: 160px;
+    }
+
+    .form-group {
+        clear: both;
+        margin-bottom: 15px;
+    }
+
+    .control-label {
+        float: left;
+        width: 30%; /* Độ rộng của label */
+        font-weight: bold;
+        padding-top: 7px;
+        text-align: right;
+        margin-right: 30px; /* Thêm khoảng cách giữa label và ô textbox */
+    }
+
+    .form-control {
+        width: 50%; /* Độ rộng của control */
+        display: inline-block;
+    }
+
+    .form-actions {
+        text-align: right;
+        margin-top: 30px; /* Thêm khoảng cách giữa các field và nút */
+    }
+
+        .form-actions .btn {
+            margin-left: 10px;
+        }
+
+    .ckeditor-container {
+        width: 50%; /* Độ rộng của CKEditor (có thể điều chỉnh) */
+        display: inline-block;
+        float: right; /* Đưa CKEditor về phía bên phải */
+        margin-right: 0; /* Xóa margin bên phải (nếu có) */
+    }
+</style>
+<style>
+    /* Style cho nút "Save" và "Back to List" */
+    .button-container {
+        text-align: center; /* Căn giữa nút theo chiều ngang */
+        margin-left: -440px; /* Khoảng cách từ đỉnh trang */
+    }
+
+    .save-button,
+    .back-button {
+        width: 160px; /* Độ rộng cố định cho cả hai nút */
+        margin: 0 auto; /* Căn giữa theo chiều ngang */
+        display: inline-block; /* Hiển thị trên cùng một dòng */
+        background-color: #007BFF; /* Màu xanh dương cho Save */
+        color: white; /* Màu chữ trắng */
+        border: none;
+        border-radius: 5px; /* Bo góc tròn nhẹ */
+        padding: 10px 20px;
+        font-size: 18px; /* Kích thước chữ lớn hơn */
+        cursor: pointer;
+        text-decoration: none; /* Loại bỏ gạch chân (đối với ActionLink) */
+        text-align: center;
+        margin: 10px 0; /* Thêm khoảng cách giữa nút và các element xung quanh */
+    }
+
+    .back-button {
+        background-color: #333; /* Màu đen nhạt cho Back to List */
+    }
+</style>
+
+<script src="//cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+<h2>EditPost</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.PostID)
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.TagID, "Mã bài viết", htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label for="PostID" class="control-label">Mã Bài Viết</label>
+            <div class="col-md-10">
+                <div style="font:18px ; padding : 5px 0 0 5px"> @Model.PostID </div>
+                @Html.ValidationMessageFor(model => model.PostID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.Post_Title, "Tiêu đề", htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label for="Post_Title" class="control-label">Tiêu Đề</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Post_Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Post_Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.Author,"Tác giả", htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label for="Author" class="control-label">Tác giả</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.Post_Date, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label for="Post_Date" class="control-label">Ngày đăng</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Post_Date, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="date" name="Ngaycapnhat" />
+                @Html.ValidationMessageFor(model => model.Post_Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.Teaser_Post, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label for="Teaser_Post" class="control-label">Teaser</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Teaser_Post, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Teaser_Post, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.Content_Post, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label for="Content_Post" class="control-label">Nội dung</label>
+            <div class="col-md-10">
+                <div style="position: relative; width: 60%; display: inline-block;">
+                    @Html.TextAreaFor(model => model.Content_Post, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                @Html.ValidationMessageFor(model => model.Content_Post, "", new { @class = "text-danger" })
+                <script>
+                    CKEDITOR.replace("Content_Post", { width: "100%", height: "200px" });
+                </script>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.TagID, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label for="TagID" class="control-label">Nhãn dán</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TagID, (SelectList)ViewBag.TagID, "Chọn nhãn dán", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TagID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.AnhBia, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label for="AnhBia" class="control-label">Ảnh Bìa</label>
+            <div class="col-md-10">
+                <div style="display: flex; align-models: center;">
+                    @Html.EditorFor(model => model.AnhBia, new { htmlAttributes = new { @class = "form-control" } })
+                    <input type="file" name="fileupload" style="margin-left: 10px; flex: 1;" />
+                    <img src="@Url.Content("~/images/"+ Model.AnhBia)" width="120" style="flex: 1;" /> (Current Picture)
+                </div>
+                @Html.ValidationMessageFor(model => model.AnhBia, "", new { @class = "text-danger" })
+                @ViewBag.ThongBao
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.luotthich, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <label for="LuotThich" class="control-label">Lượt thích</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.luotthich, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.luotthich, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <hr />
+        <div class="form-group">
+            <div class="form-group button-container">
+                @Html.ActionLink("Back to List", "Post", null, new { @class = "back-button" })
+                <input type="submit" value="Save" class="save-button" />
+            </div>
+        </div>
+    </div>
+}
+
+

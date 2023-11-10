@@ -14,7 +14,8 @@
       <Column Name="imagesID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Name_file_images" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="Caption_images" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="image_PostImage" Member="PostImage" ThisKey="imagesID" OtherKey="ImageID" Type="PostImage" Cardinality="One" />
+      <Column Name="PostID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Post_image" Member="Post" ThisKey="PostID" OtherKey="PostID" Type="Post" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.KhachHang" Member="KhachHangs">
@@ -37,31 +38,23 @@
   <Table Name="dbo.Post" Member="Posts">
     <Type Name="Post">
       <Column Name="PostID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Post_Title" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="Author" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Post_Date" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
-      <Column Name="Teaser_Post" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="Content_Post" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="Post_Tags" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="AnhBia" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="luotthich" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Post_PostImage" Member="PostImages" ThisKey="PostID" OtherKey="PostID" Type="PostImage" />
-      <Association Name="tag_Post" Member="tag" ThisKey="Post_Tags" OtherKey="TagID" Type="tag" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.PostImages" Member="PostImages">
-    <Type Name="PostImage">
-      <Column Name="PostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ImageID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="image_PostImage" Member="image" ThisKey="ImageID" OtherKey="imagesID" Type="image" IsForeignKey="true" />
-      <Association Name="Post_PostImage" Member="Post" ThisKey="PostID" OtherKey="PostID" Type="Post" IsForeignKey="true" />
+      <Column Name="Post_Title" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Author" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Post_Date" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="Teaser_Post" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Content_Post" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TagID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AnhBia" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="luotthich" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Post_image" Member="images" ThisKey="PostID" OtherKey="PostID" Type="image" />
+      <Association Name="tag_Post" Member="tag" ThisKey="TagID" OtherKey="TagID" Type="tag" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.tags" Member="tags">
     <Type Name="tag">
       <Column Name="TagID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Name_Tags" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="tag_Post" Member="Posts" ThisKey="TagID" OtherKey="Post_Tags" Type="Post" />
+      <Association Name="tag_Post" Member="Posts" ThisKey="TagID" OtherKey="TagID" Type="Post" />
     </Type>
   </Table>
 </Database>

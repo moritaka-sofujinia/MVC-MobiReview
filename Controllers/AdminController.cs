@@ -110,26 +110,103 @@ namespace ReMoBi_DCSN.Controllers
         [HttpGet]
         public ActionResult AddnewPost() 
         {
-            ViewBag.TagID = new SelectList(dbdata.tags.ToList().OrderBy(n => n.Name_Tags), "TagID", "Name_Tags");
+            ViewBag.TagID = new SelectList(dbdata.tags.ToList().OrderBy(n => n.TagID), "TagID", "Name_Tags");
             return View();
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult AddnewPost(Post post, HttpPostedFileBase file)
-        
+        public ActionResult AddnewPost(Post post, HttpPostedFileBase fileupload)
         {
-            if(file == null)
+            ViewBag.TagID = new SelectList(dbdata.tags.ToList().OrderBy(n => n.TagID), "TagID", "Name_Tags");
+            if (fileupload == null)
             {
                 ViewBag.thongbao = "Vui long chon anh bia cho bai viet";
+                
                 return View();
             }
             else
             {
                 if (ModelState.IsValid)
                 {
-                    var filename = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/images/Slider/"), filename);
+                    var filename = Path.GetFileName(fileupload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/images/"), filename);
+                    if (System.IO.File.Exists(path))
+                    {
+                        ViewBag.ThongBao = "Hinh anh da ton tai !";
+                    }
+                    else
+                    {
+                        fileupload.SaveAs(path);
+                    }
+                    post.AnhBia = filename;
+                    dbdata.Posts.InsertOnSubmit(post);
+                    dbdata.SubmitChanges();
+                }
+            }
+            
+            return RedirectToAction("Post");
+        }
+        public ActionResult DeletePost(int id)
+        {
+            Post post = dbdata.Posts.SingleOrDefault(n => n.PostID == id);
+            ViewBag.PostID = post.PostID;
+            if (post == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            return View(post);
+        }
+        [HttpPost, ActionName("DeletePost")]
+        public ActionResult ConfrimDeleteBook(int id)
+        {
+            Post post = dbdata.Posts.SingleOrDefault(n => n.PostID == id);
+            ViewBag.PostID = post.PostID;
+            if (post == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            dbdata.Posts.DeleteOnSubmit(post);
+            dbdata.SubmitChanges();
+            return RedirectToAction("Post");
+        }
+
+
+
+        [HttpGet]
+        public ActionResult EditPost(int id)
+        {
+            Post post = dbdata.Posts.SingleOrDefault(n => n.PostID == id);
+
+            if (post == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            ViewBag.TagID = new SelectList(dbdata.tags.ToList().OrderBy(n => n.Name_Tags), "TagID", "Name_Tags", post.TagID);
+            return View(post);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult EditPost(Post post, HttpPostedFileBase fileupload)
+        {
+
+            ViewBag.TagID = new SelectList(dbdata.tags.ToList().OrderBy(n => n.Name_Tags), "TagID", "Name_Tags", post.TagID);
+
+            if (fileupload == null)
+            {
+                ViewBag.ThongBao = "Vui long chon Anh Bia !";
+                return View();
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var filename = Path.GetFileName(fileupload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/images/"), filename);
                     if (System.IO.File.Exists(path))
                     {
                         ViewBag.ThongBao = "Hinh anh da ton tai !";
@@ -137,14 +214,17 @@ namespace ReMoBi_DCSN.Controllers
                     }
                     else
                     {
-                        file.SaveAs(path);
+                        fileupload.SaveAs(path);
                     }
                     post.AnhBia = filename;
-                    dbdata.Posts.InsertOnSubmit(post);
+                    UpdateModel(post);
                     dbdata.SubmitChanges();
                 }
+                return RedirectToAction("Post");
             }
-            return RedirectToAction("Post");
         }
+
+
+
     }
 }

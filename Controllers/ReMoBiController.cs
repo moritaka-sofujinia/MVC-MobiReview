@@ -40,7 +40,7 @@ namespace ReMoBi_DCSN.Controllers
 
         public ActionResult Details_Post(int id)
         {
-            var post = from s in dbdata.PostImages
+            var post = from s in dbdata.Posts
                        where s.PostID == id 
                        select s;
             return View(post);

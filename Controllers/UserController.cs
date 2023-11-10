@@ -90,7 +90,7 @@ namespace ReMoBi_DCSN.Controllers
         public ActionResult Logout()
         {
             Session["TaiKhoan"] = null;//remove session
-            return RedirectToAction("Index", "ReMobi");
+            return RedirectToAction("Login", "Admin");
         }
 
         // Get: Đăng kí
