@@ -902,8 +902,10 @@
     <Content Include="images\flogo.png" />
     <Content Include="images\footer.png" />
     <Content Include="images\hover.png" />
+    <Content Include="images\Index.png" />
     <Content Include="images\loader.gif" />
     <Content Include="images\logo.png" />
+    <Content Include="images\manage.png" />
     <Content Include="images\market-logo1.png" />
     <Content Include="images\menubg.jpg" />
     <Content Include="images\News10\news10-pic1.png" />
@@ -1016,6 +1018,7 @@
     <Content Include="images\News9\news9-pic8.png" />
     <Content Include="images\News9\news9-pic9.png" />
     <Content Include="images\News9\news9-small-90x90.png" />
+    <Content Include="images\User.png" />
     <Content Include="images\version\market-logo.png" />
     <Content Include="images\version\market-logo1 - Copy.png" />
     <Content Include="images\version\market-logo1.gif" />
@@ -1573,6 +1576,7 @@
     <Content Include="Views\ReMoBi\Details_Post.cshtml" />
     <Content Include="Views\Admin\AddnewPost.cshtml" />
     <Content Include="Views\Admin\EditPost.cshtml" />
+    <Content Include="Views\Admin\ProFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

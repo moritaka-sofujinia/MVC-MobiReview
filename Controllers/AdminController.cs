@@ -223,7 +223,11 @@ namespace ReMoBi_DCSN.Controllers
                 return RedirectToAction("Post");
             }
         }
-
+        public ActionResult ProFile(string mkh)
+        {
+            var ttcn = from c in dbdata.ADMINs where c.hovaten == mkh select c;
+            return View(ttcn);
+        }
 
 
     }
