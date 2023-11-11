@@ -20,21 +20,21 @@
 <body>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <div class="container">
+    <div class="container" style="padding-top: 50px">
         <div>
             <div class="card">
                 <div class="card-header" style="background-image: url(
                     https://images.unsplash.com/photo-1540228232483-1b64a7024923?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80);">
                     <div class="card-photo">
-                        <img src="~/images//BackGround_Login.jpg" alt="">
+                        <img src="~/images/BackGround_Login.jpg" alt="">
                     </div>
                 </div>
                 <div class="card-body">
                     <h3 class="card-name" style="color:whitesmoke;">@ad.hovaten</h3>
                     <p class="card-description">User Interface Designer and <br />front-end developer</p>
                     <div class="card-button">
-                        <button class="btn btn-primary">Massage</button>
-                        <button class="btn btn-outline-primary">Following</button>
+                        <button class="btn btn-primary">See More</button>
+                        <button class="btn btn-outline-primary"><a href="@Url.Action("EditProFile","Admin", new {id = ad.AdminID})">Change</a></button>
                     </div>
                     <ul class="card-social">
                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>

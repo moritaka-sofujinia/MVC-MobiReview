@@ -873,11 +873,13 @@
     <Content Include="css\bootstrap\bootstrap.min.css" />
     <Content Include="css\carousel.css" />
     <Content Include="css\colors.css" />
+    <Content Include="css\EditProfile.css" />
     <Content Include="css\font-awesome.css" />
     <Content Include="css\font-awesome.min.css" />
     <Content Include="css\new_two.css" />
     <Content Include="css\open-iconic\font\css\open-iconic-bootstrap.min.css" />
     <Content Include="css\open-iconic\font\fonts\open-iconic.svg" />
+    <Content Include="css\profile.css" />
     <Content Include="css\responsive.css" />
     <Content Include="css\site.css" />
     <Content Include="css\tags.css" />
@@ -1577,6 +1579,9 @@
     <Content Include="Views\Admin\AddnewPost.cshtml" />
     <Content Include="Views\Admin\EditPost.cshtml" />
     <Content Include="Views\Admin\ProFile.cshtml" />
+    <Content Include="Views\Admin\EditProFile.cshtml" />
+    <Content Include="Views\Admin\TheUser.cshtml" />
+    <Content Include="Views\Admin\TheCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

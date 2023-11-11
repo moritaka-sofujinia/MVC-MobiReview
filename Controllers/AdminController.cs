@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -223,12 +224,88 @@ namespace ReMoBi_DCSN.Controllers
                 return RedirectToAction("Post");
             }
         }
+
+
+        //ADMIN_profile
         public ActionResult ProFile(string mkh)
         {
             var ttcn = from c in dbdata.ADMINs where c.hovaten == mkh select c;
             return View(ttcn);
         }
 
+        //ADMIN_EDIT_PROFILES
+        [HttpGet]
+        public ActionResult EditProFile(int id)
+        {
+            ADMIN ad = dbdata.ADMINs.Where(n => n.AdminID == id).FirstOrDefault();
+            return View(ad);
+        }
 
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult EditProFile(ADMIN ad, FormCollection form)
+        {
+            var username = form["username"];
+            var password = form["password"];
+            var hovaten = form["hovaten"];
+
+            if(ModelState.IsValid)
+            {
+                ad.hovaten = hovaten;
+                ad.username = username;
+                ad.password = password;
+                UpdateModel(ad);
+                dbdata.SubmitChanges();
+                return RedirectToAction("ProFile");
+            }
+            else
+            {
+                return RedirectToAction("EdiProFile");
+            }
+            
+        }
+
+
+        //get : User
+        public ActionResult TheUser(int? page, string Name, string Role)
+        {
+            int pageNum = (page ?? 1);
+            int pageSize = 5;
+
+            var query = dbdata.NguoiDungs.AsQueryable();
+
+            if (!string.IsNullOrEmpty(Name))
+            {
+                // Filter by User name
+                query = query.Where(b => b.hovaten.Contains(Name));
+            }
+
+            if (!string.IsNullOrEmpty(Role))
+            {
+                // Filter by book name
+                query = query.Where(b => b.vaitro.Contains(Role));
+            }
+
+            //return View(db.SACHes.ToList().OrderBy(n => n.MaSach).ToPagedList(pagenumber,pageSize));
+            return View(query.OrderBy(n => n.UserID).ToPagedList(pageNum, pageSize));
+        }
+
+
+
+        public ActionResult TheCustomer(int? page, string Name)
+        {
+            int pageNum = (page ?? 1);
+            int pageSize = 5;
+
+            var query = dbdata.KhachHangs.AsQueryable();
+
+            if (!string.IsNullOrEmpty(Name))
+            {
+                // Filter by User name
+                query = query.Where(b => b.hovaten.Contains(Name));
+            }
+            //return View(db.SACHes.ToList().OrderBy(n => n.MaSach).ToPagedList(pagenumber,pageSize));
+            return View(query.OrderBy(n => n.KhID).ToPagedList(pageNum, pageSize));
+        }
     }
 }
