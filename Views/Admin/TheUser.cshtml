@@ -71,7 +71,7 @@
 <div class="search-form row">
     <div class="col-md-6">
         <p>
-            @Html.ActionLink("Create new User", "AddnewPost", null, new { @class = "btn btn-outline-secondary m-1" })
+            @Html.ActionLink("Create new User", "AddnewUser", null, new { @class = "btn btn-outline-secondary m-1" })
         </p>
     </div>
 
@@ -79,8 +79,8 @@
         <form method="get" action="@Url.Action("TheUser")">
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="tags" placeholder="Search by Name" style="background-color: #EEEEEE" />
-                    <input type="text" class="form-control" name="title" placeholder="Search by Role" style="background-color: #EEEEEE" />
+                    <input type="text" class="form-control" name="Name" placeholder="Search by Name" style="background-color: #EEEEEE" />
+                    <input type="text" class="form-control" name="Role" placeholder="Search by Role" style="background-color: #EEEEEE" />
                     <div class="input-group-append" style="padding-left: 5px">
                         <button type="submit" class="btn btn-primary" style="background-color: #00ADB5">Search</button>
                     </div>
@@ -105,7 +105,7 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Where(n =>n.vaitro != "Admin"))
     {
         <tr>
             <td style="color: #1E212D ">
@@ -120,7 +120,7 @@
                 <br />
                 <button class="action-button details-button" onclick="location.href='@Url.Action("DetailsBook", new { id = item.UserID })'">Details</button>
                 <br />
-                <button class="action-button delete-button" onclick="location.href='@Url.Action("DeletePost", new { id = item.UserID })'">Delete</button>
+                <button class="action-button delete-button" onclick="location.href='@Url.Action("DeleteUser", new { id = item.UserID })'">Delete</button>
             </td>
         </tr>
     }

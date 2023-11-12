@@ -148,6 +148,7 @@ namespace ReMoBi_DCSN.Controllers
             
             return RedirectToAction("Post");
         }
+        [HttpGet]
         public ActionResult DeletePost(int id)
         {
             Post post = dbdata.Posts.SingleOrDefault(n => n.PostID == id);
@@ -160,7 +161,7 @@ namespace ReMoBi_DCSN.Controllers
             return View(post);
         }
         [HttpPost, ActionName("DeletePost")]
-        public ActionResult ConfrimDeleteBook(int id)
+        public ActionResult ConfirmDeletePost(int id)
         {
             Post post = dbdata.Posts.SingleOrDefault(n => n.PostID == id);
             ViewBag.PostID = post.PostID;
@@ -270,7 +271,7 @@ namespace ReMoBi_DCSN.Controllers
         public ActionResult TheUser(int? page, string Name, string Role)
         {
             int pageNum = (page ?? 1);
-            int pageSize = 5;
+            int pageSize = 10;
 
             var query = dbdata.NguoiDungs.AsQueryable();
 
@@ -290,6 +291,55 @@ namespace ReMoBi_DCSN.Controllers
             return View(query.OrderBy(n => n.UserID).ToPagedList(pageNum, pageSize));
         }
 
+        [HttpGet]
+        public ActionResult AddnewUser()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult AddnewUser(NguoiDung user)
+        {
+            if(ModelState.IsValid)
+            {
+
+                dbdata.NguoiDungs.InsertOnSubmit(user);
+                dbdata.SubmitChanges();
+                return RedirectToAction("TheUser");
+            }
+            else
+            {
+                return View(user);
+            }
+            
+        }
+        [HttpGet]
+        public ActionResult DeleteUser(int id)
+        {
+            NguoiDung User = dbdata.NguoiDungs.SingleOrDefault(n => n.UserID == id);
+            ViewBag.UserID = User.UserID;
+            if (User == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            return View(User);
+        }
+
+        [HttpPost, ActionName("DeleteUser")]
+        public ActionResult ConfirmDeleteUser(int id)
+        {
+            NguoiDung User = dbdata.NguoiDungs.SingleOrDefault(n => n.UserID == id);
+            ViewBag.UserID = User.UserID;
+            if (User == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            dbdata.NguoiDungs.DeleteOnSubmit(User);
+            dbdata.SubmitChanges();
+            return RedirectToAction("TheUser");
+        }
 
 
         public ActionResult TheCustomer(int? page, string Name)

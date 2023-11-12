@@ -1,0 +1,86 @@
+﻿@model ReMoBi_DCSN.Models.NguoiDung
+
+@{
+    ViewBag.Title = "DeleteUser";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+<style>
+    .dl-horizontal dt {
+        float: left;
+        clear: left;
+        width: 30%; /* Độ rộng của label */
+        text-align: right;
+        padding-right: 10px; /* Khoảng cách giữa label và display */
+        font-weight: bold;
+    }
+
+    .dl-horizontal dd {
+        margin-left: 35%; /* Khoảng cách giữa display và label */
+    }
+
+    .display-info {
+        display: inline-block;
+        margin-right: 20px; /* Khoảng cách giữa các ô display */
+        vertical-align: top; /* Để đảm bảo các ô display nằm trên cùng một hàng */
+    }
+
+    .button-container {
+        text-align: center;
+        margin-left: -440px; /* Khoảng cách từ đỉnh trang */
+    }
+
+    .Delete-button,
+    .back-button {
+        width: 160px; /* Độ rộng cố định cho cả hai nút */
+        margin: 0 auto; /* Căn giữa theo chiều ngang */
+        display: inline-block; /* Hiển thị trên cùng một dòng */
+        background-color: #FF2E63; /* Màu xanh dương cho Save */
+        color: white; /* Màu chữ trắng */
+        border: none;
+        border-radius: 5px; /* Bo góc tròn nhẹ */
+        padding: 10px 20px;
+        font-size: 18px; /* Kích thước chữ lớn hơn */
+        cursor: pointer;
+        text-decoration: none; /* Loại bỏ gạch chân (đối với ActionLink) */
+        text-align: center;
+        margin: 10px 0; /* Thêm khoảng cách giữa nút và các element xung quanh */
+    }
+
+    .back-button {
+        background-color: #333;
+    }
+</style>
+<h2 style="padding-top: 30px;"></h2>
+<hr />
+<h3>Are you sure you want to delete this User ?</h3>
+<div>
+    <h4>Nguoi Dung</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            Vai trò
+        </dt>
+        <dd>
+            @Html.TextBoxFor(model => model.vaitro, new { @readonly = "readonly", @class = "form-control" })
+        </dd>
+
+        <dt>
+            Họ và Tên
+        </dt>
+        <dd>
+            @Html.TextBoxFor(model => model.hovaten, new { @readonly = "readonly", @class = "form-control" })
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="button-container">
+            @Html.ActionLink("Back to List", "TheUser", null, new { @class = "back-button" })
+            <input type="submit" value="Delete" class="Delete-button" />
+        </div>
+    }
+</div>

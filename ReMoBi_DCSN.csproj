@@ -144,6 +144,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\ReMoBiController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SlugPhoneController.cs" />
     <Compile Include="Controllers\SQLiteHandler.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -876,6 +877,7 @@
     <Content Include="css\EditProfile.css" />
     <Content Include="css\font-awesome.css" />
     <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\loading.css" />
     <Content Include="css\new_two.css" />
     <Content Include="css\open-iconic\font\css\open-iconic-bootstrap.min.css" />
     <Content Include="css\open-iconic\font\fonts\open-iconic.svg" />
@@ -1582,9 +1584,13 @@
     <Content Include="Views\Admin\EditProFile.cshtml" />
     <Content Include="Views\Admin\TheUser.cshtml" />
     <Content Include="Views\Admin\TheCustomer.cshtml" />
+    <Content Include="Views\Admin\AddnewUser.cshtml" />
+    <Content Include="Views\Admin\DeleteUser.cshtml" />
+    <Content Include="Views\Shared\Loading_page.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Search\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

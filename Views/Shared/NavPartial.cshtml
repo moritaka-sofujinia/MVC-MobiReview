@@ -24,13 +24,13 @@
             @if (Session["TaiKhoan"] != null)
             {
                 <li class="nav-item dropdown">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" >@kh.hovaten<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="@Url.Action("ThongTinCN", "User", new {id = @kh.hovaten}))"><span class="glyphicon glyphicon-user"></span> Thông tin cá nhân</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="@Url.Action("Logout", "User")"><span class="glyphicon glyphicon-log-in"></span> Đăng xuất</a></li>
-                        </ul>
-                    </li>
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">@kh.hovaten<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("ThongTinCN", "User", new {id = @kh.hovaten}))"><span class="glyphicon glyphicon-user"></span> Thông tin cá nhân</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="@Url.Action("Logout", "User")"><span class="glyphicon glyphicon-log-in"></span> Đăng xuất</a></li>
+                    </ul>
+                </li>
             }
             else
             {
@@ -38,12 +38,14 @@
                     <a class="nav-link" href="@Url.Action("Login","User")">Đăng nhập</a>
                 </li>
             }
-           
-        </ul>
 
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="text" placeholder="Bạn tìm gì hôm nay?">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
-        </form>
+        </ul>
+        @using (Html.BeginForm("Search", "Search", FormMethod.Get, new { @class = "navbar-form navbar-right", @role = "search" }))
+        {
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="text" placeholder="Bạn tìm gì hôm nay?">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+            </form>
+        }
     </div>
 </nav>

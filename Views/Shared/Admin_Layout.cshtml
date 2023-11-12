@@ -140,9 +140,12 @@
         </aside>
         <!--  Sidebar End -->
         <!--  Main wrapper -->
+        
         <div class="body-wrapper">
-            @Html.Partial("Admin_Partial")
 
+            @Html.Partial("Admin_Partial")
+            @*@Html.Partial("Loading_page")*@
+            <div id="loader" class="center-side">@Html.Partial("Loading_page")</div>
             <div style="padding : 30px;">
                 @RenderBody()
             </div>
@@ -158,3 +161,19 @@
 </body>
 
 </html>
+
+<script>
+    document.onreadystatechange = function () {
+        if (document.readyState !== "complete") {
+            document.querySelector("body").style.visibility = "hidden";
+            document.querySelector("#loader").style.visibility = "visible";
+        } else {
+            // Introduce a 2-second delay before hiding the loader
+            setTimeout(function () {
+                document.querySelector("#loader").style.display = "none";
+                document.querySelector("body").style.visibility = "visible";
+            }, 1000); // Adjust the delay time in milliseconds (2 seconds in this case)
+        }
+    };
+</script>
+
