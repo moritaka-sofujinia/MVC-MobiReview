@@ -1,4 +1,5 @@
-﻿using ReMoBi_DCSN.Models;
+﻿using PagedList;
+using ReMoBi_DCSN.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,18 +21,24 @@ namespace ReMoBi_DCSN.Controllers
         {
             return View();
         }
-        [HttpGet]
-        public ActionResult Search(string strSearch)
+        
+        public ActionResult Search(int ?page, string strSearch)
         {
+            int pageNum = (page ?? 1);
+            int pageSize = 10;
+
             ViewBag.Search = strSearch;
-            if (string.IsNullOrEmpty(strSearch))
+            var query = dbdata.Posts.AsQueryable();
+
+            if (!string.IsNullOrEmpty(strSearch))
             {
-                return View();
+                // Filter by publisher name
+                query = query.Where(b => b.Post_Title.Contains(strSearch));
             }
 
-            var kq = dbdata.Posts.Where(n => n.Post_Title.Contains(strSearch));
+            var kq = dbdata.Posts.Where(n => n.Content_Post.Contains(strSearch));
             ViewBag.Kq = kq.Count();
-            return View(kq);
+            return View(query.OrderBy(n => n.Post_Date).ToPagedList(pageNum, pageSize));
         }
     }
 }

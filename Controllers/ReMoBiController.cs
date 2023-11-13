@@ -56,10 +56,36 @@ namespace ReMoBi_DCSN.Controllers
             return PartialView(post);
         }
         [ChildActionOnly]
-        public ActionResult Tags_Partial()
+        public ActionResult Tags_Partial(int? page, string tags)
         {
             var cd = from c in dbdata.tags select c;
             return PartialView(cd);
+        }
+        public ActionResult PostbyTags(int ?page, int id)
+        {
+            int pageNum = (page ?? 1);
+            int pageSize = 10;
+
+            var pbt = dbdata.Posts.Where(n => n.TagID == id).OrderBy(s => s.Post_Title).ToPagedList(pageNum, pageSize);
+            return PartialView(pbt);
+        }
+        [HttpGet]
+        public ActionResult Search(string strSearch)
+        {
+            // Lưu từ khóa tìm kiếm
+            ViewBag.Keyword = strSearch;
+
+            // Tạo câu truy vấn 3 bảng Sach, TacGia, ChuDe
+            //var sach = db.SACHes.Include(b => b.Sach);
+            // Tìm kiếm theo strSearch
+            if (strSearch != null)
+            {
+                var Model = dbdata.Posts.Where(e => e.Post_Title.Contains(strSearch));
+                return View(Model);
+            }
+
+            // Tìm kiếm theo chủ đềs
+            return PartialView(null);
         }
     }
 }

@@ -1,0 +1,90 @@
+﻿@using ReMoBi_DCSN.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<Post>
+@{
+    ViewBag.Title = "PostbyTags";
+    Layout = "~/Views/Shared/_LayoutPageIndex.cshtml";
+}
+
+@section Neartest_Post_Partial
+{
+    @Html.Partial("Neartest_Post_Partial", Model.ToList())
+}
+<main>
+    <div class="container pt-5">
+        <div class="container">
+            <div class="row">
+
+                @Html.Action("MostLike", "ReMoBi")
+
+                @foreach (var post in Model)
+                {
+                    <a href="@Url.Action("Details_Post","ReMoBi", new {id = post.PostID})" class="news-item">
+                        <br>
+                        <div>
+                            <img src="images/@post.AnhBia" alt="" class="img-fluid float-left">
+                            <h4>@post.Post_Title</h4>
+                            <p>@post.Teaser_Post</p>
+                        </div>
+                    </a>
+                }
+
+
+                <div class="MenuPage">
+                    @*@Html.PagedListPager(Model, Page => Page == Model.PageNumber ? Url.Action("Book", new { Page = Page }) : Url.Action("Book", new { Page }))*@
+                    @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page = Page }))
+                    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    // JavaScript to handle click events on pagination buttons
+    document.addEventListener('DOMContentLoaded', function () {
+        var paginationItems = document.querySelectorAll('.MenuPage li');
+
+        paginationItems.forEach(function (item) {
+            item.addEventListener('click', function () {
+                var link = this.querySelector('a');
+                if (link) {
+                    window.location.href = link.getAttribute('href');
+                }
+            });
+        });
+    });
+</script>
+<style>
+    .MenuPage {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .MenuPage ul {
+            list-style-type: none;
+            padding: 0;
+            display: inline-flex;
+            justify-content: center;
+            text-decoration: none; /* Loại bỏ gạch chân (đối với ActionLink) */
+        }
+
+        .MenuPage li {
+            display: inline-block;
+            margin-right: 5px;
+            border-radius: 50%;
+            background-color: #ddd;
+            width: 50px; /* Kích thước lớn hơn khoảng 50px */
+            height: 50px; /* Kích thước lớn hơn khoảng 50px */
+            text-align: center;
+            line-height: 50px; /* Kích thước lớn hơn khoảng 50px */
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+            .MenuPage li:hover {
+                background-color: #8B4513; /* Màu nâu */
+                color: #F5F5DC; /* Màu beige */
+            }
+</style>

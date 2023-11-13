@@ -33,7 +33,7 @@ CREATE TABLE Post (
     Post_Date SMALLDATETIME ,
     Teaser_Post NVARCHAR(MAX) ,
     Content_Post NVARCHAR(MAX) ,
-    Post_Tags int ,
+    TagID int ,
     AnhBia nvarchar(max) ,
     luotthich INT 
 );
@@ -63,7 +63,7 @@ ADD CONSTRAINT UQ_hovaten UNIQUE (hovaten);
 
 
 ALTER TABLE Post
-ADD CONSTRAINT FK_post_tags FOREIGN KEY (Post_Tags) REFERENCES tags(TagID);
+ADD CONSTRAINT FK_post_tags FOREIGN KEY (TagID) REFERENCES tags(TagID);
     
 ALTER TABLE ADMIN
 ADD CONSTRAINT FK_ad_nguoidung FOREIGN KEY (AdminID) REFERENCES NguoiDung(UserID),
@@ -146,7 +146,7 @@ VALUES
 
 INSERT INTO KhachHang(username,password,hovaten)
 VALUES
-    ('dung','dung','Nguyen Tien Dung'),
+    
     ('user1', 'password1', N'Nguyễn Văn A'),
     ('user2', 'password2', N'Trần Thị B'),
     ('user3', 'password3', N'Phạm Văn C'),
@@ -371,11 +371,11 @@ select * from KhachHang
 
 
 
-select max(luotthich) from Post 
+select * from Post 
 ---------------------------------------------------------------------------------------
 
 
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post,TagID, AnhBia,luotthich)
 VALUES (
     N'Không có chuyện bộ khung iPhone 15 Pro "mạ titan"',
     N'Nguyễn Hải',
@@ -403,7 +403,7 @@ Hơn thế nữa, một chi tiết khác trong clip kể trên lớp Titan này 
 
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     
     N'iPhone 15 bị lỗi quá nhiệt trên diện rộng, chuyên gia nói ‘không thể khắc phục được’ trừ khi Apple chịu làm 1 điều',
@@ -438,7 +438,7 @@ Vấn đề quá nhiệt không phải rắc rối duy nhất với iPhone 15 c�
     700
 );
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
 
     N'Xiaomi 13T series chính thức: Camera Leica, chống nước IP68, giá từ 12,99 triệu đồng',
@@ -466,7 +466,7 @@ Tại Việt Nam, Xiaomi 13T và Xiaomi 13T Pro lên kệ với mức giá niêm
 );
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     N'Điểm nhấn cốt lõi làm nên giá trị vượt bậc của Galaxy Z Series',
     N'Huy Nguyễn',
@@ -512,7 +512,7 @@ Có thể thấy, Galaxy Z Series thế hệ thứ 5 đã thực sự làm làm 
 );
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     N'Ai sắp mua iPhone 15 phải đọc ngay: Thử nghiệm mới vạch trần 2 lỗi bất thường trên phiên bản Pro và Pro Max',
     N'Mạnh Kiên',
@@ -591,7 +591,7 @@ Nếu không giải quyết vấn đề một cách thích hợp, tình trạng 
 );
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     
     
@@ -628,7 +628,7 @@ XR21 sẽ "lên kệ" vào đầu tháng 6 tới nhưng hiện chưa rõ kế ho
 );
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     N'"Mổ xẻ" mẫu G22 cực dị của Nokia: Giá chưa đến 4 triệu đồng nhưng có nên mua? – Đáp án nằm ở 1 chi tiết ít người chú ý',
     N'Nhật Minh',
@@ -673,7 +673,7 @@ Theo Amadeo, chúng ta thực sự nên đánh giá cao những thiết kế có
 );
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     N'Xiaomi ra mắt máy tính bảng giá rẻ: Màn hình 11 inch, pin 8000mAh, giá dưới 5 triệu đồng',
     N'Thế Duyệt',
@@ -694,7 +694,7 @@ Về hiệu năng, Redmi Pad SE trang bị con chip Snapdragon 680, một con ch
 );
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     N'Trên tay smartphone Xiaomi có RAM 24GB, sạc 120W giá chưa tới 12 triệu đồng',
     N'Thế Duyệt',
@@ -734,7 +734,7 @@ Tham khảo tại một số cửa hàng, Redmi K60 Ultra được bán tại Vi
 
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     
     N'Vivo ra mắt smartphone tầm trung thiết kế độc đáo, có màn hình cong, camera 50MP',
@@ -756,7 +756,7 @@ vivo V29e lên kệ tại Ấn Độ với 2 màu đỏ và xanh, giá khởi đ
 );
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     
     N'Realme ra mắt smartphone sạc 240W, chip Snapdragon 8 Gen 2, RAM 24GB, giá chưa tới 13 triệu đồng',
@@ -786,7 +786,7 @@ VALUES (
 
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     
     N'OPPO ra mắt Find N3 Flip: Smartphone "vỏ sò" đầu tiên có 3 camera chính, giá rẻ hơn Galaxy Z Flip5',
@@ -820,7 +820,7 @@ VALUES (
 
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     
     N'Huawei ra mắt Mate60 Pro: Màn hình 3 "nốt ruồi", hỗ trợ 5G, giá 23 triệu đồng',
@@ -854,7 +854,7 @@ Máy có RAM 12GB, bộ nhớ tối đa 1TB. Viên pin có dung lượng 5000mAh
 
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     
     N'Samsung ra mắt điện thoại pin 6000mAh, màn hình 120Hz, camera 50MP, giá 7,9 triệu đồng',
@@ -885,7 +885,7 @@ Galaxy M34 5G mở bán từ ngày 1/10/2023 với giá bán lẻ đề nghị l
 
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     
     N'iFixit dùng kính hiển vi để phân tích khả năng sửa chữa của iPhone 15, chấm 4 điểm',
@@ -943,7 +943,7 @@ Nhưng Apple đã cắt giảm chi phí trên iPhone cơ bản và thu nhỏ c�
 
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     
     N'Thả rơi và nhúng nước iPhone 15 Pro Max và một loạt smartphone đắt tiền nhất, người thử nghiệm nhận kết quả bất ngờ',
@@ -974,7 +974,7 @@ Ngoài ra, khung titan trên iPhone 15 Pro Max cũng tương tự như các smar
 
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     
     N'Những thứ không bao giờ nên lưu trữ trên điện thoại để tránh bị rò rỉ thông tin cá nhân',
@@ -1013,7 +1013,7 @@ Người dùng nên đặt mật khẩu cẩn trọng và không lưu trữ chú
 
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     
     N'iPhone 15 vừa mua đã hỏng chỉ vì... xe BMW',
@@ -1037,7 +1037,7 @@ Hiện chưa rõ nguyên nhân cụ thể của vấn đề là gì, có bao nhi
 
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     
     N'iOS 17.0.3: iPhone hết nóng nhưng hiệu năng có bị giảm sút?',
@@ -1071,7 +1071,7 @@ Liệu rằng còn ứng dụng nào khác gây nên hiện tượng nóng máy 
 
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     
     N'Điện thoại sạc nhanh hơn khi ở chế độ tiết kiệm pin?',
@@ -1116,7 +1116,7 @@ Bài viết trên đã giải đáp thắc mắc cho bạn rồi chứ? Hy vọn
 
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     
     N'Bao lâu nên khởi động lại smartphone một lần?',
@@ -1157,7 +1157,7 @@ Trên đây là những thông tin giúp bạn trả lời câu hỏi bao lâu n
 
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     N'Thảm cảnh của Apple: Nguy cơ mất khoản lệ phí hàng tỷ USD từ Google giữa lúc tình hình iPhone 15 đối mặt thách thức',
     N'Bằng Bằng',
@@ -1229,7 +1229,7 @@ Tuy nhiên theo WSJ, vụ kiện chống độc quyền Google có lẽ sẽ là
 
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     N'Tim Cook giải thích tại sao Apple luôn bán iPhone mới mỗi năm, dù đề cao bảo vệ môi trường',
     N'Tuấn Nguyễn',
@@ -1263,7 +1263,7 @@ Về cá nhân, Cook chia sẻ những hành động bảo vệ môi trường c
 );
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     N'Sạc điện thoại tối đa bao nhiêu lần trong ngày là tốt nhất, câu trả lời khiến bạn bất ngờ',
     N'Sơn Trần',
@@ -1311,7 +1311,7 @@ Tắt ứng dụng không cần thiết chạy ngầm: Những ứng dụng ch�
 
 
 ---------------------------------------------------------------------------------------
-INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, Post_Tags, AnhBia,luotthich)
+INSERT INTO Post (Post_Title, Author, Post_Date, Teaser_Post, Content_Post, TagID, AnhBia,luotthich)
 VALUES (
     N'Smartphone Android cao cấp sẽ bị đánh giá như thế nào nếu có cấu hình ngang iPhone 15',
     N'Tuấn Nguyễn',

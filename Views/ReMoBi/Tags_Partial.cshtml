@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ReMoBi_DCSN.Models.tag>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+    <!-- Design fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/css/bootstrap.css" rel="stylesheet">
+
+    <!-- FontAwesome Icons core CSS -->
+    <link href="~/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/style.css" rel="stylesheet">
+
+    <!-- Animate styles for this template -->
+    <link href="~/css/animate.css" rel="stylesheet">
+
+    <!-- Responsive styles for this template -->
+    <link href="~/css/responsive.css" rel="stylesheet">
+
+    <!-- Colors for this template -->
+    <link href="~/css/colors.css" rel="stylesheet">
+
+    <!-- Version Marketing CSS for this template -->
+    <link href="~/css/version/marketing.css" rel="stylesheet">
+    <title>Tags</title>
+</head>
+<div class="widget-no-style" >
+    <div class="dropdown" >
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            TAGS - for Search         
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+            @foreach (var item in Model)
+            {
+                <a class="dropdown-item" href="@Url.Action("PostbyTags", "ReMoBi", new {id = item.TagID})">@item.Name_Tags</a>
+            }
+        </div>
+    </div>
+</div>
