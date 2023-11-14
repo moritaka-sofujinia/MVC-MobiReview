@@ -19,7 +19,7 @@ namespace ReMoBi_DCSN.Controllers
         private readonly dbDataContext dbdata;
         public ReMoBiController()
         {
-            var connectionString = "Data Source=Albert;Database=news1;Trusted_Connection=True";
+            var connectionString = "Data Source=MSIKHOI;Database=news1;Trusted_Connection=True";
             dbdata = new dbDataContext(connectionString);
         }
         private List<Post> getNewPost(int count)
@@ -41,10 +41,16 @@ namespace ReMoBi_DCSN.Controllers
         public ActionResult Details_Post(int id)
         {
             var post = from s in dbdata.Posts
-                       where s.PostID == id 
+                       where s.PostID == id
                        select s;
             return View(post);
         }
+
+        //public ActionResult Details_Post(int id)
+        //{
+        //    return View();
+        //}
+
         private List<Post> getMostPostLike(int count)
         {
             return dbdata.Posts.OrderByDescending(a => a.luotthich).Take(count).ToList();

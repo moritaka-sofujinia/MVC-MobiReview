@@ -14,7 +14,7 @@ namespace ReMoBi_DCSN.Controllers
         private readonly dbDataContext dbdata;
         public MaintenanceController()
         {
-            var connectionString = "Data Source=Albert;Database=news1;Trusted_Connection=True";
+            var connectionString = "Data Source=MSIKHOI;Database=news1;Trusted_Connection=True";
             dbdata = new dbDataContext(connectionString);
         }
         private List<Post> getNewPost(int count)
