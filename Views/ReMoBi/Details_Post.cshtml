@@ -1,75 +1,215 @@
-﻿@model ReMoBi_DCSN.Models.Post
+﻿@model ReMoBi_DCSN.Models.PostImageViewModel
 
 @{
     ViewBag.Title = "Details_Post";
     Layout = "~/Views/Shared/_LayoutPageIndex.cshtml";
 }
 
+
 @{
-    var content = Model.Content_Post;
-    var paragraphCount = 8; // Số đoạn bạn muốn chia
+    var content = Model.Post.Content_Post;
+    var paragraphCount = 10; // Số đoạn bạn muốn chia
     var contentLength = content.Length;
-    var paragraphs = new List<string>
-    ();
+    var paragraphs = new List<string>();
+
+    int startIndex = 0;
+    int endIndex = 0;
+    int charsPerParagraph = contentLength / paragraphCount;
 
     for (int i = 0; i < paragraphCount; i++)
     {
-        int startIndex = i * (contentLength / paragraphCount);
-        int endIndex = (i + 1) * (contentLength / paragraphCount);
-
-        if (i == paragraphCount - 1)
+        if (startIndex >= contentLength)
         {
-            endIndex = contentLength; // Để đảm bảo không bị mất phần nào
+            break; // Đã đọc hết nội dung, thoát khỏi vòng lặp
         }
 
-        string paragraph = content.Substring(startIndex, endIndex - startIndex);
-        paragraphs.Add(paragraph);
+        if (i == paragraphCount - 1 || startIndex + charsPerParagraph >= contentLength)
+        {
+            paragraphs.Add(content.Substring(startIndex)); // Thêm phần còn lại của nội dung
+            break; // Đã đọc hết nội dung, thoát khỏi vòng lặp
+        }
+        else
+        {
+            endIndex = content.LastIndexOf('.', Math.Min(startIndex + charsPerParagraph, contentLength - 1));
+
+            if (endIndex <= startIndex)
+            {
+                endIndex = startIndex + charsPerParagraph;
+            }
+            else
+            {
+                endIndex = endIndex + 1; // Bao gồm cả dấu chấm
+            }
+
+            string paragraph = content.Substring(startIndex, endIndex - startIndex);
+            paragraphs.Add(paragraph);
+            startIndex = endIndex;
+        }
     }
+    int m = 0;
 }
 
 
+
+
+
+
 <!-- Tiêu đề bài viết -->
-<h1>@Model.Post_Title</h1>
-<p><strong>Tác giả:</strong> @Model.Author - <strong>Ngày:</strong> @Model.Post_Date</p>
+<h1>@Model.Post.Post_Title</h1>
+<p><strong>Tác giả:</strong> @Model.Post.Author - <strong>Ngày:</strong> @Model.Post.Post_Date</p>
 
 
-<h3 class="paragraph">@Model.Teaser_Post</h3>
+<h3 class="paragraph">@Model.Post.Teaser_Post</h3>
 
 
-<!-- Nội dung bài viết -->
-<p class="paragraph">@paragraphs[1]</p>
-<p class="paragraph">@paragraphs[2]</p>
+@foreach (var item in Model.Images)
+{
+    <p class="paragraph">@paragraphs[m++]</p>
+    <br />
+    <img src="~/images/@item.Name_file_images"
+         alt="Hình ảnh mô tả"
+         class="small-image" />
+    <figcaption class="caption" style="font-family: 'Times New Roman',sans-serif">@item.Caption_images</figcaption>
+}
+@for (int i = m; i < paragraphCount; i++)
+{
+    <p class="paragraph">@paragraphs[i]</p>
+}
+
+<br />
+<br />
+<style>
+    .horizontal-h {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 80px;
+        background-color: #ffffcc;
+        border-radius: 15px;
+    }
+    
+    button.like {
+        width: 30px;
+        height: 30px;
+        margin: 0 auto;
+        line-heigth: 50px;
+        border-radius: 50%;
+        color: rgba(0,150,136,1);
+        background-color: rgba(38,166,154,0.3);
+        border-color: rgba(0,150,136,1);
+        border-width: 1px;
+        font-size: 15px;
+        margin-right: 10px;
+    }
+
+    button.dislike {
+        width: 30px;
+        height: 30px;
+        margin: 0 auto;
+        line-heigth: 50px;
+        border-radius: 50%;
+        color: rgba(255,82,82,1);
+        background-color: rgba(255,138,128,0.3);
+        border-color: rgba(255,82,82,1);
+        border-width: 1px;
+        font-size: 15px;
+    }
+
+    
+</style>
+<div class="horizontal-h">
+    <h6 style="margin-left: 30px">Bạn nghĩ sao về thông tin trên </h6>
+    <button class="like" style="margin-left: 300px">
+        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+    </button>
+        <button class="dislike">
+            <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+        </button>
+</div>
+<h7 style="text-align:right; margin-left: 520px">@Model.Post.luotthich Luợt đánh giá</h7>
+<hr />
 
 
-<img src="./images/@Model"
-     alt="Hình ảnh mô tả"
-     class="small-image" />
-<figcaption class="caption"></figcaption>
-
-<!---------------------------------------------------------------->
-
-<p class="paragraph">@paragraphs[3]</p>
-<p class="paragraph">@paragraphs[4]</p>
-
-<img src="./images/"
-     alt="Hình ảnh mô tả"
-     class="small-image" />
-<figcaption class="caption"></figcaption>
-
-<!---------------------------------------------------------------->
-
-<p class="paragraph">@paragraphs[5]</p>
-<p class="paragraph">@paragraphs[6]</p>
-
-<img src="./images/"
-     alt="Hình ảnh mô tả"
-     class="small-image" />
-<figcaption class="caption"></figcaption>
-
-<!---------------------------------------------------------------->
-
-<p class="paragraph">@paragraphs[7]</p>
-<p class="paragraph">@paragraphs[8]</p>
 
 
 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Comment Section</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            body {
+                background: #eee;
+            }
+
+            .date {
+                font-size: 11px;
+            }
+
+            .comment-text {
+                font-size: 12px;
+            }
+
+            .fs-12 {
+                font-size: 12px;
+            }
+
+            .shadow-none {
+                box-shadow: none;
+            }
+
+            .name {
+                color: #007bff;
+            }
+
+            .cursor:hover {
+                color: blue;
+            }
+
+            .cursor {
+                cursor: pointer;
+            }
+
+            .textarea {
+                resize: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container mt-5">
+            <div class="d-flex justify-content-center row">
+                <div class="col-md-8">
+                    <div class="d-flex flex-column comment-section">
+                        <div class="bg-white p-2">
+                            <div class="d-flex flex-row user-info">
+                                <img class="rounded-circle" src="~/images/Ads/ads_2.png" width="40">
+                                <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">Albert AnhDung</span><span class="date text-black-50">Shared publicly - Jan 2020</span></div>
+                            </div>
+                            <div class="mt-2">
+                                <p class="comment-text">SUKKKKKA BLYYYYYYYAT. Some freak just came here for an hours now i have to clean it. No! i don't thing so .Good luck with 5 years in Jail' </p>
+                            </div>
+                        </div>
+                        <div class="bg-white">
+                            <div class="d-flex flex-row fs-12">
+                                <div class="like p-2 cursor"><i class="fa fa-thumbs-o-up"></i><span class="ml-1">Like</span></div>
+                                <div class="like p-2 cursor"><i class="fa fa-commenting-o"></i><span class="ml-1">Comment</span></div>
+                                <div class="like p-2 cursor"><i class="fa fa-share"></i><span class="ml-1">Share</span></div>
+                            </div>
+                        </div>
+                        <div class="bg-light p-2">
+                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="~/images/Ads/ads_2.png" width="40"><textarea class="form-control ml-1 shadow-none textarea"></textarea></div>
+                            <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

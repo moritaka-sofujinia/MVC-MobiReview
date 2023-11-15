@@ -20,10 +20,10 @@
 
                 @foreach (var post in Model)
                 {
-                    <a href="@Url.Action("Details_Post","ReMoBi", new {id = post.PostID})" class="news-item">
+                    <a href="@Url.Action("Details_Post","ReMoBi", new { id = post.PostID})" class="news-item">
                         <br>
                         <div>
-                            <img src="images/@post.AnhBia" alt="" class="img-fluid float-left">
+                            <img src="~/images/@post.AnhBia" alt="" class="img-fluid float-left">
                             <h4>@post.Post_Title</h4>
                             <p>@post.Teaser_Post</p>
                         </div>

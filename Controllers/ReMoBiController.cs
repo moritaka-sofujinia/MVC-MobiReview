@@ -19,7 +19,7 @@ namespace ReMoBi_DCSN.Controllers
         private readonly dbDataContext dbdata;
         public ReMoBiController()
         {
-            var connectionString = "Data Source=MSIKHOI;Database=news1;Trusted_Connection=True";
+            var connectionString = "Data Source=Albert;Database=news1;Trusted_Connection=True";
             dbdata = new dbDataContext(connectionString);
         }
         private List<Post> getNewPost(int count)
@@ -40,10 +40,26 @@ namespace ReMoBi_DCSN.Controllers
 
         public ActionResult Details_Post(int id)
         {
-            var post = from s in dbdata.Posts
-                       where s.PostID == id
-                       select s;
-            return View(post);
+
+            var post = dbdata.Posts.FirstOrDefault(p => p.PostID == id);
+
+            if (post == null)
+            {
+                return HttpNotFound(); // Xử lý nếu không tìm thấy bài viết
+            }
+
+            var images = (from pi in dbdata.PostImages
+                          join i in dbdata.images on pi.ImageID equals i.imagesID
+                          where pi.PostID == id
+                          select i).ToList();
+
+            var viewModel = new PostImageViewModel
+            {
+                Post = post,
+                Images = images
+            };
+            
+            return View(viewModel);
         }
 
         //public ActionResult Details_Post(int id)

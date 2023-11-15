@@ -156,6 +156,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>db.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\PostImageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1578,7 +1579,6 @@
     <Content Include="Views\Shared\Admin_Partial.cshtml" />
     <Content Include="Views\Admin\Post.cshtml" />
     <Content Include="Views\Admin\DeletePost.cshtml" />
-    <Content Include="Views\ReMoBi\Details_Post.cshtml" />
     <Content Include="Views\Admin\AddnewPost.cshtml" />
     <Content Include="Views\Admin\EditPost.cshtml" />
     <Content Include="Views\Admin\ProFile.cshtml" />
@@ -1591,6 +1591,7 @@
     <Content Include="Views\Search\Search.cshtml" />
     <Content Include="Views\ReMoBi\Tags_Partial.cshtml" />
     <Content Include="Views\ReMoBi\PostbyTags.cshtml" />
+    <Content Include="Views\ReMoBi\Details_Post.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

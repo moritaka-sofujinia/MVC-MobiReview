@@ -15,6 +15,7 @@
       <Column Name="Name_file_images" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="Caption_images" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="PostID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="image_PostImage" Member="PostImage" ThisKey="imagesID" OtherKey="ImageID" Type="PostImage" Cardinality="One" />
       <Association Name="Post_image" Member="Post" ThisKey="PostID" OtherKey="PostID" Type="Post" IsForeignKey="true" />
     </Type>
   </Table>
@@ -47,7 +48,16 @@
       <Column Name="AnhBia" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="luotthich" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Post_image" Member="images" ThisKey="PostID" OtherKey="PostID" Type="image" />
+      <Association Name="Post_PostImage" Member="PostImages" ThisKey="PostID" OtherKey="PostID" Type="PostImage" />
       <Association Name="tag_Post" Member="tag" ThisKey="TagID" OtherKey="TagID" Type="tag" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PostImages" Member="PostImages">
+    <Type Name="PostImage">
+      <Column Name="PostID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ImageID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="image_PostImage" Member="image" ThisKey="ImageID" OtherKey="imagesID" Type="image" IsForeignKey="true" />
+      <Association Name="Post_PostImage" Member="Post" ThisKey="PostID" OtherKey="PostID" Type="Post" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.tags" Member="tags">
