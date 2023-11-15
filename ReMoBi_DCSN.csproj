@@ -904,6 +904,7 @@
     <Content Include="images\Ads\dog-cute.gif" />
     <Content Include="images\apple-touch-icon.png" />
     <Content Include="images\arrow.png" />
+    <Content Include="images\Details.png" />
     <Content Include="images\favicon.ico" />
     <Content Include="images\flogo.png" />
     <Content Include="images\footer.png" />

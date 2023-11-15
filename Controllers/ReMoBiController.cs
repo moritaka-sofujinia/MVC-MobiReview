@@ -61,11 +61,24 @@ namespace ReMoBi_DCSN.Controllers
             
             return View(viewModel);
         }
+        public ActionResult UpdateRatting(int id)
+        {
+            
+            // Tìm bài viết dựa trên ID
+            var post = dbdata.Posts.FirstOrDefault(p => p.PostID == id);
+            
+            if (post != null)
+            {
+                // Tăng giá trị của cột luotthich lên 1 (hoặc giá trị bạn muốn cập nhật)
+                post.luotthich ++;
+                // Trả về kết quả hoặc thông báo thành công
+                return RedirectToAction("Index");
+            }
 
-        //public ActionResult Details_Post(int id)
-        //{
-        //    return View();
-        //}
+            // Trả về thông báo nếu không tìm thấy bài viết
+            return Content("Không tìm thấy bài viết cần cập nhật!");
+        }
+        
 
         private List<Post> getMostPostLike(int count)
         {
