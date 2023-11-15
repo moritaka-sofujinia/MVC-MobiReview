@@ -62,6 +62,16 @@
         font-weight: bold;
         margin: 0 5px;
     }
+    tbody td:hover:before {
+        content :"";
+        position : absolute;
+        background-color : #ffffff33;
+        left : 0;
+        right: 0;
+        top : -9999px;
+        bottom: -9999px;
+        z-index :-1;
+    }
 </style>
 
 
@@ -96,7 +106,7 @@
 </div>
 <hr />
 <br />
-<table class="table" style="background-color: #EEEEEE">
+<table class="table" style="background-color: #EEEEEE" >
 
 
     <tr style="background-color: #27374D; color: #DDE6ED ">

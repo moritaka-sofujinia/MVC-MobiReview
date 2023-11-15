@@ -70,9 +70,10 @@ namespace ReMoBi_DCSN.Controllers
             if (post != null)
             {
                 // Tăng giá trị của cột luotthich lên 1 (hoặc giá trị bạn muốn cập nhật)
-                post.luotthich ++;
+                post.luotthich+=1;
+                dbdata.SubmitChanges();
                 // Trả về kết quả hoặc thông báo thành công
-                return RedirectToAction("Index");
+                return Content("Bạn đã đánh giá ");
             }
 
             // Trả về thông báo nếu không tìm thấy bài viết

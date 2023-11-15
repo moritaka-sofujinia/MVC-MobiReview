@@ -118,9 +118,9 @@
 </style>
 <div class="horizontal-h">
     <h6 style="margin-left: 20px">Bạn nghĩ sao về thông tin trên </h6>
-    @using (Html.BeginForm("UpdateRatting", "ReMoBi", FormMethod.Get, new { id = "updateRattingForm" }))
+    @using (Html.BeginForm("UpdateRatting", "ReMoBi", new { id = Model.Post.PostID }))
     {
-        @Html.Hidden("id", Model.Post.PostID) <!-- Thêm trường ẩn để lưu postId -->
+        
         <button class="like" style="margin-left: 300px">
             <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
         </button>
