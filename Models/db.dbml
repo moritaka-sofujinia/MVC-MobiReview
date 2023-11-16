@@ -2,17 +2,17 @@
   <Table Name="dbo.ADMIN" Member="ADMINs">
     <Type Name="ADMIN">
       <Column Name="AdminID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="username" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="password" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="hovaten" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="hovaten" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="NguoiDung_ADMIN" Member="NguoiDung" ThisKey="AdminID" OtherKey="UserID" Type="NguoiDung" IsForeignKey="true" />
       <Association Name="NguoiDung_ADMIN1" Member="NguoiDung1" ThisKey="hovaten" OtherKey="hovaten" Type="NguoiDung" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.images" Member="images">
     <Type Name="image">
-      <Column Name="imagesID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Name_file_images" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="imagesID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name_file_images" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Caption_images" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="PostID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="image_PostImage" Member="PostImage" ThisKey="imagesID" OtherKey="ImageID" Type="PostImage" Cardinality="One" />
@@ -22,16 +22,16 @@
   <Table Name="dbo.KhachHang" Member="KhachHangs">
     <Type Name="KhachHang">
       <Column Name="KhID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="username" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="password" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="hovaten" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="username" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="hovaten" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.NguoiDung" Member="NguoiDungs">
     <Type Name="NguoiDung">
       <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="vaitro" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="hovaten" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="vaitro" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="hovaten" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="NguoiDung_ADMIN" Member="ADMIN" ThisKey="UserID" OtherKey="AdminID" Type="ADMIN" Cardinality="One" />
       <Association Name="NguoiDung_ADMIN1" Member="ADMINs" ThisKey="hovaten" OtherKey="hovaten" Type="ADMIN" />
     </Type>

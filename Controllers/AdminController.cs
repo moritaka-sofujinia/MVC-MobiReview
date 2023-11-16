@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml.Linq;
 
 namespace ReMoBi_DCSN.Controllers
 {
@@ -108,6 +109,7 @@ namespace ReMoBi_DCSN.Controllers
             return View(query.OrderBy(n => n.Post_Date).ToPagedList(pageNum,pageSize));
         }
 
+        
         [HttpGet]
         public ActionResult AddnewPost() 
         {
@@ -148,6 +150,7 @@ namespace ReMoBi_DCSN.Controllers
             
             return RedirectToAction("Post");
         }
+
         [HttpGet]
         public ActionResult DeletePost(int id)
         {
@@ -225,6 +228,156 @@ namespace ReMoBi_DCSN.Controllers
                 return RedirectToAction("Post");
             }
         }
+
+        public ActionResult Picture(int? page, string name)
+        {
+            int pageNum = (page ?? 1);
+            int pageSize = 10;
+
+            var query = dbdata.images.AsQueryable();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                // Filter by publisher name
+                query = query.Where(b => b.Name_file_images.Contains(name));
+            }
+
+            return View(query.OrderBy(n => n.imagesID).ToPagedList(pageNum, pageSize));
+        }
+
+        [HttpGet]
+        public ActionResult AddnewPic()
+        {
+            ViewBag.PostID = new SelectList(dbdata.Posts.ToList().OrderBy(n => n.PostID), "PostID", "PostID");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult AddnewPic(image ima, HttpPostedFileBase fileupload)
+        {
+            ViewBag.PostID = new SelectList(dbdata.Posts.ToList().OrderBy(n => n.PostID), "PostID", "PostID");
+            if (fileupload == null)
+            {
+                ViewBag.thongbao = "Vui long chon anh bia cho bai viet";
+
+                return View();
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var filename = Path.GetFileName(fileupload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/images/"), filename);
+                    if (System.IO.File.Exists(path))
+                    {
+                        ViewBag.ThongBao = "Hinh anh da ton tai !";
+                    }
+                    else
+                    {
+                        fileupload.SaveAs(path);
+                    }
+                    ima.Name_file_images = filename;
+                    dbdata.images.InsertOnSubmit(ima);
+                    dbdata.SubmitChanges();
+                }
+            }
+
+            return RedirectToAction("Picture");
+        }
+
+
+        [HttpGet]
+        public ActionResult DeletePic(int id)
+        {
+            image ima = dbdata.images.SingleOrDefault(n => n.imagesID == id);
+            ViewBag.imagesID = ima.imagesID;
+            if (ima == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            return View(ima);
+        }
+        [HttpPost, ActionName("DeletePic")]
+        public ActionResult ConfirmDeletePic(int id)
+        {
+            image ima = dbdata.images.SingleOrDefault(n => n.imagesID == id);
+            ViewBag.imagesID = ima.imagesID;
+            if (ima == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            dbdata.images.DeleteOnSubmit(ima);
+            dbdata.SubmitChanges();
+            return RedirectToAction("Picture");
+        }
+
+
+        //Get:  PostImages
+        [HttpGet]
+        public ActionResult PostImages(int ?page)
+        {
+            int pageNum = (page ?? 1);
+            int pageSize = 10;
+
+            var query = dbdata.PostImages.AsQueryable();
+            return View(query.OrderBy(n => n.PostID).ToPagedList(pageNum, pageSize));
+        }
+
+        
+
+        [HttpGet]
+        public ActionResult AddnewPostImages()
+        {
+            ViewBag.PostID = new SelectList(dbdata.Posts.ToList().OrderBy(n => n.PostID), "PostID", "PostID");
+            ViewBag.ImagesID = new SelectList(dbdata.images.ToList().OrderBy(n => n.imagesID), "imagesID", "imagesID");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult AddnewPostImages(PostImage Pima, HttpPostedFileBase fileupload)
+        {
+            ViewBag.PostID = new SelectList(dbdata.Posts.ToList().OrderBy(n => n.PostID), "PostID", "PostID");
+            ViewBag.ImagesID = new SelectList(dbdata.images.ToList().OrderBy(n => n.imagesID), "imagesID", "imagesID");
+            if (ModelState.IsValid)
+            {
+                dbdata.PostImages.InsertOnSubmit(Pima);
+                dbdata.SubmitChanges();
+            }
+            return RedirectToAction("PostImages");
+        }
+
+        [HttpGet]
+        public ActionResult DeletePostImages(int id)
+        {
+            PostImage pima = dbdata.PostImages.FirstOrDefault(n => n.PostID == id);
+            ViewBag.PostID = pima.PostID;
+            if (pima == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            return View(pima);
+        }
+        [HttpPost, ActionName("DeletePostImages")]
+        public ActionResult ConfirmDeletePostImages(int id)
+        {
+            PostImage pima = dbdata.PostImages.FirstOrDefault(n => n.PostID == id);
+            ViewBag.PostID = pima.PostID;
+            if (pima == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            dbdata.PostImages.DeleteOnSubmit(pima);
+            dbdata.SubmitChanges();
+            return RedirectToAction("PostImages");
+        }
+
+        
 
 
         //ADMIN_profile
@@ -357,5 +510,6 @@ namespace ReMoBi_DCSN.Controllers
             //return View(db.SACHes.ToList().OrderBy(n => n.MaSach).ToPagedList(pagenumber,pageSize));
             return View(query.OrderBy(n => n.KhID).ToPagedList(pageNum, pageSize));
         }
+
     }
 }

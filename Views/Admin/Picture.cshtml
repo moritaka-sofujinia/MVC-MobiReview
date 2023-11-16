@@ -1,11 +1,9 @@
 ﻿@using ReMoBi_DCSN.Models
 @using PagedList.Mvc
-@model PagedList.PagedList<ReMoBi_DCSN.Models.Post>
-
-
+@model PagedList.PagedList<ReMoBi_DCSN.Models.image>
 
 @{
-    ViewBag.Title = "Post";
+    ViewBag.Title = "Picture";
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
 
@@ -37,8 +35,8 @@
         border-radius: 5px; /* Bo góc tròn nhẹ */
         display: inline-block; /* Display buttons in a line */
         cursor: pointer;
-        width : 70px;
-        padding : 5px;
+        width: 70px;
+        padding: 5px;
     }
 
     .edit-button {
@@ -62,31 +60,28 @@
         font-weight: bold;
         margin: 0 5px;
     }
+
     
 </style>
 
-
-<h2 style="padding-top: 50px">Danh sách các bài viết</h2>
+<h2 style="padding-top: 50px">Danh sách Ảnh </h2>
 <br />
 <hr />
 
 
-
-
-
-<div class="search-form row" >
+<div class="search-form row">
     <div class="col-md-6">
         <p>
-            @Html.ActionLink("Tạo bài viết", "AddnewPost", null, new { @class = "btn btn-outline-secondary m-1" })    
+            @Html.ActionLink("Thêm ảnh", "AddnewPic", null, new { @class = "btn btn-outline-secondary m-1" })
         </p>
     </div>
-    
+
     <div class="col-md-6">
-        <form method="get" action="@Url.Action("Post")">
+        <form method="get" action="@Url.Action("Picture")">
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="tags" placeholder="Search by Tag" style="background-color: #EEEEEE"/>
-                    <input type="text" class="form-control" name="title" placeholder="Search by Title"  style="background-color: #EEEEEE"/>
+                    
+                    <input type="text" class="form-control" name="name" placeholder="Search by Title" style="background-color: #EEEEEE" />
                     <div class="input-group-append" style="padding-left: 5px">
                         <button type="submit" class="btn btn-primary" style="background-color: #00ADB5">Search</button>
                     </div>
@@ -97,33 +92,22 @@
 </div>
 <hr />
 <br />
-<table class="table" style="background-color: #EEEEEE" >
-
-
+<table class="table" style="background-color: #EEEEEE">
     <tr style="background-color: #27374D; color: #DDE6ED ">
-        <th>
-            Tiêu đề bài viết
+        <th >
+            Mã ảnh
         </th>
         <th>
-            Tác giả
+            File ảnh
         </th>
         <th>
-            Ngày đăng
+            Ảnh
         </th>
         <th>
-            Teaser
+            Dòng trạng thái
         </th>
         <th>
-            Nội dung
-        </th>
-        <th>
-            Dán nhãn
-        </th>
-        <th>
-            Ảnh Bìa
-        </th>
-        <th>
-            Lượt thích
+            Mã bài viết
         </th>
         <th></th>
     </tr>
@@ -132,55 +116,36 @@
     {
         <tr>
             <td style="color: #1E212D ">
-                @Html.DisplayFor(modelItem => item.Post_Title)
+                @Html.DisplayFor(modelItem => item.imagesID)
             </td>
             <td style="color: #1E212D ">
-                @Html.DisplayFor(modelItem => item.Author)
+                @Html.DisplayFor(modelItem => item.Name_file_images)
             </td>
             <td style="color: #1E212D ">
-                @Html.DisplayFor(modelItem => item.Post_Date)
+                <img src="@Url.Content("~/images/"+ item.Name_file_images)" width="120" />
             </td>
             <td style="color: #1E212D ">
-                @Html.DisplayFor(modelItem => item.Teaser_Post)
+                @Html.DisplayFor(modelItem => item.Caption_images)
             </td>
             <td style="color: #1E212D ">
-                @{
-                    int maxLength = 100; // Độ dài tối đa của mô tả
-                    string truncatedMoTa = item.Content_Post.Length <= maxLength
-                        ? item.Content_Post
-                        : item.Content_Post.Substring(0, maxLength) + "...";
-                }
-
-                <p>@truncatedMoTa</p>
-            </td>
-            <td style="color: #1E212D ">
-                @Html.DisplayFor(modelItem => item.tag.Name_Tags)
-            </td>
-            <td>
-                
-                <img src="@Url.Content("~/images/"+ item.AnhBia)" width="120" />
-            </td>
-            <td style="color: #1E212D ">
-                @Html.DisplayFor(modelItem => item.luotthich)
+                @Html.DisplayFor(modelItem => item.PostID)
             </td>
             <td>
                 <button class="action-button edit-button" onclick="location.href='@Url.Action("EditPost", new { id = item.PostID })'">Edit</button>
                 <br />
                 <button class="action-button details-button" onclick="location.href='@Url.Action("DetailsBook", new { id = item.PostID })'">Details</button>
                 <br />
-                <button class="action-button delete-button" onclick="location.href='@Url.Action("DeletePost", new { id = item.PostID })'">Delete</button>
+                <button class="action-button delete-button" onclick="location.href='@Url.Action("DeletePic", new { id = item.imagesID })'">Delete</button>
             </td>
         </tr>
     }
 
 </table>
-
 <br />
 <div class="MenuPage">
-    @Html.PagedListPager(Model, Page => Page == Model.PageNumber ? Url.Action("Post", new { Page = Page }) : Url.Action("Post", new { Page }))
+    @Html.PagedListPager(Model, Page => Page == Model.PageNumber ? Url.Action("Picture", new { Page = Page }) : Url.Action("Picture", new { Page }))
     Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
 </div>
-
 
 
 
