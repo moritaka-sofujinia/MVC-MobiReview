@@ -904,6 +904,7 @@
     <Content Include="images\Ads\dog-cute.gif" />
     <Content Include="images\apple-touch-icon.png" />
     <Content Include="images\arrow.png" />
+    <Content Include="images\Details.png" />
     <Content Include="images\favicon.ico" />
     <Content Include="images\flogo.png" />
     <Content Include="images\footer.png" />
@@ -1592,6 +1593,12 @@
     <Content Include="Views\ReMoBi\Tags_Partial.cshtml" />
     <Content Include="Views\ReMoBi\PostbyTags.cshtml" />
     <Content Include="Views\ReMoBi\Details_Post.cshtml" />
+    <Content Include="Views\Admin\Picture.cshtml" />
+    <Content Include="Views\Admin\AddnewPic.cshtml" />
+    <Content Include="Views\Admin\AddnewPostImages.cshtml" />
+    <Content Include="Views\Admin\PostImages.cshtml" />
+    <Content Include="Views\Admin\DeletePic.cshtml" />
+    <Content Include="Views\Admin\DeletePostImages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -197,7 +197,7 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_username", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_username", DbType="VarChar(50)")]
 		public string username
 		{
 			get
@@ -217,7 +217,7 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="VarChar(50)")]
 		public string password
 		{
 			get
@@ -237,7 +237,7 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hovaten", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hovaten", DbType="NVarChar(50)")]
 		public string hovaten
 		{
 			get
@@ -389,7 +389,7 @@ namespace ReMoBi_DCSN.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imagesID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_imagesID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int imagesID
 		{
 			get
@@ -409,7 +409,7 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name_file_images", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name_file_images", DbType="NVarChar(MAX)")]
 		public string Name_file_images
 		{
 			get
@@ -610,7 +610,7 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_username", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_username", DbType="VarChar(50)")]
 		public string username
 		{
 			get
@@ -630,7 +630,7 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="VarChar(50)")]
 		public string password
 		{
 			get
@@ -650,7 +650,7 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hovaten", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hovaten", DbType="NVarChar(50)")]
 		public string hovaten
 		{
 			get
@@ -746,7 +746,7 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_vaitro", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_vaitro", DbType="VarChar(10)")]
 		public string vaitro
 		{
 			get
@@ -766,7 +766,7 @@ namespace ReMoBi_DCSN.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hovaten", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_hovaten", DbType="NVarChar(50)")]
 		public string hovaten
 		{
 			get

@@ -1,7 +1,7 @@
-﻿@model ReMoBi_DCSN.Models.Post
+﻿@model ReMoBi_DCSN.Models.PostImage
 
 @{
-    ViewBag.Title = "AddnewPost";
+    ViewBag.Title = "AddnewPostImages";
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
 
@@ -139,89 +139,30 @@
         text-align: center;
     }
 </style>
-<script src="//cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
-<h2 style="padding-top: 50px">Add new Post</h2>
+<h2 style="padding-top: 50px">Add new Post Images</h2>
 
-@using (Html.BeginForm("AddnewPost", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-
         <div class="form-group">
-            @*@Html.LabelFor(model => model.Post_Title, htmlAttributes: new { @class = "control-label col-md-2" })*@
-            <label for="Post_Titlee" class="control-label">Tiêu đề bài viết</label>
+            @Html.LabelFor(model => model.PostID, "Mã bài viết", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Post_Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Post_Title, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.PostID, (SelectList)ViewBag.PostID, "Chọn mã bài viết", new { @class = "form-control" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Author, "Tác giả", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ImageID, "Mã ảnh", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.ImageID, (SelectList)ViewBag.ImagesID, "Chọn mã ảnh", new { @class = "form-control" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Post_Date, "Ngày Đăng", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="date" name="Post_Date" />
-                @Html.ValidationMessageFor(model => model.Post_Date, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Teaser_Post, "Teaser", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Teaser_Post, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Teaser_Post, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Content_Post, "Nội dung", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div style="position: relative; width: 60%; display: inline-block;">
-                    @Html.TextAreaFor(model => model.Content_Post, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-                @Html.ValidationMessageFor(model => model.Content_Post, "", new { @class = "text-danger" })
-                <script>
-                CKEDITOR.replace("Content_Post", { width: "100%", height: "200px" });
-                </script>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TagID, "Nhãn dán", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.TagID, (SelectList)ViewBag.TagID, "Chọn nhãn dán", new { @class = "form-control" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AnhBia, "Ảnh Bìa", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="file" name="fileupload" />
-                @ViewBag.ThongBao
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.luotthich, "Lượt Thích", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.luotthich, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.luotthich, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <br />
 
         <div class="form-group button-container">
             <div class="col-md-offset-2 col-md-10">
@@ -232,6 +173,3 @@
         </div>
     </div>
 }
-
-
-

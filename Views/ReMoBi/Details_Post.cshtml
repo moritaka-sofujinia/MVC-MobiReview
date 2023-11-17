@@ -88,7 +88,7 @@
         background-color: #ffffcc;
         border-radius: 15px;
     }
-    
+
     button.like {
         width: 30px;
         height: 30px;
@@ -115,18 +115,46 @@
         border-width: 1px;
         font-size: 15px;
     }
-
-    
 </style>
 <div class="horizontal-h">
-    <h6 style="margin-left: 30px">Bạn nghĩ sao về thông tin trên </h6>
-    <button class="like" style="margin-left: 300px">
-        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-    </button>
+    <h6 style="margin-left: 20px">Bạn nghĩ sao về thông tin trên </h6>
+    @using (Html.BeginForm("UpdateRatting", "ReMoBi", new { id = Model.Post.PostID }))
+    {
+        
+        <button class="like" style="margin-left: 300px">
+            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+        </button>
         <button class="dislike">
             <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
         </button>
+        
+    }
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#updateRattingForm").submit(function (event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của form
+
+            var form = $(this);
+            var postId = /* Lấy ID bài viết tương ứng */;
+
+            $.ajax({
+                url: form.attr('action') + '/' + postId,
+                type: 'POST',
+                success: function (response) {
+                    // Xử lý khi cập nhật thành công
+                    console.log(response);
+                },
+                error: function (error) {
+                    // Xử lý khi có lỗi
+                    console.error('Có lỗi xảy ra:', error);
+                }
+            });
+        });
+    });
+</script>
+<br />
 <h7 style="text-align:right; margin-left: 520px">@Model.Post.luotthich Luợt đánh giá</h7>
 <hr />
 
@@ -134,82 +162,82 @@
 
 
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Comment Section</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <style>
-            body {
-                background: #eee;
-            }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comment Section</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            background: #eee;
+        }
 
-            .date {
-                font-size: 11px;
-            }
+        .date {
+            font-size: 11px;
+        }
 
-            .comment-text {
-                font-size: 12px;
-            }
+        .comment-text {
+            font-size: 12px;
+        }
 
-            .fs-12 {
-                font-size: 12px;
-            }
+        .fs-12 {
+            font-size: 12px;
+        }
 
-            .shadow-none {
-                box-shadow: none;
-            }
+        .shadow-none {
+            box-shadow: none;
+        }
 
-            .name {
-                color: #007bff;
-            }
+        .name {
+            color: #007bff;
+        }
 
-            .cursor:hover {
-                color: blue;
-            }
+        .cursor:hover {
+            color: blue;
+        }
 
-            .cursor {
-                cursor: pointer;
-            }
+        .cursor {
+            cursor: pointer;
+        }
 
-            .textarea {
-                resize: none;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container mt-5">
-            <div class="d-flex justify-content-center row">
-                <div class="col-md-8">
-                    <div class="d-flex flex-column comment-section">
-                        <div class="bg-white p-2">
-                            <div class="d-flex flex-row user-info">
-                                <img class="rounded-circle" src="~/images/Ads/ads_2.png" width="40">
-                                <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">Albert AnhDung</span><span class="date text-black-50">Shared publicly - Jan 2020</span></div>
-                            </div>
-                            <div class="mt-2">
-                                <p class="comment-text">SUKKKKKA BLYYYYYYYAT. Some freak just came here for an hours now i have to clean it. No! i don't thing so .Good luck with 5 years in Jail' </p>
-                            </div>
+        .textarea {
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-8">
+                <div class="d-flex flex-column comment-section">
+                    <div class="bg-white p-2">
+                        <div class="d-flex flex-row user-info">
+                            <img class="rounded-circle" src="~/images/Ads/ads_2.png" width="40">
+                            <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">Albert AnhDung</span><span class="date text-black-50">Shared publicly - Jan 2020</span></div>
                         </div>
-                        <div class="bg-white">
-                            <div class="d-flex flex-row fs-12">
-                                <div class="like p-2 cursor"><i class="fa fa-thumbs-o-up"></i><span class="ml-1">Like</span></div>
-                                <div class="like p-2 cursor"><i class="fa fa-commenting-o"></i><span class="ml-1">Comment</span></div>
-                                <div class="like p-2 cursor"><i class="fa fa-share"></i><span class="ml-1">Share</span></div>
-                            </div>
+                        <div class="mt-2">
+                            <p class="comment-text">SUKKKKKA BLYYYYYYYAT. Some freak just came here for an hours now i have to clean it. No! i don't thing so .Good luck with 5 years in Jail' </p>
                         </div>
-                        <div class="bg-light p-2">
-                            <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="~/images/Ads/ads_2.png" width="40"><textarea class="form-control ml-1 shadow-none textarea"></textarea></div>
-                            <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+                    </div>
+                    <div class="bg-white">
+                        <div class="d-flex flex-row fs-12">
+                            <div class="like p-2 cursor"><i class="fa fa-thumbs-o-up"></i><span class="ml-1">Like</span></div>
+                            <div class="like p-2 cursor"><i class="fa fa-commenting-o"></i><span class="ml-1">Comment</span></div>
+                            <div class="like p-2 cursor"><i class="fa fa-share"></i><span class="ml-1">Share</span></div>
                         </div>
+                    </div>
+                    <div class="bg-light p-2">
+                        <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="~/images/Ads/ads_2.png" width="40"><textarea class="form-control ml-1 shadow-none textarea"></textarea></div>
+                        <div class="mt-2 text-right"><button class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
