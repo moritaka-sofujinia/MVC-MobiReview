@@ -9,9 +9,9 @@ USE news1;
 GO
 
 CREATE TABLE NguoiDung (
-    UserID int NOT NULL PRIMARY KEY IDENTITY(1,1),
-    vaitro VARCHAR(10) NOT NULL,
-    hovaten NVARCHAR(50) NOT NULL
+    UserID int PRIMARY KEY IDENTITY(1,1),
+    vaitro VARCHAR(10),
+    hovaten NVARCHAR(50) 
 );
 
 CREATE TABLE tags (
@@ -20,8 +20,8 @@ CREATE TABLE tags (
 );
 
 CREATE TABLE images (
-    imagesID int NOT NULL PRIMARY KEY,
-    Name_file_images NVARCHAR(MAX) NOT NULL,
+    imagesID int  PRIMARY KEY IDENTITY(1,1),
+    Name_file_images NVARCHAR(MAX) ,
     Caption_images NVARCHAR(MAX),
     PostID int
 );
@@ -40,16 +40,16 @@ CREATE TABLE Post (
 
 CREATE TABLE KhachHang (
     KhID int NOT NULL PRIMARY KEY IDENTITY(1,1),
-    username VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
-    hovaten NVARCHAR(50) NOT NULL
+    username VARCHAR(50),
+    password VARCHAR(50),
+    hovaten NVARCHAR(50) 
 );
 
 CREATE TABLE ADMIN (
     AdminID int PRIMARY KEY ,
-    username VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
-    hovaten NVARCHAR(50) NOT NULL
+    username VARCHAR(50) ,
+    password VARCHAR(50) ,
+    hovaten NVARCHAR(50) 
 );
 
 CREATE TABLE PostImages (
@@ -91,7 +91,7 @@ Values('dung','dung','Nguyen Tien Dung');
 select * from NguoiDung
 select * from KhachHang
 select * from ADMIN
-
+select * from PostImages
 
 
 
@@ -189,93 +189,93 @@ VALUES
 
 ---------------------------------------------------------------------------------------
 
-INSERT INTO images (imagesID, Name_file_images, Caption_images,PostID)
+INSERT INTO images ( Name_file_images, Caption_images,PostID)
 VALUES
-    (1, 'News1/news1-pic1.png', 'Zack Nelson, chủ kênh YouTube JerryRigEverything đã phải dùng máy cưa cầm tay để cắt ngang bộ khung titan của iPhone 15 Pro',1),
-    (2, 'News1/news1-pic2.png', 'Hai lớp màu sắc khác nhau cho thấy sự khác biệt giữa 2 chất liệu kim loại làm nên khung sườn iPhone 15 Pro, lớp bên ngoài là Titan, lớp bên trong là nhôm',1),
-    (3, 'News1/news1-pic3.png', 'Lớp Titan bên ngoài không thể là mạ khi có độ dày đến 1mm',1),
-    (4, 'News2/news2-pic1.png', 'Một chiếc Iphone vô tri',2),
-    (5, 'News2/news2-pic2.png', ' Nhiệt độ của Iphone khi test',2),
-    (6, 'News3/news3-pic1.png', 'Xiaomi với 3 màu sắc cực đẹp',3),
-    (7, 'News3/news3-pic2.png', 'Hiển thị sắc nét',3),
-    (8, 'News4/news4-pic2.png', 'Hệ thống dây chuyền sản xuất và Test sản phẩm',4),
-    (9, 'News4/news4-pic3.png', 'Chi Tiết bên trong máy',4),
-    (10, 'News5/news5-pic1.png', 'Nhiệt độ của iPhone 15 Pro trong các bài thử nghiệm lúc nào cũng nóng hơn đối thủ.',5),
-    (11, 'News5/news5-pic2.png', 'Nhiệt độ đo được sau khoảng thời gian dùng máy',5),
-    (12, 'News5/news5-pic3.png', 'Một số mẫu sản phẩm được bày bán',5),
-    (13, 'News5/news5-pic4.png', 'Caption for Image 4',5),
-    (14, 'News6/news6-pic1.png', 'Giới thiệu sản phẩm mới của Nokia',6),
-    (15, 'News6/news6-pic2.png', 'Sản phẩm sẽ sắp ra mắt',6),
-    (16, 'News7/news7-pic1.png', 'Chân dung chiếc G22 sắp ra mắt',7),
-    (17, 'News7/news7-pic2.png', '"Mổ xẻ" chiếc Nokia G22',7),
-    (18, 'News7/news7-pic3.png', 'Chi tiết hệ thống máy của Nokia G22',7),
-    (19, 'News8/news8-pic1.png', 'Redmi Pad SE',8),
-    (20, 'News8/news8-pic2.png', 'Caption for Image 2',8),
-    (21, 'News9/news9-pic1.png', 'Redmi K60 Ultra (hay Ultimate Edition) là mẫu smartphone mới nhất của Xiaomi thuộc dòng K60 series. Dù dòng sản phẩm này đã ra mắt được gần một năm, nhưng phải tới tận bây giờ, một phiên bản cao cấp với phần cứng mạnh mẽ nhất mới được Xiaomi giới thiệu tới người dùng',9),
-    (22, 'News9/news9-pic2.png', 'Về cơ bản, dù mang trong mình phần cứng rất mạnh mẽ, nhưng Redmi K60 Ultra vẫn chỉ được định vị ở phân khúc cận cao cấp. Bởi vậy so với các dòng flagship của Xiaomi thì các yếu tố về ngoại hình hay camera đều không "cao cấp" bằng',9),
-    (23, 'News9/news9-pic3.png', 'Redmi K60 Ultra có mặt lưng hoàn thiện từ kính bề mặt dạng bóng, khá tương đồng với 2 phiên bản tiêu chuẩn và bản Pro ra mắt hồi đầu năm nay. Mặt lưng này được thiết kế cong ở 2 cạnh bên giúp cảm giác cầm nắm thoải má',9),
-    (24, 'News9/news9-pic4.png', 'Cụm camera của Redmi K60 Ultra về cơ bản có cách thiết kế giống 2 phiên bản tiêu chuẩn và Pro, tuy nhiên có kích thước mô-đun lớn hơn. Xiaomi đặt vào đây 3 ống kính: góc rộng 50MP sử dụng cảm biến Sony IMX800, góc siêu rộng 8MP và macro 2MP. Chất lượng camera của các mẫu điện thoại Redmi ở mức ổn, không quá xuất sắc như những dòng flagship Mi vốn có sự tinh chỉnh của Leica',9),
-    (25, 'News9/news9-pic5.png', 'Ở mặt trước, Redmi K60 Ultra được trang bị một màn hình AMOLED có kích thước 6,67 inch, sử dụng độ phân giải QHD+, tần số quét 144Hz. Màn hình này có camera selfie 20MP "nốt ruồi" cũng như có cảm biến vân tay quang học phía dưới',9),
-    (26, 'News9/news9-pic6.png', 'Xiaomi cho biết Redmi K60 Ultra tích hợp con chip X7 được phát triển bới Pixelworks nhằm hỗ trợ chơi game ở độ phân giải 144Hz với 30 tựa game khác nhau. Bởi vậy trong cài đặt màn hình, phần tần số quét được hiển thị là "lên tới 144Hz"',9),
-    (27, 'News9/news9-pic7.png', 'Như đã đề cập, Redmi K60 Ultra là chiếc smartphone thuộc dòng cận cao cấp nên phần khung viền của máy hoàn thiện từ nhựa. Đây là nơi đặt các cổng kết nối, phím bấm vật lý, dải loa, mic thu âm... Máy vẫn được trang bị "mắt thần" hồng ngoại nhưng không có jack tai nghe 3.5mm',9),
-    (28, 'News9/news9-pic8.png', '',9),
-    (29, 'News9/news9-pic9.png', '',9),
-    (30, 'News9/news9-pic10.png', 'Về hiệu năng, Redmi K60 Ultra trang bị con chip Dimensity 9200+ mạnh mẽ nhất tới từ MediaTek. Con chip này cho hiệu năng có thể so sánh ngang với Snapdragon 8 Gen 2',9),
-    (31, 'News10/news10-pic1.png', '',10),
-    (32, 'News10/news10-pic2.png', '',10),
-    (33, 'News11/news11-pic1.png', '',11),
-    (34, 'News11/news11-pic2.png', '',11),
-    (35, 'News12/news12-pic1.png', '',12),
-    (36, 'News12/news12-pic2.png', '',12),
-    (37, 'News13/news13-pic1.png', '',13),
-	(38, 'News13/news13-pic3.png', '',13),
-	(39, 'News13/news13-pic3.png', '',13),
-	(40, 'News14/news14-pic1.png', '',14),
-	(41, 'News14/news14-pic2.png', '',14),
-	(42, 'News14/news14-pic3.png', '',14),
-	(43, 'News15/news15-pic1.png', 'DSX1000',15),
-	(44, 'News15/news15-pic2.png', 'Đó là tính năng ổn định dịch chuyển cảm biến mà iPhone 15 đang sử dụng để ổn định camera',15),
-	(45, 'News15/news15-pic3.png', 'Cận cảnh cảm biến 48MP',15),
-	(46, 'News15/news15-pic4.png', 'Ảnh phóng to 1640x cho thấy mỗi ô vuông nhỏ chứa 2x2 photosite, hay còn gọi là một cụm quad-pixel',15),
-	(47, 'News15/news15-pic5.png', 'Các photoshite bị mờ bởi một lớp bộ lọc màu và microlens. Bức ảnh này được chụp độ phóng đại 7000x!',15),
-	(48, 'News15/news15-pic6.png', 'Cảm biến của iPhone 15 Pro (trái) so với iPhone 15',15),
-	(49, 'News15/news15-pic7.png', 'Nam châm điện bên trong Taptic Engine',15),
-	(50, 'News15/news15-pic8.png', 'Lớp keo dán mặt sau máy',15),
-	(51, 'News16/news16-pic1.png', 'Hình ảnh iPhone 15 Pro Max bị vỡ kính, hư 2 camera sau khi thả rơi từ độ cao 1,8m',16),
-	(52, 'News17/news17-pic1.png', '',17),
-	(53, 'News18/news18-pic1.png', 'Thông báo Apple Pay bị lỗi sau khi sạc không dây trên xe BMW',18),
-	(54, 'News19/news19-pic1.png', 'iOS 17.0.3 chính thức được Apple tung ra ngày hôm nay',18),
-	(55, 'News19/news19-pic2.png', 'Nguồn: 9to5Mac',19),
-	(56, 'News19/news19-pic3.png', 'Hơi bất ngờ là điểm số lại thấp hơn hẳn so với iOS 17.0.2, Apple đã bóp hiệu năng chăng?',19),
-	(57, 'News19/news19-pic4.png', 'Sau khi trở về nhiệt độ ổn định, máy đã cho kết quả đáng ngạc nhiên',19),
-	(58, 'News19/news19-pic5.png', 'Kể từ khi ra mắt, iPhone 15 Pro/Pro Max vướng phải nhiều tranh cãi, 
+    ( 'News1/news1-pic1.png', N'Zack Nelson, chủ kênh YouTube JerryRigEverything đã phải dùng máy cưa cầm tay để cắt ngang bộ khung titan của iPhone 15 Pro',1),
+    ( 'News1/news1-pic2.png', N'Hai lớp màu sắc khác nhau cho thấy sự khác biệt giữa 2 chất liệu kim loại làm nên khung sườn iPhone 15 Pro, lớp bên ngoài là Titan, lớp bên trong là nhôm',1),
+    ( 'News1/news1-pic3.png', N'Lớp Titan bên ngoài không thể là mạ khi có độ dày đến 1mm',1),
+    ( 'News2/news2-pic1.png', N'Một chiếc Iphone vô tri',2),
+    ( 'News2/news2-pic2.png', N' Nhiệt độ của Iphone khi test',2),
+    ( 'News3/news3-pic1.png', N'Xiaomi với 3 màu sắc cực đẹp',3),
+    ( 'News3/news3-pic2.png', N'Hiển thị sắc nét',3),
+    ( 'News4/news4-pic2.png', N'Hệ thống dây chuyền sản xuất và Test sản phẩm',4),
+    ( 'News4/news4-pic3.png', N'Chi Tiết bên trong máy',4),
+    ( 'News5/news5-pic1.png', N'Nhiệt độ của iPhone 15 Pro trong các bài thử nghiệm lúc nào cũng nóng hơn đối thủ.',5),
+    ( 'News5/news5-pic2.png', N'Nhiệt độ đo được sau khoảng thời gian dùng máy',5),
+    ( 'News5/news5-pic3.png', N'Một số mẫu sản phẩm được bày bán',5),
+    ( 'News5/news5-pic4.png', N'Caption for Image 4',5),
+    ( 'News6/news6-pic1.png', N'Giới thiệu sản phẩm mới của Nokia',6),
+    ( 'News6/news6-pic2.png', N'Sản phẩm sẽ sắp ra mắt',6),
+    ( 'News7/news7-pic1.png', N'Chân dung chiếc G22 sắp ra mắt',7),
+    ( 'News7/news7-pic2.png', N'"Mổ xẻ" chiếc Nokia G22',7),
+    ( 'News7/news7-pic3.png', N'Chi tiết hệ thống máy của Nokia G22',7),
+    ( 'News8/news8-pic1.png', N'Redmi Pad SE',8),
+    ( 'News8/news8-pic2.png', N'Caption for Image 2',8),
+    ( 'News9/news9-pic1.png', N'Redmi K60 Ultra (hay Ultimate Edition) là mẫu smartphone mới nhất của Xiaomi thuộc dòng K60 series. Dù dòng sản phẩm này đã ra mắt được gần một năm, nhưng phải tới tận bây giờ, một phiên bản cao cấp với phần cứng mạnh mẽ nhất mới được Xiaomi giới thiệu tới người dùng',9),
+    ( 'News9/news9-pic2.png', N'Về cơ bản, dù mang trong mình phần cứng rất mạnh mẽ, nhưng Redmi K60 Ultra vẫn chỉ được định vị ở phân khúc cận cao cấp. Bởi vậy so với các dòng flagship của Xiaomi thì các yếu tố về ngoại hình hay camera đều không "cao cấp" bằng',9),
+    ( 'News9/news9-pic3.png', N'Redmi K60 Ultra có mặt lưng hoàn thiện từ kính bề mặt dạng bóng, khá tương đồng với 2 phiên bản tiêu chuẩn và bản Pro ra mắt hồi đầu năm nay. Mặt lưng này được thiết kế cong ở 2 cạnh bên giúp cảm giác cầm nắm thoải má',9),
+    ( 'News9/news9-pic4.png', N'Cụm camera của Redmi K60 Ultra về cơ bản có cách thiết kế giống 2 phiên bản tiêu chuẩn và Pro, tuy nhiên có kích thước mô-đun lớn hơn. Xiaomi đặt vào đây 3 ống kính: góc rộng 50MP sử dụng cảm biến Sony IMX800, góc siêu rộng 8MP và macro 2MP. Chất lượng camera của các mẫu điện thoại Redmi ở mức ổn, không quá xuất sắc như những dòng flagship Mi vốn có sự tinh chỉnh của Leica',9),
+    ( 'News9/news9-pic5.png', N'Ở mặt trước, Redmi K60 Ultra được trang bị một màn hình AMOLED có kích thước 6,67 inch, sử dụng độ phân giải QHD+, tần số quét 144Hz. Màn hình này có camera selfie 20MP "nốt ruồi" cũng như có cảm biến vân tay quang học phía dưới',9),
+    ( 'News9/news9-pic6.png', N'Xiaomi cho biết Redmi K60 Ultra tích hợp con chip X7 được phát triển bới Pixelworks nhằm hỗ trợ chơi game ở độ phân giải 144Hz với 30 tựa game khác nhau. Bởi vậy trong cài đặt màn hình, phần tần số quét được hiển thị là "lên tới 144Hz"',9),
+    ( 'News9/news9-pic7.png', N'Như đã đề cập, Redmi K60 Ultra là chiếc smartphone thuộc dòng cận cao cấp nên phần khung viền của máy hoàn thiện từ nhựa. Đây là nơi đặt các cổng kết nối, phím bấm vật lý, dải loa, mic thu âm... Máy vẫn được trang bị "mắt thần" hồng ngoại nhưng không có jack tai nghe 3.5mm',9),
+    ( 'News9/news9-pic8.png', N'',9),
+    ( 'News9/news9-pic9.png', '',9),
+    ( 'News9/news9-pic10.png', N'Về hiệu năng, Redmi K60 Ultra trang bị con chip Dimensity 9200+ mạnh mẽ nhất tới từ MediaTek. Con chip này cho hiệu năng có thể so sánh ngang với Snapdragon 8 Gen 2',9),
+    ( 'News10/news10-pic1.png', N'',10),
+    ( 'News10/news10-pic2.png', N'',10),
+    ( 'News11/news11-pic1.png', N'',11),
+    ( 'News11/news11-pic2.png', N'',11),
+    ( 'News12/news12-pic1.png', N'',12),
+    ( 'News12/news12-pic2.png', N'',12),
+    ( 'News13/news13-pic1.png', N'',13),
+	( 'News13/news13-pic3.png', N'',13),
+	('News13/news13-pic3.png', N'',13),
+	( 'News14/news14-pic1.png', N'',14),
+	( 'News14/news14-pic2.png', N'',14),
+	( 'News14/news14-pic3.png', N'',14),
+	( 'News15/news15-pic1.png', N'DSX1000',15),
+	( 'News15/news15-pic2.png', N'Đó là tính năng ổn định dịch chuyển cảm biến mà iPhone 15 đang sử dụng để ổn định camera',15),
+	( 'News15/news15-pic3.png', N'Cận cảnh cảm biến 48MP',15),
+	( 'News15/news15-pic4.png', N'Ảnh phóng to 1640x cho thấy mỗi ô vuông nhỏ chứa 2x2 photosite, hay còn gọi là một cụm quad-pixel',15),
+	( 'News15/news15-pic5.png', N'Các photoshite bị mờ bởi một lớp bộ lọc màu và microlens. Bức ảnh này được chụp độ phóng đại 7000x!',15),
+	( 'News15/news15-pic6.png', N'Cảm biến của iPhone 15 Pro (trái) so với iPhone 15',15),
+	( 'News15/news15-pic7.png', N'Nam châm điện bên trong Taptic Engine',15),
+	( 'News15/news15-pic8.png', N'Lớp keo dán mặt sau máy',15),
+	( 'News16/news16-pic1.png', N'Hình ảnh iPhone 15 Pro Max bị vỡ kính, hư 2 camera sau khi thả rơi từ độ cao 1,8m',16),
+	( 'News17/news17-pic1.png', N'',17),
+	( 'News18/news18-pic1.png', N'Thông báo Apple Pay bị lỗi sau khi sạc không dây trên xe BMW',18),
+	( 'News19/news19-pic1.png', N'iOS 17.0.3 chính thức được Apple tung ra ngày hôm nay',18),
+	( 'News19/news19-pic2.png', N'Nguồn: 9to5Mac',19),
+	( 'News19/news19-pic3.png', N'Hơi bất ngờ là điểm số lại thấp hơn hẳn so với iOS 17.0.2, Apple đã bóp hiệu năng chăng?',19),
+	( 'News19/news19-pic4.png', N'Sau khi trở về nhiệt độ ổn định, máy đã cho kết quả đáng ngạc nhiên',19),
+	( 'News19/news19-pic5.png', N'Kể từ khi ra mắt, iPhone 15 Pro/Pro Max vướng phải nhiều tranh cãi, 
 	từ câu chuyện mạ viền titanium, lượng titanium không đủ nhiều như quảng cáo, hay như giờ đây 
 	là hiện tượng quá nhiệt. Tất cả những vấn đề này hiện đã và đang được giải thích và xử lý triệt 
 	để giúp cho người dùng an tâm hơn trong quá trình sử dụng',19),
-	(59, 'News20/news20-pic1.png', 'Điện thoại có sạc nhanh hơn khi ở chế độ Tiết kiệm pin không? (Ảnh minh họa)',20),
-	(60, 'News21/news21-pic1.png', '',21),
-	(61, 'News21/news21-pic2.png', '',21),
-	(62, 'News21/news21-pic3.png', '',21),
-	(63, 'News22/news22-pic1.png', '',22),
-	(64, 'News22/news22-pic2.png', 'CEO Tim Cook của Apple đến làm chứng trong vụ kiện chống độc quyền của Google',22),
-	(65, 'News22/news22-pic3.png', '',22),
-	(66, 'News22/news22-pic4.png', '',22),
-	(67, 'News23/news23-pic1.png', 'Apple sử dụng robot Daisy để tháo linh kiện iPhone',23),
-	(68, 'News23/news23-pic2.png', 'Apple Watch là sản phẩm trung hòa carbon',23),
-	(69, 'News24/news24-pic1.png', '',24),
-	(70, 'News24/news24-pic2.png', '',24),
-	(71, 'News24/news24-pic3.png', '',24),
-	(72, 'News24/news24-pic4.png', '',24),
-	(73, 'News24/news24-pic5.png', '',24),
-	(74, 'News24/news24-pic6.png', '',24),
-	(75, 'News24/news24-pic7.png', '',24),
-	(76, 'News24/news24-pic8.png', '',24),
-	(77, 'News24/news24-pic9.png', '',24),
-	(78, 'News25/news25-pic1.png', '',25),
-	(79, 'News25/news25-pic2.png', '',25),
-	(80, 'News25/news25-pic3.png', '',25),
-	(81, 'News25/news25-pic4.png', '',25),
-	(82, 'News25/news25-pic5.png', '',25);
+	( 'News20/news20-pic1.png', N'Điện thoại có sạc nhanh hơn khi ở chế độ Tiết kiệm pin không? (Ảnh minh họa)',20),
+	( 'News21/news21-pic1.png', N'',21),
+	( 'News21/news21-pic2.png', N'',21),
+	( 'News21/news21-pic3.png', N'',21),
+	( 'News22/news22-pic1.png', N'',22),
+	( 'News22/news22-pic2.png', N'CEO Tim Cook của Apple đến làm chứng trong vụ kiện chống độc quyền của Google',22),
+	( 'News22/news22-pic3.png', N'',22),
+	( 'News22/news22-pic4.png', N'',22),
+	( 'News23/news23-pic1.png', N'Apple sử dụng robot Daisy để tháo linh kiện iPhone',23),
+	( 'News23/news23-pic2.png', N'Apple Watch là sản phẩm trung hòa carbon',23),
+	( 'News24/news24-pic1.png', N'',24),
+	( 'News24/news24-pic2.png', N'',24),
+	( 'News24/news24-pic3.png', N'',24),
+	( 'News24/news24-pic4.png', N'',24),
+	( 'News24/news24-pic5.png', N'',24),
+	( 'News24/news24-pic6.png', N'',24),
+	( 'News24/news24-pic7.png', N'',24),
+	( 'News24/news24-pic8.png', N'',24),
+	( 'News24/news24-pic9.png', N'',24),
+	( 'News25/news25-pic1.png', N'',25),
+	( 'News25/news25-pic2.png', N'',25),
+	( 'News25/news25-pic3.png', N'',25),
+	( 'News25/news25-pic4.png', N'',25),
+	( 'News25/news25-pic5.png', N'',25);
 
 ---------------------------------------------------------------------------------------
 
@@ -368,7 +368,7 @@ VALUES
 
 select * from NguoiDung
 select * from KhachHang
-
+select * from images
 
 
 select * from Post 
