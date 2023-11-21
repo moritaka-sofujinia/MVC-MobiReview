@@ -140,6 +140,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common\common.cs" />
     <Compile Include="Controllers\AboutUsController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
@@ -1044,6 +1045,7 @@
     <Content Include="js\new_two.js" />
     <Content Include="js\tags.js" />
     <Content Include="js\tether.min.js" />
+    <Content Include="Models\mail.html" />
     <Content Include="Models\news.sql" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />

@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -134,10 +136,51 @@ namespace ReMoBi_DCSN.Controllers
                 //kh.NgaySinh = DateTime.Parse(dNgaySinh);
                 db.KhachHangs.InsertOnSubmit(kh);
                 db.SubmitChanges();
+                SendWelcomeEmail(kh.hovaten, kh.username, sEmail);
                 return Redirect("~/User/Login");
             }
             return View("Register");
         }
+
+        // Hàm gửi email chào mừng
+        private void SendWelcomeEmail(string hovaten, string username, string emailAddress)
+        {
+            using (MailMessage mail = new MailMessage())
+            {
+                mail.From = new MailAddress("remobi.kdd@gmail.com"); // Địa chỉ email người gửi
+                mail.To.Add(emailAddress); // Địa chỉ email người nhận
+                mail.Subject = "Chào mừng bạn đến với ReMoBi";
+
+                string body = System.IO.File.ReadAllText(Server.MapPath("~/Models/mail.html"));
+                // Thay thế các placeholder trong mẫu email bằng thông tin người dùng
+                body = body.Replace("{{CustomerEmail}}", emailAddress);
+                body = body.Replace("{{CustomerName}}", hovaten);
+
+                mail.Body = body;
+                mail.IsBodyHtml = true;
+
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    smtp.EnableSsl = true; // Sử dụng SSL
+
+                    smtp.Credentials = new NetworkCredential("remobi.kdd@gmail.com", "ReMoBi2003");
+                    // Hãy sử dụng mật khẩu ứng dụng của bạn (nếu đã được kích hoạt) hoặc mật khẩu của tài khoản Gmail
+
+                    try
+                    {
+                        smtp.Send(mail); // Gửi email
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+        }
+
+
+
+
         //public static string HashPassword(string password)
         //{
         //    using (SHA256 sha256 = SHA256.Create())
