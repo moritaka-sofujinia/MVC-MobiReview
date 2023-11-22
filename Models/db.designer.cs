@@ -132,6 +132,14 @@ namespace ReMoBi_DCSN.Models
 				return this.GetTable<tag>();
 			}
 		}
+		
+		public System.Data.Linq.Table<newsletter> newsletters
+		{
+			get
+			{
+				return this.GetTable<newsletter>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ADMIN")]
@@ -1491,6 +1499,33 @@ namespace ReMoBi_DCSN.Models
 		{
 			this.SendPropertyChanging();
 			entity.tag = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.newsletter")]
+	public partial class newsletter
+	{
+		
+		private string _email;
+		
+		public newsletter()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string email
+		{
+			get
+			{
+				return this._email;
+			}
+			set
+			{
+				if ((this._email != value))
+				{
+					this._email = value;
+				}
+			}
 		}
 	}
 }

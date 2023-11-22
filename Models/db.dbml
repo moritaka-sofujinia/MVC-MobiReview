@@ -67,4 +67,9 @@
       <Association Name="tag_Post" Member="Posts" ThisKey="TagID" OtherKey="TagID" Type="Post" />
     </Type>
   </Table>
+  <Table Name="dbo.newsletter" Member="newsletters">
+    <Type Name="newsletter">
+      <Column Name="email" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>
