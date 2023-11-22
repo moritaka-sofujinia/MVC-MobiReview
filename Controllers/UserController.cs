@@ -18,7 +18,7 @@ namespace ReMoBi_DCSN.Controllers
         private readonly dbDataContext db;
         public UserController()
         {
-            var connectionString = "Data Source=Albert;Database=news1;Trusted_Connection=True";
+            var connectionString = "Data Source=MSIKHOI;Database=news1;Trusted_Connection=True";
             db = new dbDataContext(connectionString);
         }
             // GET: User
@@ -163,7 +163,8 @@ namespace ReMoBi_DCSN.Controllers
                 {
                     smtp.EnableSsl = true; // Sử dụng SSL
 
-                    smtp.Credentials = new NetworkCredential("ReMoBi.KDD@gmail.com", "ReMoBi2003");
+                    smtp.Credentials = new NetworkCredential("2124801030036@student.tdmu.edu.vn", "duc091105.");
+                    // smtp.Credentials = new NetworkCredential("ReMoBi.KDD@gmail.com", "ReMoBi2003");
                     // Hãy sử dụng mật khẩu ứng dụng của bạn (nếu đã được kích hoạt) hoặc mật khẩu của tài khoản Gmail
 
                     try
