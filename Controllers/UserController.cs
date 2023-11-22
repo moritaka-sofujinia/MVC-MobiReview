@@ -147,7 +147,7 @@ namespace ReMoBi_DCSN.Controllers
         {
             using (MailMessage mail = new MailMessage())
             {
-                mail.From = new MailAddress("remobi.kdd@gmail.com"); // Địa chỉ email người gửi
+                mail.From = new MailAddress("ReMoBi.KDD@gmail.com"); // Địa chỉ email người gửi
                 mail.To.Add(emailAddress); // Địa chỉ email người nhận
                 mail.Subject = "Chào mừng bạn đến với ReMoBi";
 
@@ -163,7 +163,7 @@ namespace ReMoBi_DCSN.Controllers
                 {
                     smtp.EnableSsl = true; // Sử dụng SSL
 
-                    smtp.Credentials = new NetworkCredential("remobi.kdd@gmail.com", "ReMoBi2003");
+                    smtp.Credentials = new NetworkCredential("ReMoBi.KDD@gmail.com", "ReMoBi2003");
                     // Hãy sử dụng mật khẩu ứng dụng của bạn (nếu đã được kích hoạt) hoặc mật khẩu của tài khoản Gmail
 
                     try
