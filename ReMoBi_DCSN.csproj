@@ -1047,6 +1047,7 @@
     <Content Include="js\tether.min.js" />
     <Content Include="Models\mail.html" />
     <Content Include="Models\news.sql" />
+    <Content Include="OnlineAccess.txt" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />

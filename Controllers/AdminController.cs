@@ -19,7 +19,7 @@ namespace ReMoBi_DCSN.Controllers
         private readonly dbDataContext dbdata;
         public AdminController()
         {
-            var connectionString = "Data Source=MSIKHOI;Database=news1;Trusted_Connection=True";
+            var connectionString = "Data Source=Albert;Database=news1;Trusted_Connection=True";
             dbdata = new dbDataContext(connectionString);
         }
         // GET: Admin
@@ -179,7 +179,10 @@ namespace ReMoBi_DCSN.Controllers
         }
 
 
-
+        public Post GetthePost(int id)
+        {
+            return dbdata.Posts.Where(p => p.PostID == id).SingleOrDefault();
+        }
         [HttpGet]
         public ActionResult EditPost(int id)
         {
@@ -199,7 +202,7 @@ namespace ReMoBi_DCSN.Controllers
         public ActionResult EditPost(Post post, HttpPostedFileBase fileupload)
         {
 
-            ViewBag.TagID = new SelectList(dbdata.tags.ToList().OrderBy(n => n.Name_Tags), "TagID", "Name_Tags", post.TagID);
+            ViewBag.TagID = new SelectList(dbdata.tags.ToList().OrderBy(n => n.Name_Tags), "TagID", "Name_Tags");
 
             if (fileupload == null)
             {

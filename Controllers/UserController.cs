@@ -18,7 +18,7 @@ namespace ReMoBi_DCSN.Controllers
         private readonly dbDataContext db;
         public UserController()
         {
-            var connectionString = "Data Source=MSIKHOI;Database=news1;Trusted_Connection=True";
+            var connectionString = "Data Source=Albert;Database=news1;Trusted_Connection=True";
             db = new dbDataContext(connectionString);
         }
             // GET: User
@@ -62,22 +62,7 @@ namespace ReMoBi_DCSN.Controllers
                 {
                     ViewBag.ThongBao = "Bạn đã đăng nhập thành công.";
                     Session["TaiKhoan"] = kh;
-                    //if (form["remember"].Contains("true"))
-                    //{
-                    //    // TenDN
-                    //    Response.Cookies["TaiKhoan"].Value = sTenDN;
-                    //    Response.Cookies["MatKhau"].Value = sMatKhau;
-                    //    Response.Cookies["TaiKhoan"].Expires = DateTime.Now.AddDays(1);
-                    //    Response.Cookies["MatKhau"].Expires = DateTime.Now.AddDays(1);
-                    //}
-                    //else
-                    //{
-                    //    Response.Cookies["TaiKhoan"].Expires = DateTime.Now.AddDays(-1);
-                    //    Response.Cookies["MatKhau"].Expires = DateTime.Now.AddDays(-1);
-                    //}
-                    ////Session["tenND"] = kh.HoTen; 
-                    ////return RedirectToAction("Index", "SachOnline");
-                    //return Redirect(url);
+                    
                     return Redirect(url);
                 }
                 else
@@ -180,8 +165,10 @@ namespace ReMoBi_DCSN.Controllers
         }
 
 
-
-
+        public ActionResult ProFileUser()
+        {
+            return View();
+        }
         //public static string HashPassword(string password)
         //{
         //    using (SHA256 sha256 = SHA256.Create())
