@@ -880,6 +880,7 @@
     <Content Include="css\font-awesome.css" />
     <Content Include="css\font-awesome.min.css" />
     <Content Include="css\loading.css" />
+    <Content Include="css\Loading_User.css" />
     <Content Include="css\new_two.css" />
     <Content Include="css\open-iconic\font\css\open-iconic-bootstrap.min.css" />
     <Content Include="css\open-iconic\font\fonts\open-iconic.svg" />
@@ -1602,6 +1603,7 @@
     <Content Include="Views\Admin\PostImages.cshtml" />
     <Content Include="Views\Admin\DeletePic.cshtml" />
     <Content Include="Views\Admin\DeletePostImages.cshtml" />
+    <Content Include="Views\Shared\LoadingPage_User.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

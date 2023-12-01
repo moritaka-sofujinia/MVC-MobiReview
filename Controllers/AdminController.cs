@@ -201,8 +201,8 @@ namespace ReMoBi_DCSN.Controllers
         [ValidateInput(false)]
         public ActionResult EditPost(Post post, HttpPostedFileBase fileupload)
         {
-
             ViewBag.TagID = new SelectList(dbdata.tags.ToList().OrderBy(n => n.Name_Tags), "TagID", "Name_Tags");
+
 
             if (fileupload == null)
             {
@@ -225,6 +225,7 @@ namespace ReMoBi_DCSN.Controllers
                         fileupload.SaveAs(path);
                     }
                     post.AnhBia = filename;
+                    
                     UpdateModel(post);
                     dbdata.SubmitChanges();
                 }

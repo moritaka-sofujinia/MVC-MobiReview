@@ -87,14 +87,18 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.PostID)
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.TagID, "Mã bài viết", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.TagID, "Mã bài viết", htmlAttributes: new { @class = "control-label col-md-2" })*@
             <label for="PostID" class="control-label">Mã Bài Viết</label>
             <div class="col-md-10">
-                <div style="font:18px ; padding : 5px 0 0 5px"> @Model.PostID </div>
+                @if (Model != null)
+                {
+                    <div style="font:18px; padding: 5px 0 0 5px">@Model.PostID</div>
+                }
+
                 @Html.ValidationMessageFor(model => model.PostID, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
         <div class="form-group">
             @*@Html.LabelFor(model => model.Post_Title, "Tiêu đề", htmlAttributes: new { @class = "control-label col-md-2" })*@
@@ -151,8 +155,10 @@
             @*@Html.LabelFor(model => model.TagID, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <label for="TagID" class="control-label">Nhãn dán</label>
             <div class="col-md-10">
-                @*@Html.DropDownListFor(model => model.TagID, (SelectList)ViewBag.TagID, "Chọn nhãn dán", new { @class = "form-control" })*@
-               @Html.DropDownList("TagID")
+                @if (Model != null && Model.TagID != null)
+                {
+                    @Html.DropDownListFor(model => model.TagID, (SelectList)ViewBag.TagID, "Chọn nhãn dán", new { @class = "form-control" })
+                }
             </div>
         </div>
 
