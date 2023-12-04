@@ -159,6 +159,7 @@
                 <div class="row">
 
                     <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                        <div id="loader" class="center-side"> @Html.Partial("LoadingPage_User") </div>
                         <div class="page-wrapper-home">
                             @RenderBody()
                         </div><!-- end page-wrapper -->
@@ -192,3 +193,18 @@
 
 </body>
 </html>
+
+<script>
+    document.onreadystatechange = function () {
+        if (document.readyState !== "complete") {
+            document.querySelector("body").style.visibility = "hidden";
+            document.querySelector("#loader").style.visibility = "visible";
+        } else {
+            // Introduce a 2-second delay before hiding the loader
+            setTimeout(function () {
+                document.querySelector("#loader").style.display = "none";
+                document.querySelector("body").style.visibility = "visible";
+            }, 1000); // Adjust the delay time in milliseconds (2 seconds in this case)
+        }
+    };
+</script>
