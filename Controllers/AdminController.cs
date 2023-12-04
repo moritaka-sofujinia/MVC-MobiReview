@@ -109,7 +109,7 @@ namespace ReMoBi_DCSN.Controllers
             return View(query.OrderBy(n => n.Post_Date).ToPagedList(pageNum,pageSize));
         }
 
-        
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult AddnewPost() 
         {
@@ -151,6 +151,7 @@ namespace ReMoBi_DCSN.Controllers
             return RedirectToAction("Post");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult DeletePost(int id)
         {
@@ -164,6 +165,7 @@ namespace ReMoBi_DCSN.Controllers
             return View(post);
         }
         [HttpPost, ActionName("DeletePost")]
+        [ValidateAntiForgeryToken]
         public ActionResult ConfirmDeletePost(int id)
         {
             Post post = dbdata.Posts.SingleOrDefault(n => n.PostID == id);
@@ -183,6 +185,7 @@ namespace ReMoBi_DCSN.Controllers
         {
             return dbdata.Posts.Where(p => p.PostID == id).SingleOrDefault();
         }
+
         [HttpGet]
         public ActionResult EditPost(int id)
         {
@@ -193,13 +196,16 @@ namespace ReMoBi_DCSN.Controllers
                 Response.StatusCode = 404;
                 return null;
             }
+
             ViewBag.TagID = new SelectList(dbdata.tags.ToList().OrderBy(n => n.Name_Tags), "TagID", "Name_Tags", post.TagID);
             return View(post);
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult EditPost(Post post, HttpPostedFileBase fileupload)
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost([Bind(Include = "PostID,Post_Title,Author,Post_Date,Teaser_Post,Content_Post,TagID,AnhBia,luotthich")] Post post, 
+            HttpPostedFileBase fileupload)
         {
             ViewBag.TagID = new SelectList(dbdata.tags.ToList().OrderBy(n => n.Name_Tags), "TagID", "Name_Tags");
 
@@ -224,8 +230,8 @@ namespace ReMoBi_DCSN.Controllers
                     {
                         fileupload.SaveAs(path);
                     }
+
                     post.AnhBia = filename;
-                    
                     UpdateModel(post);
                     dbdata.SubmitChanges();
                 }

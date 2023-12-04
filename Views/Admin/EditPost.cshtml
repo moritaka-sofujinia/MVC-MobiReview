@@ -155,9 +155,9 @@
             @*@Html.LabelFor(model => model.TagID, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <label for="TagID" class="control-label">Nhãn dán</label>
             <div class="col-md-10">
-                @if (Model != null && Model.TagID != null)
+                @if (ViewBag.TagID != null)
                 {
-                    @Html.DropDownListFor(model => model.TagID, (SelectList)ViewBag.TagID, "Chọn nhãn dán", new { @class = "form-control" })
+                    @Html.DropDownList("TagID", null, htmlAttributes: new { @class = "form-control" })
                 }
             </div>
         </div>

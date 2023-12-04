@@ -33,10 +33,10 @@
     <link href="~/css/version/marketing.css" rel="stylesheet">
     <title>Tags</title>
 </head>
-<div class="widget-no-style" >
-    <div class="dropdown" >
+<div class="widget-no-style">
+    <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            TAGS - for Search         
+            TAGS - for Search
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
@@ -47,3 +47,31 @@
         </div>
     </div>
 </div>
+<!-- Thêm thư viện jQuery vào trang của bạn -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Ẩn ban đầu dropdown menu khi trang được tải
+        $(".dropdown-menu").hide();
+
+        // Bắt sự kiện click vào button dropdown-toggle
+        $(".dropdown-toggle").click(function() {
+            // Kiểm tra xem dropdown-menu có đang hiển thị không
+            if ($(".dropdown-menu").is(":visible")) {
+                // Nếu đang hiển thị, ẩn đi khi click lần thứ 2
+                $(".dropdown-menu").hide();
+            } else {
+                // Nếu chưa hiển thị, hiển thị lên
+                $(".dropdown-menu").show();
+            }
+        });
+
+        // Ẩn dropdown menu nếu click bất kỳ chỗ nào trên body ngoại trừ dropdown-menu và dropdown-toggle
+        $(document).on("click", function(event) {
+            if (!$(event.target).closest('.dropdown').length) {
+                $(".dropdown-menu").hide();
+            }
+        });
+    });
+</script>
