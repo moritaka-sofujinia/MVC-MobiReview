@@ -557,6 +557,11 @@ namespace ReMoBi_DCSN.Controllers
         {
             return dbdata.NguoiDungs.Where(n =>n.UserID == id).SingleOrDefault();
         }
+        public KhachHang GetKhachHang(int id)
+        {
+            return dbdata.KhachHangs.Where(n => n.KhID == id).SingleOrDefault();
+        }
+
         [HttpGet]
         public ActionResult EditUser(int id)
         {
@@ -612,6 +617,36 @@ namespace ReMoBi_DCSN.Controllers
             //return View(db.SACHes.ToList().OrderBy(n => n.MaSach).ToPagedList(pagenumber,pageSize));
             return View(query.OrderBy(n => n.KhID).ToPagedList(pageNum, pageSize));
         }
+        [HttpGet]
+        public ActionResult EditCustomer(int id)
+        {
+            KhachHang kh = dbdata.KhachHangs.SingleOrDefault(n => n.KhID == id);
+            if (kh == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            return View(kh);
+        }
 
+        [HttpPost]
+        public ActionResult EditCustomer()
+        {
+            if (ModelState.IsValid)
+            {
+                // Dùng đối tượng Request.Form[""] để lấy giá trị của đối tượng truyền từ Form
+                var kh = GetKhachHang(int.Parse(Request.Form["KhID"]));
+                kh.hovaten = Request.Form["hovaten"];
+                kh.username = Request.Form["username"];
+                kh.password = Request.Form["password"];
+
+                dbdata.SubmitChanges();
+                return RedirectToAction("TheCustomer");
+
+                //UpdateModel(user);
+                //dbdata.SubmitChanges();
+            }
+            return RedirectToAction("TheCustomer");
+        }
     }
 }
