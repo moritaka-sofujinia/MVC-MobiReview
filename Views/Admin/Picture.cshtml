@@ -95,20 +95,20 @@
 <table class="table" style="background-color: #EEEEEE">
     <tr style="background-color: #27374D; color: #DDE6ED ">
         <th >
-            Mã ảnh
+            Số thứ tự
         </th>
-        <th>
+        @*<th>
             File ảnh
-        </th>
+        </th>*@
         <th>
             Ảnh
         </th>
         <th>
             Dòng trạng thái
         </th>
-        <th>
+        @*<th>
             Mã bài viết
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -118,23 +118,23 @@
             <td style="color: #1E212D ">
                 @Html.DisplayFor(modelItem => item.imagesID)
             </td>
-            <td style="color: #1E212D ">
+            @*<td style="color: #1E212D ">
                 @Html.DisplayFor(modelItem => item.Name_file_images)
-            </td>
+            </td>*@
             <td style="color: #1E212D ">
                 <img src="@Url.Content("~/images/"+ item.Name_file_images)" width="120" />
             </td>
             <td style="color: #1E212D ">
                 @Html.DisplayFor(modelItem => item.Caption_images)
             </td>
-            <td style="color: #1E212D ">
+            @*<td style="color: #1E212D ">
                 @Html.DisplayFor(modelItem => item.PostID)
-            </td>
+            </td>*@
             <td>
-                <button class="action-button edit-button" onclick="location.href='@Url.Action("EditPost", new { id = item.PostID })'">Edit</button>
-                <br />
-                <button class="action-button details-button" onclick="location.href='@Url.Action("DetailsBook", new { id = item.PostID })'">Details</button>
-                <br />
+                <button class="action-button edit-button" onclick="location.href='@Url.Action("EditPic", new { id = item.imagesID })'">Edit</button>
+                @*<br />*@
+                @*<button class="action-button details-button" onclick="location.href='@Url.Action("DetailsBook", new { id = item.PostID })'">Details</button>*@
+                @*<br />*@
                 <button class="action-button delete-button" onclick="location.href='@Url.Action("DeletePic", new { id = item.imagesID })'">Delete</button>
             </td>
         </tr>

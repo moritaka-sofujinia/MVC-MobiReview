@@ -297,6 +297,56 @@ namespace ReMoBi_DCSN.Controllers
         }
 
 
+
+        public image GetthePic(int id)
+        {
+            return dbdata.images .Where(p => p.imagesID == id).SingleOrDefault();
+        }
+
+        [HttpGet]
+        public ActionResult EditPic(int id)
+        {
+            image ima = dbdata.images.SingleOrDefault(n => n.imagesID == id);
+
+            if (ima == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+
+            ViewBag.PostID = new SelectList(dbdata.Posts.ToList().OrderBy(n => n.PostID), "PostID", "PostID", ima.PostID);
+            return View(ima);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+       
+        public ActionResult EditPic( 
+            HttpPostedFileBase fileupload)
+        {
+            
+            if (fileupload == null)
+            {
+                ViewBag.ThongBao = "Vui long chon Anh Bia !";
+                return View();
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                 
+                    var ima = GetthePic(int.Parse(Request.Form["imagesID"]));
+                    ima.Name_file_images = Request.Form["Name_file_images"];
+                    ima.Caption_images = Request.Form["Caption_images"];
+                    ima.PostID = (int.Parse(Request.Form["PostID"]));
+                    
+                    dbdata.SubmitChanges();
+                    return RedirectToAction("Picture");
+                }
+                return RedirectToAction("Picture");
+            }
+        }
+
         [HttpGet]
         public ActionResult DeletePic(int id)
         {
@@ -502,6 +552,48 @@ namespace ReMoBi_DCSN.Controllers
             dbdata.NguoiDungs.DeleteOnSubmit(User);
             dbdata.SubmitChanges();
             return RedirectToAction("TheUser");
+        }
+        public NguoiDung GetUser(int id)
+        {
+            return dbdata.NguoiDungs.Where(n =>n.UserID == id).SingleOrDefault();
+        }
+        [HttpGet]
+        public ActionResult EditUser(int id)
+        {
+            
+            NguoiDung user = dbdata.NguoiDungs.SingleOrDefault(n => n.UserID == id);
+            if (user == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+
+            ViewBag.Role = new SelectList(dbdata.NguoiDungs.ToList().OrderBy(n => n.vaitro), "vaitro", "vaitro", user.vaitro);
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        
+        public ActionResult EditUser()
+        {
+            
+
+            if (ModelState.IsValid)
+
+            {
+                // Dùng đối tượng Request.Form[""] để lấy giá trị của đối tượng truyền từ Form
+                var user = GetUser(int.Parse(Request.Form["UserID"]));
+                user.vaitro = Request.Form["vaitro"];
+                user.hovaten = Request.Form["hovaten"];
+                
+                dbdata.SubmitChanges();
+                return RedirectToAction("TheUser");
+
+                //UpdateModel(user);
+                //dbdata.SubmitChanges();
+            }
+            return RedirectToAction("TheUser");  
         }
 
 
