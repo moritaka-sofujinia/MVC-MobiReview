@@ -151,7 +151,7 @@ namespace ReMoBi_DCSN.Controllers
             return RedirectToAction("Post");
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult DeletePost(int id)
         {
