@@ -19,7 +19,7 @@ namespace ReMoBi_DCSN.Controllers
         private readonly dbDataContext dbdata;
         public AdminController()
         {
-            var connectionString = "Data Source=Albert;Database=news1;Trusted_Connection=True";
+            var connectionString = "Data Source=MSIKHOI;Database=news1;Trusted_Connection=True";
             dbdata = new dbDataContext(connectionString);
         }
         // GET: Admin
@@ -109,7 +109,7 @@ namespace ReMoBi_DCSN.Controllers
             return View(query.OrderBy(n => n.Post_Date).ToPagedList(pageNum,pageSize));
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult AddnewPost() 
         {
