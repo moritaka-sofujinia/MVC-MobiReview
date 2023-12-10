@@ -116,10 +116,9 @@
             </td>
 
             <td style="text-align: center">
-                <button class="action-button edit-button" onclick="location.href='@Url.Action("EditPost", new { id = item.UserID })'">Edit</button>
+                <button class="action-button edit-button" onclick="location.href='@Url.Action("EditUser", new { id = item.UserID })'">Show</button>
                 <br />
-                <button class="action-button details-button" onclick="location.href='@Url.Action("DetailsBook", new { id = item.UserID })'">Details</button>
-                <br />
+                
                 <button class="action-button delete-button" onclick="location.href='@Url.Action("DeleteUser", new { id = item.UserID })'">Delete</button>
             </td>
         </tr>

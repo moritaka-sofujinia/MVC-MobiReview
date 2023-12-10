@@ -1,0 +1,124 @@
+﻿@model ReMoBi_DCSN.Models.image
+
+@{
+    ViewBag.Title = "EditPic";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+
+<style>
+    .width-text-box {
+        width: 160px;
+    }
+
+    .form-group {
+        clear: both;
+        margin-bottom: 15px;
+    }
+
+    .control-label {
+        float: left;
+        width: 30%; /* Độ rộng của label */
+        font-weight: bold;
+        padding-top: 7px;
+        text-align: right;
+        margin-right: 30px; /* Thêm khoảng cách giữa label và ô textbox */
+    }
+
+    .form-control {
+        width: 50%; /* Độ rộng của control */
+        display: inline-block;
+    }
+
+    .form-actions {
+        text-align: right;
+        margin-top: 30px; /* Thêm khoảng cách giữa các field và nút */
+    }
+
+        .form-actions .btn {
+            margin-left: 10px;
+        }
+
+    .ckeditor-container {
+        width: 50%; /* Độ rộng của CKEditor (có thể điều chỉnh) */
+        display: inline-block;
+        float: right; /* Đưa CKEditor về phía bên phải */
+        margin-right: 0; /* Xóa margin bên phải (nếu có) */
+    }
+</style>
+<style>
+    /* Style cho nút "Save" và "Back to List" */
+    .button-container {
+        text-align: center; /* Căn giữa nút theo chiều ngang */
+        margin-left: -440px; /* Khoảng cách từ đỉnh trang */
+    }
+
+    .save-button,
+    .back-button {
+        width: 160px; /* Độ rộng cố định cho cả hai nút */
+        margin: 0 auto; /* Căn giữa theo chiều ngang */
+        display: inline-block; /* Hiển thị trên cùng một dòng */
+        background-color: #007BFF; /* Màu xanh dương cho Save */
+        color: white; /* Màu chữ trắng */
+        border: none;
+        border-radius: 5px; /* Bo góc tròn nhẹ */
+        padding: 10px 20px;
+        font-size: 18px; /* Kích thước chữ lớn hơn */
+        cursor: pointer;
+        text-decoration: none; /* Loại bỏ gạch chân (đối với ActionLink) */
+        text-align: center;
+        margin: 10px 0; /* Thêm khoảng cách giữa nút và các element xung quanh */
+    }
+
+    .back-button {
+        background-color: #333; /* Màu đen nhạt cho Back to List */
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+       
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.imagesID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name_file_images, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name_file_images, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name_file_images, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Caption_images, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Caption_images, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Caption_images, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PostID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PostID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <br />
+        <hr />
+        <div class="form-group">
+            <div class="form-group button-container">
+                @Html.ActionLink("Back to List", "Picture", null, new { @class = "back-button" })
+                <input type="submit" value="Save" class="save-button" />
+            </div>
+        </div>
+    </div>
+}
+
+

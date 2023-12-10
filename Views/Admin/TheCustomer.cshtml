@@ -115,11 +115,10 @@
                 @Html.DisplayFor(modelItem => item.hovaten)
             </td>
             <td style="text-align: center">
-                <button class="action-button edit-button" onclick="location.href='@Url.Action("EditPost", new { id = item.KhID })'">Edit</button>
+                <button class="action-button edit-button" onclick="location.href='@Url.Action("EditCustomer", new { id = item.KhID })'">Show</button>
                 <br />
-                <button class="action-button details-button" onclick="location.href='@Url.Action("DetailsBook", new { id = item.KhID })'">Details</button>
-                <br />
-                <button class="action-button delete-button" onclick="location.href='@Url.Action("DeletePost", new { id = item.KhID })'">Delete</button>
+                
+                <button class="action-button delete-button" onclick="location.href='@Url.Action("DeleteCustomer", new { id = item.KhID })'">Delete</button>
             </td>
         </tr>
     }
