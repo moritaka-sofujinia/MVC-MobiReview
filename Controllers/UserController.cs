@@ -18,7 +18,7 @@ namespace ReMoBi_DCSN.Controllers
         private readonly dbDataContext db;
         public UserController()
         {
-            var connectionString = "Data Source=MSIKHOI;Database=news1;Trusted_Connection=True";
+            var connectionString = "Data Source=Albert;Database=news1;Trusted_Connection=True";
             db = new dbDataContext(connectionString);
         }
             // GET: User
