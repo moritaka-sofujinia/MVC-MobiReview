@@ -557,10 +557,7 @@ namespace ReMoBi_DCSN.Controllers
         {
             return dbdata.NguoiDungs.Where(n =>n.UserID == id).SingleOrDefault();
         }
-        public KhachHang GetKhachHang(int id)
-        {
-            return dbdata.KhachHangs.Where(n => n.KhID == id).SingleOrDefault();
-        }
+        
 
         [HttpGet]
         public ActionResult EditUser(int id)
@@ -617,6 +614,10 @@ namespace ReMoBi_DCSN.Controllers
             //return View(db.SACHes.ToList().OrderBy(n => n.MaSach).ToPagedList(pagenumber,pageSize));
             return View(query.OrderBy(n => n.KhID).ToPagedList(pageNum, pageSize));
         }
+        public KhachHang GetKhachHang(int id)
+        {
+            return dbdata.KhachHangs.Where(n => n.KhID == id).SingleOrDefault();
+        }
         [HttpGet]
         public ActionResult EditCustomer(int id)
         {
@@ -646,6 +647,58 @@ namespace ReMoBi_DCSN.Controllers
                 //UpdateModel(user);
                 //dbdata.SubmitChanges();
             }
+            return RedirectToAction("TheCustomer");
+        }
+
+
+
+        [HttpGet]
+        public ActionResult AddnewCus()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult AddnewCus(KhachHang cus)
+        {
+            if (ModelState.IsValid)
+            {
+
+                dbdata.KhachHangs.InsertOnSubmit(cus);
+                dbdata.SubmitChanges();
+                return RedirectToAction("TheCustomer");
+            }
+            else
+            {
+                return View(cus);
+            }
+
+        }
+        [HttpGet]
+        public ActionResult DeleteCus(int id)
+        {
+            KhachHang cus = dbdata.KhachHangs.SingleOrDefault(n => n.KhID == id);
+            ViewBag.KhID = cus.KhID;
+            if (cus == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            return View(cus);
+        }
+
+        [HttpPost, ActionName("DeleteCus")]
+        public ActionResult ConfirmDeleteCus(int id)
+        {
+            KhachHang cus = dbdata.KhachHangs.SingleOrDefault(n => n.KhID == id);
+            ViewBag.KhID = cus.KhID;
+            if (cus == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            dbdata.KhachHangs.DeleteOnSubmit(cus);
+            dbdata.SubmitChanges();
             return RedirectToAction("TheCustomer");
         }
     }

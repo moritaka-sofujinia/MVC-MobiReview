@@ -118,7 +118,7 @@
                 <button class="action-button edit-button" onclick="location.href='@Url.Action("EditCustomer", new { id = item.KhID })'">Show</button>
                 <br />
                 
-                <button class="action-button delete-button" onclick="location.href='@Url.Action("DeleteCustomer", new { id = item.KhID })'">Delete</button>
+                <button class="action-button delete-button" onclick="location.href='@Url.Action("DeleteCus", new { id = item.KhID })'">Delete</button>
             </td>
         </tr>
     }
@@ -126,7 +126,7 @@
 </table>
 <br />
 <div class="MenuPage">
-    @Html.PagedListPager(Model, Page => Page == Model.PageNumber ? Url.Action("TheUser", new { Page = Page }) : Url.Action("TheUser", new { Page }))
+    @Html.PagedListPager(Model, Page => Page == Model.PageNumber ? Url.Action("TheCustomer", new { Page = Page }) : Url.Action("TheCustomer", new { Page }))
     Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
 </div>
 

@@ -1,0 +1,188 @@
+﻿@model ReMoBi_DCSN.Models.KhachHang
+
+@{
+    ViewBag.Title = "AddnewCus";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<style>
+    .width-text-box {
+        width: 160px;
+    }
+
+    .form-group {
+        clear: both;
+        margin-bottom: 15px;
+    }
+
+    .control-label {
+        float: left;
+        width: 30%; /* Độ rộng của label */
+        font-weight: bold;
+        padding-top: 7px;
+        text-align: right;
+        margin-right: 30px; /* Thêm khoảng cách giữa label và ô textbox */
+    }
+
+    .form-control {
+        width: 60%; /* Độ rộng của control */
+        display: inline-block;
+        background-color: #EEEEEE;
+    }
+
+    .control-label col-md-2 {
+        width: 30px;
+    }
+
+    .form-actions {
+        text-align: right;
+        margin-top: 30px; /* Thêm khoảng cách giữa các field và nút */
+    }
+
+        .form-actions .btn {
+            margin-left: 10px;
+        }
+
+    .ckeditor-container {
+        width: 60%; /* Độ rộng của CKEditor (có thể điều chỉnh) */
+        display: inline-block;
+        float: right; /* Đưa CKEditor về phía bên phải */
+        margin-right: 0; /* Xóa margin bên phải (nếu có) */
+    }
+
+    .button-container {
+        text-align: right;
+        margin-top: 20px;
+    }
+
+    .btn-success {
+        margin-left: 5px; /* Thêm khoảng cách giữa các nút */
+    }
+
+    .btn-success,
+    .btn-danger {
+        border-radius: 5px; /* Bo tròn các góc */
+    }
+
+
+
+    .ckeditor-container {
+        width: 50%; /* Độ rộng của CKEditor (có thể điều chỉnh) */
+        display: inline-block;
+        float: right; /* Đưa CKEditor về phía bên phải */
+        margin-right: 0; /* Xóa margin bên phải (nếu có) */
+    }
+
+    .btn {
+        border-radius: 5px;
+    }
+
+    .col-md-offset-2,
+    .button-container {
+        text-align: center; /* Căn giữa nút theo chiều ngang */
+        margin-left: 30px; /* Khoảng cách từ đỉnh trang */
+    }
+
+    .back-button {
+        width: 160px; /* Độ rộng cố định cho cả hai nút */
+        margin-right: 5px; /* Căn giữa theo chiều ngang */
+        display: inline-block; /* Hiển thị trên cùng một dòng */
+        background-color: #007BFF; /* Màu xanh dương cho Save */
+        color: white; /* Màu chữ trắng */
+        border: none;
+        border-radius: 5px; /* Bo góc tròn nhẹ */
+        padding: 10px 20px;
+        font-size: 18px; /* Kích thước chữ lớn hơn */
+        cursor: pointer;
+        text-decoration: none; /* Loại bỏ gạch chân (đối với ActionLink) */
+        text-align: center;
+        margin: 10px 0; /* Thêm khoảng cách giữa nút và các element xung quanh */
+    }
+
+    .back-button {
+        background-color: #333; /* Màu đen nhạt cho Back to List */
+    }
+
+    .form-horizontal {
+        padding-top: 30px;
+    }
+
+    .btn-back {
+        background-color: #333;
+        color: white;
+        text-decoration: none;
+    }
+
+    .btn-success {
+        background-color: #007BFF;
+        color: white;
+        border: none;
+    }
+
+    .btn-danger {
+        background-color: #DC3545;
+        color: white;
+        border: none;
+    }
+
+    .col-md-offset-2,
+    .button-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .btn {
+        width: 160px;
+        margin: 0 5px; /* Thêm khoảng cách giữa các nút */
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+    }
+</style>
+
+
+<h2>AddnewCus</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.username,"Tên đăng nhập", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.password,"Mật khẩu", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.hovaten, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.hovaten,"Họ và tên", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.hovaten, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group button-container">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="javascript:history.back()" class="btn btn-back">Back to List</a>
+                <input type="reset" value="Làm lại" class="btn btn-danger" />
+                <input type="submit" value="Thêm mới" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+
